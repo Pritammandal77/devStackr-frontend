@@ -7,6 +7,7 @@ function Home() {
             <div className='py-13 flex flex-col'>
                 <PostCard />
                 <PostCard />
+                <PostCard />
             </div>
         </>
     );

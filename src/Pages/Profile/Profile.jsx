@@ -16,7 +16,7 @@ function Profile() {
                 <div className='w-[100%] md:w-[80%] lg:w-[60vw] h-10  lg:text-center flex flex-row justify-between text-black px-10'>
                     <img src="/myNewDp.jpg" alt=""
                         className='w-30 h-30 md:w-40 md:h-40 lg:h-50 lg:w-50 rounded-full relative bottom-15 md:bottom-20' />
-                    <FollowButton/>
+                    <FollowButton />
                 </div>
 
                 <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 mt-5 lg:mt-20'>
@@ -25,6 +25,15 @@ function Profile() {
                     <div className='flex flex-row items-center gap-10 md:gap-15 w-[90%] md:w-[50%] py-5'>
                         <p className='text-[18px] md:text-[20px] border-[2px] border-[#ba88d6] py-1 px-2 rounded-[10px]' >499 followers</p>
                         <p className='text-[18px] md:text-[20px] border-[2px] border-[#ba88d6] py-1 px-2 rounded-[10px]'>198 following</p>
+                    </div>
+                    <div className='flex gap-5'>
+                        <a href="https://github.com/Pritammandal77" className='text-[16px] text-blue-600 '>
+                            github <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/pritam-mandal-871510281/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                            className='text-[16px] text-blue-600 '>
+                            linkedin <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
                     </div>
                 </div>
 
