@@ -27,10 +27,11 @@ function Profile() {
                         <p className='text-[18px] md:text-[20px] border-[2px] border-[#ba88d6] py-1 px-2 rounded-[10px]'>198 following</p>
                     </div>
                     <div className='flex gap-5'>
-                        <a href="https://github.com/Pritammandal77" className='text-[16px] text-blue-600 '>
+                        <a href="https://github.com/Pritammandal77" className='text-[16px] text-blue-600 ' target='_blank'>
                             github <i class="fa-solid fa-arrow-up-right-from-square"></i>
                         </a>
                         <a href="https://www.linkedin.com/in/pritam-mandal-871510281/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                            target='_blank'
                             className='text-[16px] text-blue-600 '>
                             linkedin <i class="fa-solid fa-arrow-up-right-from-square"></i>
                         </a>

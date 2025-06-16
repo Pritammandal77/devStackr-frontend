@@ -6,16 +6,18 @@ import { useRef } from 'react';
 
 function Header() {
 
-  const hamburgerDiv = document.querySelector(".hamburgerDiv")
-  // const hamburgerRef = useRef()
+  // const hamburgerDiv = document.querySelector(".hamburgerDiv")
+  const hamburgerRef = useRef()
 
   const handleOpenHamburger = () => {
     console.log("Hello")
-    hamburgerDiv.style.display = "inline"
+    // hamburgerDiv.style.display = "inline"
+    hamburgerRef.current.style.display = "inline"; // Step 2
   }
 
   const handleCloseHamburger = () => {
-    hamburgerDiv.style.display = "none"
+    // hamburgerDiv.style.display = "none"
+    hamburgerRef.current.style.display = "none"; // Step 3
   }
 
   return (
@@ -48,10 +50,10 @@ function Header() {
         </nav>
       </header>
 
-      <div className='hamburgerDiv fixed top-0 right-0 w-[50vw] md:w-[40vw] lg:w-[25vw] h-[100vh] z-[200] bg-[#9c56c5] hidden text-[22px]'>
+      <div className='hamburgerDiv fixed top-0 right-0 w-[50vw] md:w-[40vw] lg:w-[25vw] h-[100vh] z-[200] bg-[#9c56c5] hidden text-[22px]' ref={hamburgerRef}>
         <ul className='flex flex-col gap-15'>
           <li>
-            <i className="fa-solid fa-xmark p-3" onClick={handleCloseHamburger}></i>
+            <i className="fa-solid fa-xmark p-3 cursor-pointer" onClick={handleCloseHamburger}></i>
           </li>
           <li>
             <ul className='text-black pl-5'>

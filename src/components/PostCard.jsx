@@ -28,6 +28,17 @@ function PostCard() {
                         <img src="https://media.licdn.com/dms/image/v2/D5622AQHTviRefsDLkA/feedshare-shrink_800/B56ZdBQisBGoAg-/0/1749146545851?e=1752710400&v=beta&t=1R2RVrw7z840BQhPO-hd_u_rxLsJ3ltpUeIxap7eA04" alt=""
                             className='w-[100%] md:w-[80%] lg:w-[45vw] rounded-[5px]' />
                     </div>
+
+                    <div className='flex flex-row justify-evenly w-full'>
+                        <div className='w-[50%] flex items-center justify-center gap-2 pl-5 '>
+                            <p>345</p>
+                            <i class="fa-solid fa-thumbs-up"></i>
+                        </div>
+                        <div className='w-[50%] flex items-center justify-center gap-2 pl-5 '>
+                            <p>231</p>
+                            <i class="fa-solid fa-comment"></i>
+                        </div>
+                    </div>
                 </div>
 
             </div>
