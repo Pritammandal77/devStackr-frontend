@@ -44,6 +44,25 @@ function Profile() {
                         I'm Pritam Mandal, a B.Sc. IT 2nd-year student and passionate frontend developer, currently transitioning into full-stack development. I’ve built several projects using React.js, Tailwind CSS, and Redux Toolkit, and I’m actively learning backend technologies like Node.js, Express.js, MongoDB, and Firebase. My goal is to become a top 1% full-stack developer by 2026 and land a job with a 5–7 LPA+ package. I’ve created apps like DevStackr (a developer community platform), Zeno-AI (an AI chatbot + voice assistant), and MetaMart (an eCommerce app), and I love building modern, responsive web applications that solve real-world problems.
                     </p>
                 </div>
+
+                <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 flex flex-col gap-2'>
+                    <h1 className='text-[28px] lg:text-[32px]'>Skills</h1>
+                    <div className='flex flex-wrap gap-3'>
+                        <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>MongoDB</span>
+                        <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>Express.js</span>
+                        <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>React.js</span>
+                        <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>Node.js</span>
+                        <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>Tailwind CSS</span>
+                        <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>Redux Toolkit</span>
+                        <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>JavaScript</span>
+                        <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>HTML</span>
+                        <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>CSS</span>
+                        <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>Firebase</span>
+                        <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>GitHub</span>
+                        <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>Netlify</span>
+                        {/* Add more skills similarly */}
+                    </div>
+                </div>
             </div>
         </>
     );

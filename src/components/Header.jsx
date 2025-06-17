@@ -25,9 +25,9 @@ function Header() {
       <header>
         <nav className='w-[100vw] h-13 bg-[#b47fd2] flex items-center fixed top-0 z-[100]'>
           <ul className='w-[100%] flex items-center justify-between px-5 mx:px-0  md:justify-evenly md:gap-7'>
-            <li className='flex flex-row items-center gap-3 '>
+            <li className='flex flex-row items-center gap-2 '>
               <NavLink to="/profile">
-                <img src="/myNewDp.jpg" alt=""
+                <img src="/logo7.png" alt=""
                   className='h-10 w-10 rounded-full cursor-pointer' />
               </NavLink>
               <p className='russo-one-regular text-[22px] '>
@@ -50,14 +50,30 @@ function Header() {
         </nav>
       </header>
 
-      <div className='hamburgerDiv fixed top-0 right-0 w-[50vw] md:w-[40vw] lg:w-[25vw] h-[100vh] z-[200] bg-[#9c56c5] hidden text-[22px]' ref={hamburgerRef}>
+      <div className='hamburgerDiv fixed top-0 right-0 w-[60vw] md:w-[40vw] lg:w-[25vw] h-[100vh] z-[200] bg-[#ae71d1] hidden text-[22px]' ref={hamburgerRef}>
         <ul className='flex flex-col gap-15'>
           <li>
-            <i className="fa-solid fa-xmark p-3 cursor-pointer" onClick={handleCloseHamburger}></i>
+            <i className="fa-solid fa-xmark p-3 cursor-pointer hover:bg-[#b47fd2]" onClick={handleCloseHamburger}></i>
           </li>
           <li>
-            <ul className='text-black pl-5'>
-              <li className='flex gap-3 items-center'>
+            <ul className='text-black flex flex-col gap-3 text-[20px]'>
+              <li className='flex gap-2 items-center pl-5 hover:bg-[#b47fd2] cursor-pointer'>
+                <i className="fa-solid fa-user"></i>
+                <p>Account setting</p>
+              </li>
+              <li className='flex gap-3 items-center pl-5 hover:bg-[#b47fd2] cursor-pointer'>
+                <i className="fa-solid fa-message"></i>
+                <p>Messages</p>
+              </li>
+              <li className='flex gap-3 items-center pl-5 hover:bg-[#b47fd2] cursor-pointer'>
+                <i className="fa-solid fa-user-pen"></i>
+                <p>Edit profile</p>
+              </li>
+              <li className='flex gap-3 items-center pl-5 hover:bg-[#b47fd2] cursor-pointer'>
+                <i className="fa-solid fa-message"></i>
+                Messages
+              </li>
+              <li className='flex gap-3 items-center pl-5 hover:bg-[#b47fd2] cursor-pointer'>
                 <i className="fa-solid fa-message"></i>
                 Messages
               </li>
