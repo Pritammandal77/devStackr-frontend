@@ -1,14 +1,22 @@
 import React from 'react';
 import Header from './components/Header';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import BottomMenu from './components/BottomMenu';
 
 function Layout() {
+
+    const location = useLocation();
+
+    // Define the routes where you DON'T want Header and BottomMenu
+    const hideOnRoutes = ['/signup', '/register'];
+
+    const shouldHideLayout = hideOnRoutes.includes(location.pathname);
+
     return (
         <>
-            <Header />
+            {!shouldHideLayout && <Header />}
             <Outlet />
-            <BottomMenu />
+            {!shouldHideLayout && <BottomMenu />}
         </>
     );
 }

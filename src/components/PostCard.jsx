@@ -2,11 +2,12 @@ import React from 'react';
 import FollowButton from './followButton';
 
 function PostCard() {
+
     return (
         <>
             <div className='w-[100vw] h-auto flex flex-col items-center p-2'>
 
-                <div className='w-[100%] md:w-[80%] lg:w-[45vw] flex flex-col gap-3 p-2 border-1 border-gray-400 rounded-[5px]'>
+                <div className='w-[100%] md:w-[80%] lg:w-[45vw] flex flex-col gap-3 p-2 border-1 border-gray-600 rounded-[5px]'>
 
                     <div className='flex flex-row items-center justify-between'>
                         <div className='flex flex-row gap-2 items-center'>
@@ -29,14 +30,14 @@ function PostCard() {
                             className='w-[100%] md:w-[80%] lg:w-[45vw] rounded-[5px]' />
                     </div>
 
-                    <div className='flex flex-row justify-evenly w-full'>
+                    <div className='flex flex-row w-full'>
                         <div className='w-[50%] flex items-center justify-center gap-2 pl-5 '>
-                            <p>345</p>
                             <i class="fa-solid fa-thumbs-up"></i>
+                            <p>345</p>
                         </div>
                         <div className='w-[50%] flex items-center justify-center gap-2 pl-5 '>
-                            <p>231</p>
                             <i class="fa-solid fa-comment"></i>
+                            <p>231</p>
                         </div>
                     </div>
                 </div>

@@ -11,6 +11,8 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import Layout from './Layout'
 import Home from './Pages/Home/Home'
 import AllUsers from './Pages/AllUsers/Allusers'
+import Search from './Pages/Search/Search'
+import CreatePost from './Pages/CreatePost/CreatePost'
 
 function App() {
 
@@ -19,9 +21,12 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route path="" element={<Home />}></Route>
         <Route path="/home" element={<Home />}></Route>
+        <Route path="/home" element={<Home />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/allusers" element={<AllUsers />}></Route>
+        <Route path="/search" element={<Search />}></Route>
+        <Route path="/createpost" element={<CreatePost />}></Route>
 
       </Route>
     )
