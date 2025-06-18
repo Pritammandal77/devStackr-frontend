@@ -32,18 +32,16 @@ function PostCard() {
 
                     <div className='flex flex-row w-full'>
                         <div className='w-[50%] flex items-center justify-center gap-2 pl-5 '>
-                            <i class="fa-solid fa-thumbs-up"></i>
+                            <i className="fa-solid fa-thumbs-up"></i>
                             <p>345</p>
                         </div>
                         <div className='w-[50%] flex items-center justify-center gap-2 pl-5 '>
-                            <i class="fa-solid fa-comment"></i>
+                            <i className="fa-solid fa-comment"></i>
                             <p>231</p>
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </>
     );
 }

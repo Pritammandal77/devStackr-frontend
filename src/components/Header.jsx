@@ -42,7 +42,7 @@ function Header() {
     document.body.style.backgroundColor = "#000"
     document.body.style.color = "#fff"
   }
-   if (mode == "light") {
+  if (mode == "light") {
     document.body.style.backgroundColor = "#fff"
     document.body.style.color = "#000"
   }
@@ -101,7 +101,13 @@ function Header() {
               <li className='pl-5 hover:bg-[#FFF2EB] cursor-pointer'>
                 <NavLink to="/signup" className="flex gap-3 items-center hover:bg-[#FFF2EB] cursor-pointer">
                   <i className="fa-solid fa-right-to-bracket"></i>
-                  Login
+                  Create Account
+                </NavLink>
+              </li>
+              <li className='pl-5 hover:bg-[#FFF2EB] cursor-pointer'>
+                <NavLink to="/signin" className="flex gap-3 items-center hover:bg-[#FFF2EB] cursor-pointer">
+                  <i className="fa-solid fa-right-to-bracket"></i>
+                  SignIn
                 </NavLink>
               </li>
               <li className='flex gap-3 items-center pl-5 hover:bg-[#FFF2EB] cursor-pointer'>
