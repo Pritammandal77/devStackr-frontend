@@ -39,7 +39,7 @@ function Header() {
   }
 
   if (mode == "dark") {
-    document.body.style.backgroundColor = "#000"
+    document.body.style.backgroundColor = "#171717"
     document.body.style.color = "#fff"
   }
   if (mode == "light") {

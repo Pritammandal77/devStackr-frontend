@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import PostCard from '../../components/PostCard';
+import PostCard from '../components/PostCard';
 import { useSelector } from 'react-redux';
 import axios from "axios"
 

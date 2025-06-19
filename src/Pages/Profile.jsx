@@ -1,6 +1,9 @@
-import React from 'react';
-import FollowButton from '../../components/followButton';
+import React, { useEffect } from 'react';
+import FollowButton from '../components/followButton';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { useState } from 'react';
+import PostCard from '../components/PostCard';
 
 function Profile() {
 
@@ -9,6 +12,46 @@ function Profile() {
 
     //it will give the neccessary data , not the wholw data
     const userDataOnly = userData.userData.data
+
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
+        const getUserPosts = async () => {
+            try {
+                const res = await axios.get("/api/v1/posts/getCurrentUserPosts", {
+                    withCredentials: true,
+                });
+
+                console.log("get user posts", res.data.data)
+                // dispatch(setUserData(res.data))
+                setPosts(res.data.data)
+            } catch (err) {
+                console.log("User not logged in", err.message);
+            }
+        };
+
+        getUserPosts();
+    }, []);
+
+    console.log('posts', posts[0])
+
+    const timeAgo = (dateString) => {
+        const now = new Date();
+        const past = new Date(dateString);
+        const diff = Math.floor((now - past) / 1000); // difference in seconds
+
+        if (diff < 60) return `${diff} sec ago`;
+        if (diff < 3600) return `${Math.floor(diff / 60)} min ago`;
+        if (diff < 86400) return `${Math.floor(diff / 3600)} h ago`;
+        if (diff < 604800) return `${Math.floor(diff / 86400)} day ago`;
+
+        return past.toLocaleDateString('en-IN'); // fallback
+    }
+
+    if (posts[0]?.createdAt) {
+        console.log("time in hours", timeAgo(posts[0].createdAt));  // Output: "6 day ago" or "18 h ago"
+    }
+
 
     return (
         <> {
@@ -61,19 +104,23 @@ function Profile() {
                                     <span className='px-3 py-1 border-2 border-gray-500 rounded-xl' key={index}>{skill}</span>
                                 ))
                             }
-                            {/* <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>Express.js</span>
-                            <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>React.js</span>
-                            <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>Node.js</span>
-                            <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>Tailwind CSS</span>
-                            <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>Redux Toolkit</span>
-                            <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>JavaScript</span>
-                            <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>HTML</span>
-                            <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>CSS</span>
-                            <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>Firebase</span>
-                            <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>GitHub</span>
-                            <span className='px-3 py-1 border-2 border-gray-500 rounded-xl'>Netlify</span> */}
-                            {/* Add more skills similarly */}
                         </div>
+                    </div>
+                    <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 flex flex-col gap-2'>
+                        <h1 className='text-[28px] lg:text-[32px]'>Posts</h1>
+                        <div className='flex flex-col items-center '>
+                            {
+                                posts && posts.map((data, index) => (
+                                    <PostCard key={index}
+                                        authorName={data.author.name}
+                                        authorProfilePicture={data.author.profilePicture}
+                                        createdAt={timeAgo(data.createdAt) } 
+                                        postDesc={data.description}
+                                        postImage={data.image}/>
+                                ))
+                            }
+                        </div>
+
                     </div>
                 </div>
             ) : (
