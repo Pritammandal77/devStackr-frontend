@@ -124,7 +124,7 @@ function Profile() {
                     </div>
                 </div>
             ) : (
-                <h1>user not logged in</h1>
+                <h1 className='mt-15'>user not logged in</h1>
             )
         }
 

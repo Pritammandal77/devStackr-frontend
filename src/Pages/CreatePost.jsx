@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button from '../components/Button';
+import axios from 'axios';
 
 function CreatePost() {
 
@@ -24,6 +25,28 @@ function CreatePost() {
 
   console.log(description)
 
+  //used to create
+  const createNewPost = async () => {
+    const formData = new FormData();
+    formData.append('description', description); // state variable
+    if (image) formData.append('image', image);  // File object
+    if (video) formData.append('video', video);  // File object
+
+    try {
+      console.log("Creating post")
+      const res = await axios.post('/api/v1/posts/createpost', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        withCredentials: true, // if you are using cookies/session
+      });
+      console.log('Post Created:', res.data);
+    } catch (error) {
+      console.error('Error creating post:', error.response?.data || error.message);
+    }
+  }
+
+
   return (
     <>
       <div className='w-[100vw] h-auto flex flex-col items-center gap-2 p-3 py-15 '>
@@ -32,18 +55,18 @@ function CreatePost() {
 
             <div className='flex flex-col gap-2'>
               <label htmlFor="" className='text-[26px] md:text-[30px]'>Description</label>
-              <textarea name="" 
-              placeholder='Enter the description' 
-              id="" 
-              className='border-1 w-full md:w-[100%] h-[250px] resize-none overflow-y-auto p-3 rounded-md text-sm'
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}></textarea>
+              <textarea name=""
+                placeholder='Enter the description'
+                id=""
+                className='border-1 w-full md:w-[100%] h-[250px] resize-none overflow-y-auto p-3 rounded-md text-sm'
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}></textarea>
             </div>
 
-            <div className='flex gap-5'> 
+            <div className='flex gap-5'>
               <div>
                 <label className="cursor-pointer px-2 py-1 bg-yellow-200 text-black rounded-lg hover:bg-blue-700 transition duration-200 inline-block">
-               <i className="fa-solid fa-image"></i>
+                  <i className="fa-solid fa-image"></i>
                   <input
                     type="file"
                     accept="image/*"
@@ -63,7 +86,7 @@ function CreatePost() {
               {/* Video Upload */}
               <div>
                 <label className="cursor-pointer px-2 py-1 bg-red-400 text-black rounded-lg hover:bg-blue-700 transition duration-200 inline-block">
-                 <i className="fa-solid fa-video"></i>
+                  <i className="fa-solid fa-video"></i>
                   <input
                     type="file"
                     accept="video/*"
@@ -82,7 +105,10 @@ function CreatePost() {
 
             </div>
 
-            <Button text="create post" />
+            <div className='h-12 w-40 text-[20px] bg-blue-500 hover:bg-blue-600 flex items-center justify-center rounded-2xl cursor-pointer'
+              onClick={createNewPost}>
+              create post
+            </div>
           </form>
         </div>
 
