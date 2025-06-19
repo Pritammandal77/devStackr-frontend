@@ -27,7 +27,7 @@ function PostCard({authorName, authorProfilePicture,createdAt, postDesc, postIma
                     <div className='flex flex-col gap-1'>
                         <p>{postDesc}</p>
                         <img src={postImage} alt=""
-                            className='w-[100%] md:w-[80%] lg:w-[45vw] rounded-[5px]' />
+                            className='w-[100%] md:w-[100%] lg:w-[45vw] rounded-[5px]' />
                     </div>
 
                     <div className='flex flex-row w-full'>

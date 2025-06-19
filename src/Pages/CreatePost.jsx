@@ -12,6 +12,7 @@ function CreatePost() {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
+    console.log(file)
     setImagePreview(URL.createObjectURL(file));
   };
 
@@ -25,12 +26,12 @@ function CreatePost() {
 
   return (
     <>
-      <div className='w-[100vw] h-auto flex flex-col items-center gap-2 p-3 py-15'>
-        <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 mt-5 lg:mt-20 '>
+      <div className='w-[100vw] h-auto flex flex-col items-center gap-2 p-3 py-15 '>
+        <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 mt-10'>
           <form action="" className='flex flex-col gap-5 md:p-2'>
 
             <div className='flex flex-col gap-2'>
-              <label htmlFor="" className='text-[28px] lg:text-[30px]'>Description</label>
+              <label htmlFor="" className='text-[26px] md:text-[30px]'>Description</label>
               <textarea name="" 
               placeholder='Enter the description' 
               id="" 

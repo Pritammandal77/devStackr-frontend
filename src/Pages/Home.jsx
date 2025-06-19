@@ -9,8 +9,7 @@ function Home() {
 
     return (
         <>
-            <div className={`py-13 flex flex-col
-                 ${mode == 'light' ? 'bg-[#ffffff]' : 'bg-[#000] text-[#d3d3d3]'}`}>
+            <div className={`py-13 flex flex-col`}>
                 <PostCard />
                 <PostCard />
                 <PostCard />
