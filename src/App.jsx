@@ -14,6 +14,7 @@ import AllUsers from './Pages/AllUsers'
 import Search from './Pages/Search'
 import CreatePost from './Pages/CreatePost'
 import SignIn from './Pages/SignIn/SignIn'
+import UpdateProfile from './Pages/UpdateProfile'
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/allusers" element={<AllUsers />}></Route>
         <Route path="/search" element={<Search />}></Route>
         <Route path="/createpost" element={<CreatePost />}></Route>
+        <Route path="/updateprofile" element={<UpdateProfile />}></Route>
 
       </Route>
     )

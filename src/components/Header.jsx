@@ -95,8 +95,10 @@ function Header() {
                 <p>Messages</p>
               </li>
               <li className='flex gap-3 items-center pl-5 hover:bg-[#FFF2EB] cursor-pointer'>
-                <i className="fa-solid fa-user-pen"></i>
-                <p>Edit profile</p>
+                <NavLink to="/updateprofile" className="flex gap-3 items-center hover:bg-[#FFF2EB] cursor-pointer" onClick={handleCloseHamburger}>
+                  <i className="fa-solid fa-user-pen"></i>
+                  <p>Edit profile</p>
+                </NavLink>
               </li>
               <li className='pl-5 hover:bg-[#FFF2EB] cursor-pointer'>
                 <NavLink to="/signup" className="flex gap-3 items-center hover:bg-[#FFF2EB] cursor-pointer">
