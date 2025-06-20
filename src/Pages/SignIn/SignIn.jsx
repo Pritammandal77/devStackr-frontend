@@ -48,7 +48,7 @@ function SignIn() {
 
     return (
         <>
-            <div className='bg-gray-200 w-full min-h-[100vh] flex flex-col items-center justify-center '>
+            <div className='w-full text-black min-h-[100vh] flex flex-col items-center justify-center '>
 
                 <div className='xl:bg-white xl:border-1 flex flex-row rounded-3xl w-[100vw] md:w-[70vw] lg:w-[60vw] xl:h-[65vh]' >
                     <div className='bg-gray-900 w-[50%] rounded-l-3xl p-10 text-white hidden xl:flex flex-col items-center justify-evenly' >
