@@ -1,9 +1,9 @@
 import React from 'react';
 import FollowButton from './followButton';
 
-function PostCard({authorName, authorProfilePicture,createdAt, postDesc, postImage}) {
+function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postImage }) {
 
-    console.log("name at card component", authorName )
+    console.log("name at card component", authorName)
 
     return (
         <>
@@ -26,8 +26,10 @@ function PostCard({authorName, authorProfilePicture,createdAt, postDesc, postIma
 
                     <div className='flex flex-col gap-1'>
                         <p>{postDesc}</p>
-                        <img src={postImage} alt=""
-                            className='w-[100%] md:w-[100%] lg:w-[45vw] rounded-[5px]' />
+                        {
+                            postImage && <img src={postImage} alt="" className='w-[100%] md:w-[100%] lg:w-[45vw] rounded-[5px]' />
+                        }
+
                     </div>
 
                     <div className='flex flex-row w-full'>

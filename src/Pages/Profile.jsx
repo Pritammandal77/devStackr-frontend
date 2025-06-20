@@ -6,6 +6,7 @@ import { useState } from 'react';
 import PostCard from '../components/PostCard';
 import Loader1 from '../components/Loaders/Loader1';
 import Loader2 from '../components/Loaders/Loader2';
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
 
@@ -54,6 +55,16 @@ function Profile() {
         console.log("time in hours", timeAgo(posts[0].createdAt));  // Output: "6 day ago" or "18 h ago"
     }
 
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setTimeout(() => {
+            if (!userData) {
+                navigate("/signin");
+            }
+        }, 7000);
+
+    }, [userData]);
 
     return (
         <>
@@ -128,7 +139,7 @@ function Profile() {
                         </div>
                     </div>
                 ) : (
-                    <h1 className='mt-15'>user not logged in</h1>
+                    <Loader2 />
                 )
             }
 

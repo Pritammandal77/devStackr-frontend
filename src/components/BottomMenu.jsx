@@ -14,7 +14,7 @@ function BottomMenu() {
                     <li>
                         <NavLink to="/allusers"
                             className={({ isActive }) => (isActive && "text-[#3f0064] font-bold border-b-3 rounded-xl p-1")}>
-                            <i className="fa-solid fa-users"></i>
+                            <i className="fa-solid fa-message"></i>
                         </NavLink>
                     </li>
                     <li>
@@ -35,13 +35,12 @@ function BottomMenu() {
                             <i className="fa-solid fa-house"></i>
                         </NavLink>
                     </li>
-                    <li>
+                    <li className='flex items-center justify-center'>
                         <NavLink to="/profile"
-                            className={({ isActive }) => (isActive && "text-[#3f0064] font-bold border-b-3 rounded-xl p-1")}>
+                            className={({ isActive }) => (isActive && "text-[#3f0064] font-bold border-2 rounded-full ")}>
                             <img src="/myNewDp.jpg" alt=""
                                 className='h-9 w-9 rounded-full' />
                         </NavLink>
-
                     </li>
                 </ul>
             </nav>

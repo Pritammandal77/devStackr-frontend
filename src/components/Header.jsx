@@ -7,6 +7,7 @@ import { BiLogOut } from "react-icons/bi";
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMode } from '../features/ToggleMode';
+import axios from 'axios';
 
 function Header() {
 
@@ -46,6 +47,19 @@ function Header() {
     document.body.style.backgroundColor = "#fff"
     document.body.style.color = "#000"
   }
+
+
+  const handleLogout = async () => {
+    try {
+      console.log("Logging out user...");
+      const res = await axios.post('/api/v1/users/logout', {
+        withCredentials: true
+      });
+      console.log('User logged out:', res.data);
+    } catch (error) {
+      console.error('Logout error:', error.response?.data || error.message);
+    }
+  };
 
   return (
     <>
@@ -91,8 +105,8 @@ function Header() {
                 <p>Account setting</p>
               </li>
               <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
-                <i className="fa-solid fa-message"></i>
-                <p>Messages</p>
+                <i className="fa-solid fa-users"></i>
+                <p>All users</p>
               </li>
               <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[rgb(248,197,168)]' : 'hover:bg-[#373737]'}`}>
                 <NavLink to="/updateprofile" className="flex gap-3 items-center cursor-pointer" onClick={handleCloseHamburger}>
@@ -112,7 +126,8 @@ function Header() {
                   SignIn
                 </NavLink>
               </li>
-              <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
+              <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}
+                onClick={handleLogout}>
                 <BiLogOut className='text-[22px]' />
                 Logout
               </li>

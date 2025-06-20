@@ -12,7 +12,7 @@ function Loader2() {
             aria-live="polite"
         >
             <div>
-                <div class="loader2"></div>
+                <div className="loader2"></div>
             </div>
         </div>
     );
