@@ -26,7 +26,8 @@ function CreatePost() {
   console.log(description)
 
   //used to create
-  const createNewPost = async () => {
+  const createNewPost = async (e) => {
+    e.preventDefault()
     const formData = new FormData();
     formData.append('description', description); // state variable
     if (image) formData.append('image', image);  // File object
@@ -105,10 +106,10 @@ function CreatePost() {
 
             </div>
 
-            <div className='h-12 w-40 text-[20px] bg-blue-500 hover:bg-blue-600 flex items-center justify-center rounded-2xl cursor-pointer'
-              onClick={createNewPost}>
+            <button className='h-12 w-40 text-[20px] bg-blue-500 hover:bg-blue-600 flex items-center justify-center rounded-2xl cursor-pointer'
+              onClick={(e) => createNewPost(e)}>
               create post
-            </div>
+            </button>
           </form>
         </div>
 

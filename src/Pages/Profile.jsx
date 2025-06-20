@@ -52,7 +52,7 @@ function Profile() {
         console.log("time in hours", timeAgo(posts[0].createdAt));  // Output: "6 day ago" or "18 h ago"
     }
 
-
+ 
     return (
         <> {
             userDataOnly ? (
@@ -72,6 +72,7 @@ function Profile() {
 
                     <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 mt-5 lg:mt-20'>
                         <h1 className='text-[22px] md:text-[28px] font-semibold'>{userDataOnly.name}</h1>
+                        <p className='text-[16px] md:text-[20px] font-semibold'>{userDataOnly.userName}</p>
                         <p className='text-[20px]'>{userDataOnly.bio}</p>
                         <div className='flex flex-row items-center gap-10 md:gap-15 w-[90%] md:w-[50%] py-5'>
                             <p className='text-[18px] md:text-[20px] text-blue-500 font-semibold py-1 px-2 rounded-[10px]' >499 followers</p>
