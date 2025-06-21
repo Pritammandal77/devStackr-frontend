@@ -3,7 +3,7 @@ import FollowButton from './followButton';
 
 function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postImage }) {
 
-    console.log("name at card component", authorName)
+    // console.log("name at card component", authorName)
 
     return (
         <>
@@ -17,8 +17,8 @@ function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postI
                                 className='h-10 w-10 rounded-full'
                             />
                             <div className='flex flex-col '>
-                                <p className='text-[20px]'>{authorName}</p>
-                                <p className='text-[16px]'>{createdAt}</p>
+                                <p className='text-[18px]'>{authorName}</p>
+                                <p className='text-[15px]'>{createdAt}</p>
                             </div>
                         </div>
                         <FollowButton />

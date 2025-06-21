@@ -16,6 +16,7 @@ import CreatePost from './Pages/CreatePost'
 import SignIn from './Pages/SignIn/SignIn'
 import UpdateProfile from './Pages/UpdateProfile'
 import Loader1 from './components/Loaders/Loader1'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
 
@@ -33,7 +34,7 @@ function App() {
         <Route path="/createpost" element={<CreatePost />}></Route>
         <Route path="/updateprofile" element={<UpdateProfile />}></Route>
         <Route path="/loader1" element={<Loader1 />}></Route>
-
+        <Route path="/hii" element={<ProtectedRoute />}></Route>
       </Route>
     )
   )

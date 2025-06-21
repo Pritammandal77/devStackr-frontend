@@ -4,7 +4,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import BottomMenu from './components/BottomMenu';
 import axios from "axios"
 import { useDispatch } from 'react-redux';
-import { setUserData } from './features/UserProfileData';
+import { setIsLoggedIn, setUserData } from './features/UserProfileData';
 
 function Layout() {
 
@@ -19,6 +19,9 @@ function Layout() {
 
                 console.log("get request data at layout.jsx", res.data)
                 dispatch(setUserData(res.data))
+                if (res.data.statusCode == 200) {
+                    dispatch(setIsLoggedIn("true"))
+                }
             } catch (err) {
                 console.log("User not logged in", err.message);
             }
