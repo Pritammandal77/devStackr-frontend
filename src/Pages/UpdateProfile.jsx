@@ -77,8 +77,8 @@ function UpdateProfile() {
             <div className='w-[100vw] h-auto flex flex-col items-center gap-2 pt-15 p-3 pb-25'>
                 <div className='w-[100%] md:w-[80%] lg:w-[60vw] flex flex-col gap-5'>
 
-                    <div className='w-[100%] relative flex items-center justify-center h-50 md:h-60 lg:h-70 p-2 rounded-xl bg-amber-300 bg-no-repeat bg-cover bg-center '
-                        style={{ backgroundImage: `url(${coverImage instanceof File ? URL.createObjectURL(coverImage) : coverImage})` }}>
+                    <div className='w-[100%] relative flex items-center justify-center h-50 md:h-60 lg:h-70 p-2 rounded-xl bg-no-repeat bg-cover bg-center '
+                        style={{ backgroundImage: `url(${coverImage instanceof File ? URL.createObjectURL(coverImage) : coverImage ? coverImage : "/defaultbg.svg"})` }}>
                         <label className='absolute top-2 right-2 cursor-pointer'>
                             <i className="fa-solid fa-pen bg-yellow-500 p-2 rounded-full " >
                                 <input
@@ -100,7 +100,7 @@ function UpdateProfile() {
                                     className="hidden"
                                 />
                             </label>
-                            <img src={profilePicture instanceof File ? URL.createObjectURL(profilePicture) : profilePicture}
+                            <img src={profilePicture instanceof File ? URL.createObjectURL(profilePicture) : profilePicture ? profilePicture : "/defaultpfp.png"}
                                 alt=""
                                 className='w-30 h-30 md:w-40 md:h-40 lg:h-50 lg:w-50 rounded-full' />
                         </div>

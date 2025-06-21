@@ -72,14 +72,14 @@ function Profile() {
                 userDataOnly ? (
                     <div className='w-[100vw] h-auto flex flex-col items-center gap-2 p-3 py-15'>
 
-                        <div className='relative w-[100%] md:w-[80%] lg:w-[60vw] flex items-center justify-center text-black rounded-2xl bg-no-repeat bg-cover bg-center'
-                            style={{ backgroundImage: `url(${userDataOnly.coverImage})` }}>
+                        <div className='relative w-[100%] md:w-[80%] lg:w-[60vw] flex items-center justify-center text-black rounded-2xl bg-no-repeat bg-cover bg-center '
+                            style={{ backgroundImage: `url(${userDataOnly.coverImage ? userDataOnly.coverImage : "/defaultbg.svg"})` }}>
                             <div className='40% h-[15vh] lg:h-[23vh] '>
                             </div>
                         </div>
 
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] h-10  lg:text-center flex flex-row justify-between text-black px-10'>
-                            <img src={userDataOnly.profilePicture} alt=""
+                            <img src={userDataOnly.profilePicture ? userDataOnly.profilePicture : "/defaultpfp.png"} alt=""
                                 className='w-30 h-30 md:w-40 md:h-40 lg:h-50 lg:w-50 rounded-full relative bottom-15 md:bottom-20' />
                             <FollowButton />
                         </div>

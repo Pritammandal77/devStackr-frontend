@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../components/Button';
 import axios from 'axios';
+import Loader2 from '../components/Loaders/Loader2';
 
 function CreatePost() {
 
@@ -9,6 +10,8 @@ function CreatePost() {
   const [description, setDescription] = useState("")
   const [imagePreview, setImagePreview] = useState(null);
   const [videoPreview, setVideoPreview] = useState(null);
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -33,6 +36,8 @@ function CreatePost() {
     if (image) formData.append('image', image);  // File object
     if (video) formData.append('video', video);  // File object
 
+    setIsLoading(true)
+
     try {
       console.log("Creating post")
       const res = await axios.post('/api/v1/posts/createpost', formData, {
@@ -41,7 +46,13 @@ function CreatePost() {
         },
         withCredentials: true, // if you are using cookies/session
       });
-      console.log('Post Created:', res.data);
+
+
+      console.log('Post Created:', res.data.statusCode);
+      if (res.data.statusCode == 201) {
+        setIsLoading(false)
+
+      }
     } catch (error) {
       console.error('Error creating post:', error.response?.data || error.message);
     }
@@ -50,6 +61,9 @@ function CreatePost() {
 
   return (
     <>
+      {
+        isLoading && <Loader2 />
+      }
       <div className='w-[100vw] h-auto flex flex-col items-center gap-2 p-3 py-15 '>
         <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 mt-10'>
           <form action="" className='flex flex-col gap-5 md:p-2'>
