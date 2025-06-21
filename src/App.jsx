@@ -17,6 +17,7 @@ import SignIn from './Pages/SignIn/SignIn'
 import UpdateProfile from './Pages/UpdateProfile'
 import Loader1 from './components/Loaders/Loader1'
 import ProtectedRoute from './components/ProtectedRoute'
+import { Toaster } from 'sonner';
 
 function App() {
 
@@ -41,6 +42,26 @@ function App() {
 
   return (
     <>
+      <Toaster
+        richColors
+        position="top-right"
+        closeButton
+        duration={3000} // 4 seconds
+        toastOptions={{
+          style: {
+            borderRadius: '10px',
+            background: '#111',
+            color: '#fff',
+            fontSize : "15px"
+          },
+          success: {
+            style: { background: '#16a34a' }, // green
+          },
+          error: {
+            style: { background: '#dc2626' }, // red
+          },
+        }}
+      />
       <RouterProvider router={router} />
     </>
   )

@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { setIsLoggedIn, setUserData } from '../../features/UserProfileData';
+import { toast } from 'sonner';
 
 function SignUp() {
 
@@ -38,6 +39,7 @@ function SignUp() {
             if (user.data.statusCode == 200) {
                 dispatch(setUserData(user.data.data))
                 dispatch(setIsLoggedIn("true"))
+                toast.success('created account successfull!');
                 navigate('/home')
             }
 
@@ -109,6 +111,11 @@ function SignUp() {
                                 >
                                     Create account
                                 </button>
+                                <div className='text-[16px] text-center'>
+                                    <p>Already have an account?
+                                        <NavLink to="/signin" className="text-blue-500"> sign in</NavLink>
+                                    </p>
+                                </div>
                             </form>
                         </div>
                     </div>

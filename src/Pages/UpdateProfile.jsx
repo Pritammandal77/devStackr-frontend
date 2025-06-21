@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 import Button from '../components/Button';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { toast } from 'sonner';
+import Loader2 from '../components/Loaders/Loader2';
 
 function UpdateProfile() {
 
     const userProfileData = useSelector((state) => state.userData.userData.data)
 
     console.log("User data at update page", userProfileData)
+
+    const [isLoading, setIsLoading] = useState(false)
 
     //getting the previous data from api , and also setting new updated data
     const [profilePicture, setProfilePicture] = useState("")
@@ -57,6 +61,9 @@ function UpdateProfile() {
         formData.append("githubLink", githubLink);
         formData.append("linkedinLink", linkedinLink);
         formData.append("skills", JSON.stringify(skills)); // skills is an array
+
+        setIsLoading(true)
+
         try {
             console.log("updating profile")
             const res = await axios.post('/api/v1/users/updateUserAboutData', formData, {
@@ -66,14 +73,21 @@ function UpdateProfile() {
                 withCredentials: true, // if you are using cookies/session
             });
             console.log('Data updated:', res.data);
+            if (res.data.statusCode == 200) {
+                toast.success('profile updated successfully!');
+                setIsLoading(false)
+            }
         } catch (error) {
             console.error('Error creating post:', error.response?.data || error.message);
         }
     }
 
-
+    
     return (
         <>
+            {
+                isLoading && <Loader2 />
+            }
             <div className='w-[100vw] h-auto flex flex-col items-center gap-2 pt-15 p-3 pb-25'>
                 <div className='w-[100%] md:w-[80%] lg:w-[60vw] flex flex-col gap-5'>
 

@@ -2,8 +2,9 @@ import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { setUserData } from '../../features/UserProfileData';
+import { toast } from 'sonner';
 
 function SignIn() {
 
@@ -33,11 +34,14 @@ function SignIn() {
             console.log("Login successful:", response.data);
 
             if (response.data.statusCode == 200) {
+                toast.success('login successfull!');
                 navigate('/home')
             }
 
         } catch (error) {
             console.error("Login failed:", error.response?.data || error.message);
+            toast.error('something went wrong');
+
         }
     };
 
@@ -88,6 +92,11 @@ function SignIn() {
                                     onClick={handleLogin}>
                                     Login
                                 </button>
+                                <div className='text-[16px] text-center'>
+                                    <p>Do not have a account?
+                                        <NavLink to="/signup" className="text-blue-500"> create account</NavLink>
+                                    </p>
+                                </div>
                             </form>
                         </div>
                     </div>

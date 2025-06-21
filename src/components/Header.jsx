@@ -105,8 +105,10 @@ function Header() {
                 <p>Account setting</p>
               </li>
               <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
-                <i className="fa-solid fa-users"></i>
-                <p>All users</p>
+                <NavLink to="/allusers" className="flex gap-3 items-center cursor-pointer" onClick={handleCloseHamburger}>
+                  <i className="fa-solid fa-users"></i>
+                  <p>All users</p>
+                </NavLink>
               </li>
               <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[rgb(248,197,168)]' : 'hover:bg-[#373737]'}`}>
                 <NavLink to="/updateprofile" className="flex gap-3 items-center cursor-pointer" onClick={handleCloseHamburger}>

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Button from '../components/Button';
 import axios from 'axios';
 import Loader2 from '../components/Loaders/Loader2';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 function CreatePost() {
 
@@ -12,6 +14,8 @@ function CreatePost() {
   const [videoPreview, setVideoPreview] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false)
+
+  const navigate = useNavigate()
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -47,11 +51,11 @@ function CreatePost() {
         withCredentials: true, // if you are using cookies/session
       });
 
-
       console.log('Post Created:', res.data.statusCode);
       if (res.data.statusCode == 201) {
         setIsLoading(false)
-
+        toast.success('Post created successfully!');
+        navigate("/home")
       }
     } catch (error) {
       console.error('Error creating post:', error.response?.data || error.message);
