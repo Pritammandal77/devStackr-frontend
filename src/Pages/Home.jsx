@@ -6,15 +6,22 @@ import Loader2 from '../components/Loaders/Loader2';
 
 function Home() {
 
+    const [isLoading, setIsLoading] = useState(false)
+
     const mode = useSelector((state) => state.mode.mode)
     const [allPosts, setALLPosts] = useState([])
+
     const getAllPosts = async () => {
+        setIsLoading(true)
         try {
             const posts = await axios.get("/api/v1/posts/allposts", {
                 withCredentials: true
             })
-            console.log("allposts", posts.data.data)
+            console.log("allposts", posts.data.data.length)
             setALLPosts(posts.data.data)
+            if (posts.data.data) {
+                setIsLoading(false)
+            }
         } catch (error) {
             console.log("Failed to fetched all posts", error)
         }
@@ -41,6 +48,9 @@ function Home() {
 
     return (
         <>
+            {
+                isLoading && <Loader2 />
+            }
             <div className={`py-13 flex flex-col`}>
                 {
                     allPosts ? (
