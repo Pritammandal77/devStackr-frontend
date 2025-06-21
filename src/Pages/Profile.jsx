@@ -29,7 +29,7 @@ function Profile() {
                 // dispatch(setUserData(res.data))
                 setPosts(res.data.data)
             } catch (err) {
-                console.log("User not logged in", err.message);
+                console.log("User not logged ,we acnt fetch posts", err.message);
             }
         };
 

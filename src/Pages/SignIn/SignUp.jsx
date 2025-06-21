@@ -1,6 +1,51 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setIsLoggedIn, setUserData } from '../../features/UserProfileData';
 
 function SignUp() {
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const [name, setName] = useState("")
+    const [userName, setUserName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const registerUser = async (e, name, userName, email, password) => {
+        e.preventDefault()
+
+        try {
+            console.log("creating user")
+            const user = await axios.post("/api/v1/users/register",
+                {
+                    name,
+                    userName,
+                    email,
+                    password
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    withCredentials: true // only if you're using cookies for auth
+                }
+            )
+
+            console.log("Login successful:", user.data.data);
+
+            if (user.data.statusCode == 200) {
+                dispatch(setUserData(user.data.data))
+                dispatch(setIsLoggedIn("true"))
+                navigate('/home')
+            }
+
+        } catch (error) {
+            console.error("Creating account failed:", error.response?.data || error.message);
+        }
+    }
+
     return (
         <>
             <div className='text-black w-full min-h-[100vh] flex flex-col items-center justify-center '>
@@ -25,21 +70,45 @@ function SignUp() {
                             <form action="" className='flex flex-col gap-5 w-[100%] md:w-[60%] xl:w-[90%]'>
                                 <div className='flex flex-col'>
                                     <label htmlFor="">Name</label>
-                                    <input type="text" placeholder='Enter your name' className='bg-gray-300 p-2 rounded-xl' />
+                                    <input type="text"
+                                        placeholder='Enter your name'
+                                        className='bg-gray-300 p-2 rounded-xl'
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                    />
                                 </div>
                                 <div className='flex flex-col'>
                                     <label htmlFor="">UserName</label>
-                                    <input type="text" placeholder='Enter username' className='bg-gray-300  p-2 rounded-xl' />
+                                    <input type="text"
+                                        placeholder='Enter username'
+                                        className='bg-gray-300  p-2 rounded-xl'
+                                        value={userName}
+                                        onChange={(e) => setUserName(e.target.value)}
+                                    />
                                 </div>
                                 <div className='flex flex-col'>
                                     <label htmlFor="">Email</label>
-                                    <input type="text" placeholder='Enter your email' className='bg-gray-300  p-2 rounded-xl' />
+                                    <input type="text"
+                                        placeholder='Enter your email'
+                                        className='bg-gray-300  p-2 rounded-xl'
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
                                 </div>
                                 <div className='flex flex-col'>
                                     <label htmlFor="">Password</label>
-                                    <input type="text" placeholder='Enter your password' className='bg-gray-300  p-2 rounded-xl' />
+                                    <input type="text"
+                                        placeholder='Enter your password'
+                                        className='bg-gray-300  p-2 rounded-xl'
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
                                 </div>
-                                <button className='bg-red-400 p-2 text-l font-bold rounded-2xl cursor-pointer'>Create account</button>
+                                <button className='bg-red-400 p-2 text-l font-bold rounded-2xl cursor-pointer'
+                                    onClick={(e) => registerUser(e, name, userName, email, password)}
+                                >
+                                    Create account
+                                </button>
                             </form>
                         </div>
                     </div>
