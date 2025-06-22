@@ -41,7 +41,6 @@ function SignIn() {
         } catch (error) {
             console.error("Login failed:", error.response?.data || error.message);
             toast.error('something went wrong');
-
         }
     };
 

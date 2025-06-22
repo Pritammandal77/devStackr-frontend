@@ -4,13 +4,14 @@ import { BiLogOut } from "react-icons/bi";
 import { NavLink } from 'react-router-dom';
 import { setMode } from '../features/ToggleMode';
 import axios from 'axios';
+import { toast } from 'sonner';
 
 function SideBar() {
     const userData = useSelector((state) => state.userData)
     const userDataOnly = userData.userData.data
 
     const mode = useSelector((state) => state.mode.mode)
-    console.log(mode)
+    console.log("user data at side bar", userData.isLoggedIn)
 
     const dispatch = useDispatch()
 
@@ -31,8 +32,10 @@ function SideBar() {
         document.body.style.color = "#000"
     }
 
-
     const handleLogout = async () => {
+        if (userData.isLoggedIn == "false") {
+            toast.error("You are already logged out !")
+        }
         try {
             console.log("Logging out user...");
             const res = await axios.post('/api/v1/users/logout', {
@@ -43,7 +46,6 @@ function SideBar() {
             console.error('Logout error:', error.response?.data || error.message);
         }
     };
-
 
     return (
         <div className={`w-[20vw] h-[100vh] fixed top-0 left-0 z-[99] hidden xl:flex 
@@ -95,18 +97,6 @@ function SideBar() {
                             <p>New Post</p>
                         </li>
                     </NavLink>
-                    <NavLink to="/"
-                        className={({ isActive }) =>
-                            `flex gap-3 items-center cursor-pointer rounded-[8px]
-                             ${isActive ? (mode === 'light' ? 'bg-[#fcd4bc]' : 'bg-[#1f1f1f]') : ''} 
-                             ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`
-                        }
-                    >
-                        <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
-                            <i className="fa-solid fa-user"></i>
-                            <p>Account setting</p>
-                        </li>
-                    </NavLink>
                     <NavLink to="/allusers" className={({ isActive }) =>
                         `flex gap-3 items-center cursor-pointer rounded-[8px]
                              ${isActive ? (mode === 'light' ? 'bg-[#fcd4bc]' : 'bg-[#1f1f1f]') : ''} 
@@ -130,23 +120,69 @@ function SideBar() {
                             <p>Edit profile</p>
                         </li>
                     </NavLink>
-                    <NavLink to="/signup" className={`flex gap-3 items-center cursor-pointer ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
-                        <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
-                            <i className="fa-solid fa-right-to-bracket"></i>
-                            <p>Create account</p>
-                        </li>
-                    </NavLink>
-                    <NavLink to="/signin" className={`flex gap-3 items-center cursor-pointer ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
-                        <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
-                            <i className="fa-solid fa-right-to-bracket"></i>
-                            <p>Sign in</p>
-                        </li>
-                    </NavLink>
-                    <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}
-                        onClick={handleLogout}>
-                        <BiLogOut className='text-[22px]' />
-                        Logout
+                    <li className="pl-2">
+                        <details
+                            className={`group rounded-[8px] overflow-hidden ${mode === 'light' ? 'bg-[#FFF2EB]' : 'bg-[#000] text-[#d3d3d3]'
+                                }`}>
+                            <summary
+                                className={`flex items-center justify-between cursor-pointer py-2 px-3 text-[20px] font-medium
+                                            ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}
+                                            transition duration-200 rounded-[8px]`}>
+                                <span className="flex gap-2 items-center">
+                                    <i className="fa-solid fa-gear"></i>
+                                    <p>Account Settings</p>
+                                </span>
+                                <i className="fa-solid fa-chevron-down group-open:rotate-180 transition duration-300"></i>
+                            </summary>
+
+                            <ul className="pl-8 py-2 flex flex-col gap-2 text-[17px]">
+                                <li>
+                                    <NavLink
+                                        to="/signup"
+                                        className={({ isActive }) =>
+                                            `block px-2 py-1 rounded ${isActive
+                                                ? mode === 'light'
+                                                    ? 'bg-[#fcd4bc]'
+                                                    : 'bg-[#1f1f1f]'
+                                                : ''
+                                            } ${mode === 'light'
+                                                ? 'hover:bg-[#f8c5a8]'
+                                                : 'hover:bg-[#373737]'
+                                            }`
+                                        }
+                                    >
+                                        Create Account
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/signin"
+                                        className={({ isActive }) =>
+                                            `block px-2 py-1 rounded ${isActive
+                                                ? mode === 'light'
+                                                    ? 'bg-[#fcd4bc]'
+                                                    : 'bg-[#1f1f1f]'
+                                                : ''
+                                            } ${mode === 'light'
+                                                ? 'hover:bg-[#f8c5a8]'
+                                                : 'hover:bg-[#373737]'
+                                            }`
+                                        }
+                                    >
+                                        Log In
+                                    </NavLink>
+                                </li>
+                                <li
+                                    onClick={handleLogout}
+                                    className={`block px-2 py-1 rounded cursor-pointer ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'
+                                        }`}
+                                >
+                                    Log Out
+                                </li>
+                            </ul>
+                        </details>
                     </li>
+
                     <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
                         <input
                             type="checkbox"
