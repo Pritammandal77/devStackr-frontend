@@ -70,7 +70,7 @@ function Profile() {
         <>
             {
                 userDataOnly ? (
-                    <div className='w-[100vw] h-auto flex flex-col items-center gap-2 p-3 py-15'>
+                    <div className='w-[100vw] h-auto flex flex-col items-center gap-2 p-3 py-15 xl:w-[80vw] absolute right-0'>
 
                         <div className='relative w-[100%] md:w-[80%] lg:w-[60vw] flex items-center justify-center text-black rounded-2xl bg-no-repeat bg-cover bg-center '
                             style={{ backgroundImage: `url(${userDataOnly.coverImage ? userDataOnly.coverImage : "/defaultbg.svg"})` }}>

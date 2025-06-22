@@ -68,7 +68,7 @@ function CreatePost() {
       {
         isLoading && <Loader2 />
       }
-      <div className='w-[100vw] h-auto flex flex-col items-center gap-2 p-3 py-15 '>
+      <div className='w-[100vw] h-auto flex flex-col items-center gap-2 p-3 py-15 xl:w-[80vw] absolute right-0' >
         <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 mt-10'>
           <form action="" className='flex flex-col gap-5 md:p-2'>
 

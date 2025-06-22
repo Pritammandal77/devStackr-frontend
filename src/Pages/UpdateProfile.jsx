@@ -88,7 +88,7 @@ function UpdateProfile() {
             {
                 isLoading && <Loader2 />
             }
-            <div className='w-[100vw] h-auto flex flex-col items-center gap-2 pt-15 p-3 pb-25'>
+            <div className='w-[100vw] h-auto flex flex-col items-center gap-2 pt-15 p-3 pb-25 xl:w-[80vw] absolute right-0'>
                 <div className='w-[100%] md:w-[80%] lg:w-[60vw] flex flex-col gap-5'>
 
                     <div className='w-[100%] relative flex items-center justify-center h-50 md:h-60 lg:h-70 p-2 rounded-xl bg-no-repeat bg-cover bg-center '

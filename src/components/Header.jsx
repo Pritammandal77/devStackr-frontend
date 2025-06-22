@@ -64,7 +64,7 @@ function Header() {
   return (
     <>
       <header>
-        <nav className={`w-[100vw] h-13  flex items-center fixed top-0 z-[100]
+        <nav className={`w-[100vw] h-13  flex items-center fixed top-0 z-[50] xl:w-[80vw] right-0
           ${mode == 'light' ? 'bg-[#FFF2EB]' : 'bg-[#000] text-[#d3d3d3]'}`}>
           <ul className='w-[100%] flex items-center justify-between px-5 mx:px-0  md:justify-evenly md:gap-7'>
             <li className='flex flex-row items-center gap-2 '>
@@ -77,16 +77,19 @@ function Header() {
               </p>
             </li>
             <li className='hidden md:flex flex-row items-center gap-3 '>
-              <input type="text" className='bg-white border-1 w-[60vw] lg:w-[50vw] h-9 md:h-10 rounded-2xl px-3 text-l'
+              <input type="text" className={` w-[60vw] lg:w-[50vw] h-9 md:h-10 rounded-2xl px-3 text-l ${mode == 'light' ? 'bg-white text-black border-1 border-gray-600' : 'bg-[#2e2e2e] text-white'}`}
                 placeholder='search...'
               />
               <i className="fa-solid fa-magnifying-glass text-2xl"></i>
             </li>
-            <li className='text-[24px] font-bold hidden md:flex cursor-pointer' onClick={handleOpenHamburger}>
+            <li className='text-[24px] font-bold hidden md:flex xl:hidden cursor-pointer' onClick={handleOpenHamburger}>
               <HiOutlineMenuAlt3 />
             </li>
             <li className='absolute top-2 right-2 lg:right-5 text-[22px] font-bold md:hidden cursor-pointer' onClick={handleOpenHamburger}>
               <HiOutlineMenuAlt3 onClick={handleOpenHamburger} className='cursor-pointer' />
+            </li>
+            <li className='cursor-pointer hidden xl:flex text-[18px]'> 
+              <i class="fa-solid fa-paper-plane"></i>
             </li>
           </ul>
         </nav>

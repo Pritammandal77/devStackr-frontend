@@ -8,7 +8,7 @@ function BottomMenu() {
 
     return (
         <>
-            <nav className={`w-[100vw] fixed bottom-0 h-12 flex items-center justify-center z-[100]
+            <nav className={`w-[100vw] fixed bottom-0 h-12 flex items-center justify-center z-[50] xl:hidden
                 ${mode == 'light' ? 'bg-[#FFF2EB] text-black' : 'bg-[#000] text-[#d3d3d3]'}`}>
                 <ul className='w-[100%] lg:w-[60%] flex flex-row items-center justify-evenly text-[22px] '>
                     <li>

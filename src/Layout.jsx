@@ -5,6 +5,7 @@ import BottomMenu from './components/BottomMenu';
 import axios from "axios"
 import { useDispatch } from 'react-redux';
 import { setIsLoggedIn, setUserData } from './features/UserProfileData';
+import SideBar from './components/SideBar';
 
 function Layout() {
 
@@ -35,13 +36,15 @@ function Layout() {
     const location = useLocation();
 
     // Define the routes where you DON'T want Header and BottomMenu
-    const hideOnRoutes = ['/signup', '/signin'];
+    const hideOnRoutes = ['/signup', '/signin',];
 
     const shouldHideLayout = hideOnRoutes.includes(location.pathname);
 
     return (
         <>
             {!shouldHideLayout && <Header />}
+            {!shouldHideLayout && <SideBar />}
+            {/* <SideBar /> */}
             <Outlet />
             {!shouldHideLayout && <BottomMenu />}
         </>
