@@ -17,7 +17,7 @@ function Home() {
             const posts = await axios.get("/api/v1/posts/allposts", {
                 withCredentials: true
             })
-            console.log("allposts", posts.data.data.length)
+            console.log("allposts", posts.data.data)
             setALLPosts(posts.data.data)
             if (posts.data.data) {
                 setIsLoading(false)
@@ -60,7 +60,23 @@ function Home() {
                                 authorProfilePicture={data.author.profilePicture}
                                 createdAt={timeAgo(data.createdAt)}
                                 postDesc={data.description}
-                                postImage={data.image} />
+                                postImage={data.image}
+                                postId={data._id}
+                                likesCount={data.likes}
+                            />
+                            // <PostCard
+                            //     key={index}
+                            //     authorName={data.author.name}
+                            //     authorProfilePicture={data.author.profilePicture}
+                            //     createdAt={timeAgo(data.createdAt)}
+                            //     postDesc={data.description}
+                            //     postImage={data.image}
+                            //     postId={data._id}
+                            //     likesCount={data.likesCount}      // ✅ backend se array nahi, number bhej
+                            //     likedByUser={data.likedByUser}    // ✅ yeh bhi backend me bhejna padega
+                            //     allPosts={allPosts}               // ✅ new
+                            //     setALLPosts={setALLPosts}         // ✅ new
+                            // />
                         ))
                     ) : (
                         <Loader2 />
