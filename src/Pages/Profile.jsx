@@ -131,7 +131,9 @@ function Profile() {
                                             authorProfilePicture={data.author.profilePicture}
                                             createdAt={timeAgo(data.createdAt)}
                                             postDesc={data.description}
-                                            postImage={data.image} />
+                                            postImage={data.image}
+                                            likesCount={data.likes}
+                                        />
                                     ))
                                 }
                             </div>
