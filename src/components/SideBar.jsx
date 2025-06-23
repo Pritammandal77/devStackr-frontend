@@ -8,10 +8,10 @@ import { toast } from 'sonner';
 
 function SideBar() {
     const userData = useSelector((state) => state.userData)
-    const userDataOnly = userData.userData.data
+    const userDataOnly = userData?.userData?.data
 
     const mode = useSelector((state) => state.mode.mode)
-    console.log("user data at side bar", userData.isLoggedIn)
+    console.log("user data at side bar", userDataOnly)
 
     const dispatch = useDispatch()
 

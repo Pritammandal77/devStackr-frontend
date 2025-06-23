@@ -23,6 +23,16 @@ function Allusers() {
         getAllUsers()
     }, []);
 
+
+    const getUserProfileById = async (userId) => {
+        try {
+            const res = await axios.get(`/api/v1/users/${userId}`);
+            console.log("User profile:", res.data.data);
+        } catch (err) {
+            console.error("Error fetching user profile:", err.message);
+        }
+    }
+
     return (
         <>
             <div className='py-20 w-[100vw] xl:w-[80vw] absolute right-0 flex flex-col items-center gap-5'>
@@ -33,7 +43,8 @@ function Allusers() {
                                 <div className='h-25 flex items-center justify-center w-[25%] md:w-[20%] lg:w-[20%] xl:w-[15%]'>
                                     <img src={data.profilePicture}
                                         alt="sorry , the image can't be loaded"
-                                        className='h-19 w-19 md:h-20 md:w-20 rounded-full' />
+                                        className='h-19 w-19 md:h-20 md:w-20 rounded-full'
+                                        onClick={() => getUserProfileById(data._id)} />
                                 </div>
                                 <div className='flex flex-col justify-between w-[60%] lg:w-[35%]'>
                                     <p className='text-[18px] font-semibold'>{data.name}</p>
@@ -47,12 +58,12 @@ function Allusers() {
                                     <FollowButton />
                                 </div>
                                 <div className='lg:hidden absolute top-2 right-2 bg-blue-400 h-8 w-8 flex items-center justify-center rounded-full'>
-                                    <i class="fa-solid fa-user-plus text-black"></i>
+                                    <i className="fa-solid fa-user-plus text-black"></i>
                                 </div>
                             </div>
                         ))
                     ) : (
-                        <Loader2/>
+                        <Loader2 />
                     )
                 }
             </div>

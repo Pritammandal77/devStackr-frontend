@@ -10,11 +10,11 @@ import { useNavigate } from 'react-router-dom';
 
 function Profile() {
 
-    const userData = useSelector((state) => state.userData)
-    console.log("user data at profile", userData.userData)
+    const currentUserData = useSelector((state) => state.userData?.userData?.data)
+    console.log("user data at profile", currentUserData)
 
     //it will give the neccessary data , not the wholw data
-    const userDataOnly = userData.userData.data
+    // const userDataOnly = currentUserData.currentUserData.data
 
     const [posts, setPosts] = useState([])
 
@@ -59,44 +59,43 @@ function Profile() {
 
     useEffect(() => {
         setTimeout(() => {
-            if (!userData) {
+            if (!currentUserData) {
                 navigate("/signin");
             }
         }, 7000);
-
-    }, [userData]);
+    }, []);
 
     return (
         <>
             {
-                userDataOnly ? (
+                currentUserData ? (
                     <div className='w-[100vw] h-auto flex flex-col items-center gap-2 p-3 py-15 xl:w-[80vw] absolute right-0'>
 
                         <div className='relative w-[100%] md:w-[80%] lg:w-[60vw] flex items-center justify-center text-black rounded-2xl bg-no-repeat bg-cover bg-center '
-                            style={{ backgroundImage: `url(${userDataOnly.coverImage ? userDataOnly.coverImage : "/defaultbg.svg"})` }}>
+                            style={{ backgroundImage: `url(${currentUserData.coverImage ? currentUserData.coverImage : "/defaultbg.svg"})` }}>
                             <div className='40% h-[15vh] lg:h-[23vh] '>
                             </div>
                         </div>
 
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] h-10  lg:text-center flex flex-row justify-between text-black px-10'>
-                            <img src={userDataOnly.profilePicture ? userDataOnly.profilePicture : "/defaultpfp.png"} alt=""
+                            <img src={currentUserData.profilePicture ? currentUserData.profilePicture : "/defaultpfp.png"} alt=""
                                 className='w-30 h-30 md:w-40 md:h-40 lg:h-50 lg:w-50 rounded-full relative bottom-15 md:bottom-20' />
                             <FollowButton />
                         </div>
 
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 mt-5 lg:mt-20'>
-                            <h1 className='text-[22px] md:text-[28px] font-semibold'>{userDataOnly.name}</h1>
-                            <p className='text-[16px] md:text-[20px] font-semibold'>{userDataOnly.userName}</p>
-                            <p className='text-[20px]'>{userDataOnly.bio}</p>
+                            <h1 className='text-[22px] md:text-[28px] font-semibold'>{currentUserData.name}</h1>
+                            <p className='text-[16px] md:text-[20px] font-semibold'>{currentUserData.userName}</p>
+                            <p className='text-[20px]'>{currentUserData.bio}</p>
                             <div className='flex flex-row items-center gap-10 md:gap-15 w-[90%] md:w-[50%] py-5'>
                                 <p className='text-[18px] md:text-[20px] text-blue-500 font-semibold py-1 px-2 rounded-[10px]' >499 followers</p>
                                 <p className='text-[18px] md:text-[20px] text-blue-500 font-semibold py-1 px-2 rounded-[10px]'>198 following</p>
                             </div>
                             <div className='flex gap-5'>
-                                <a href={userDataOnly.githubLink} className='text-[16px] text-blue-600 ' target='_blank'>
+                                <a href={currentUserData.githubLink} className='text-[16px] text-blue-600 ' target='_blank'>
                                     github <i className="fa-solid fa-arrow-up-right-from-square"></i>
                                 </a>
-                                <a href={userDataOnly.linkedinLink}
+                                <a href={currentUserData.linkedinLink}
                                     target='_blank'
                                     className='text-[16px] text-blue-600 '>
                                     linkedin <i className="fa-solid fa-arrow-up-right-from-square"></i>
@@ -107,7 +106,7 @@ function Profile() {
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw]  p-2 '>
                             <h1 className='text-[28px] lg:text-[32px]'>About</h1>
                             <p className='text-[16px] md:text-[18px]'>
-                                {userDataOnly.about}
+                                {currentUserData.about}
                             </p>
                         </div>
 
@@ -115,7 +114,7 @@ function Profile() {
                             <h1 className='text-[28px] lg:text-[32px]'>Skills</h1>
                             <div className='flex flex-wrap gap-3'>
                                 {
-                                    userDataOnly.skills.map((skill, index) => (
+                                    currentUserData.skills.map((skill, index) => (
                                         <span className='px-3 py-1 border-2 border-gray-500 rounded-xl' key={index}>{skill}</span>
                                     ))
                                 }
@@ -150,3 +149,5 @@ function Profile() {
 }
 
 export default Profile;
+
+

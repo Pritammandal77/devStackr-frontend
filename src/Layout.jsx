@@ -4,7 +4,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import BottomMenu from './components/BottomMenu';
 import axios from "axios"
 import { useDispatch } from 'react-redux';
-import { setIsLoggedIn, setUserData } from './features/UserProfileData';
+import { setCurrentUserData, setIsLoggedIn } from './features/UserProfileData';
 import SideBar from './components/SideBar';
 
 function Layout() {
@@ -19,7 +19,7 @@ function Layout() {
                 });
 
                 console.log("get request data at layout.jsx", res.data)
-                dispatch(setUserData(res.data))
+                dispatch(setCurrentUserData(res.data))
                 if (res.data.statusCode == 200) {
                     dispatch(setIsLoggedIn("true"))
                 }
