@@ -8,7 +8,7 @@ export const userDataSlice = createSlice({
     },
     reducers: {
         setCurrentUserData: (state, actions) => {
-            state.userData = actions.payload
+            state.currentUserData = actions.payload
         },
         setIsLoggedIn: (state, actions) => {
             state.isLoggedIn = actions.payload

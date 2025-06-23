@@ -7,11 +7,9 @@ import axios from 'axios';
 import { toast } from 'sonner';
 
 function SideBar() {
-    const userData = useSelector((state) => state.userData)
-    const userDataOnly = userData?.userData?.data
+    const userData = useSelector((state) => state.userData?.currentUserData?.data)
 
     const mode = useSelector((state) => state.mode.mode)
-    console.log("user data at side bar", userDataOnly)
 
     const dispatch = useDispatch()
 
@@ -53,11 +51,11 @@ function SideBar() {
             <nav className='w-[100%]'>
                 <ul className='flex flex-col gap-3 text-[20px] w-[100%] py-15 px-5'>
                     {
-                        userDataOnly &&
+                        userData &&
                         <li className='flex items-center gap-2 pb-5'>
-                            <img src={userDataOnly.profilePicture ? userDataOnly.profilePicture : "/defaultpfp.png"} alt=""
+                            <img src={userData.profilePicture ? userData.profilePicture : "/defaultpfp.png"} alt=""
                                 className='h-15 w-15 rounded-full' />
-                            <p>{userDataOnly.name ? userDataOnly.name : "User"}</p>
+                            <p>{userData.name ? userData.name : "User"}</p>
                         </li>
                     }
                     <NavLink

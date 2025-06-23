@@ -7,9 +7,9 @@ import Loader2 from '../components/Loaders/Loader2';
 
 function UpdateProfile() {
 
-    const userProfileData = useSelector((state) => state.userData.userData.data)
+    const userProfileData = useSelector((state) => state.userData.currentUserData.data)
 
-    console.log("User data at update page", userProfileData)
+    // console.log("User data at update page", userProfileData)
 
     const [isLoading, setIsLoading] = useState(false)
 
