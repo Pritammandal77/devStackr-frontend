@@ -81,7 +81,7 @@ function SideBar() {
                         }
                     >
                         <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
-                            <i class="fa-solid fa-user"></i>
+                            <i className="fa-solid fa-user"></i>
                             <p>Profile</p>
                         </li>
                     </NavLink>
@@ -93,7 +93,7 @@ function SideBar() {
                         }
                     >
                         <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
-                            <i class="fa-solid fa-square-plus"></i>
+                            <i className="fa-solid fa-square-plus"></i>
                             <p>New Post</p>
                         </li>
                     </NavLink>
