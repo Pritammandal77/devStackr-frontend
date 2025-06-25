@@ -6,15 +6,17 @@ import FollowButton from '../components/followButton';
 
 function OtherUserProfile() {
 
-    const [userData, setUserData] = useState([])
-
     const { id } = useParams();
     console.log(id)
+
+    const [userData, setUserData] = useState([])
+    const [userPostsIds, setUserPostsIds] = useState([])
 
     const getUserProfileById = async (id) => {
         try {
             const res = await axios.get(`/api/v1/users/${id}`);
             setUserData(res.data.data)
+            setUserPostsIds(res.data?.data?.posts)
         } catch (err) {
             console.error("Error fetching user profile:", err.message);
         }
@@ -22,10 +24,27 @@ function OtherUserProfile() {
 
     console.log("User profile:", userData);
 
-    useEffect(() => {
-        getUserProfileById(id)
-    }, []);
+    const getUserPostsById = async (userPostsIds) => {
+        try {
+            const res = await axios.post("/api/v1/posts/userpostsbyid", {
+                postIds: userPostsIds
+            });
+            console.log('other user data posts',res.data.data);
+        } catch (error) {
+            console.error("Error while fetching user posts:", error.message);
+        }
+    };
 
+
+    useEffect(() => {
+        getUserProfileById(id);
+    }, [id]);
+
+    useEffect(() => {
+        if (userPostsIds.length > 0) {
+            getUserPostsById(userPostsIds);
+        }
+    }, [userPostsIds]);
 
     return (
         <>
