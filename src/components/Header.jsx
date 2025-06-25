@@ -64,8 +64,8 @@ function Header() {
   return (
     <>
       <header>
-        <nav className={`w-[100vw] h-13  flex items-center fixed top-0 z-[50] xl:w-[80vw] right-0
-          ${mode == 'light' ? 'bg-[#FFF2EB]' : 'bg-[#000] text-[#d3d3d3]'}`}>
+        <nav className={`w-[100vw] h-13  flex items-center fixed top-0 z-[50] xl:w-[100vw] right-0
+          ${mode == 'light' ? 'bg-[#f9ded1]' : 'bg-[#000] text-[#d3d3d3]'}`}>
           <ul className='w-[100%] flex items-center justify-between px-5 mx:px-0  md:justify-evenly md:gap-7'>
             <li className='flex flex-row items-center gap-2 '>
               <NavLink to="/profile">

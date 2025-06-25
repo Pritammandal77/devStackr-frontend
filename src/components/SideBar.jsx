@@ -46,7 +46,7 @@ function SideBar() {
     };
 
     return (
-        <div className={`w-[20vw] h-[100vh] fixed top-0 left-0 z-[99] hidden xl:flex 
+        <div className={`w-[20vw] h-[100vh] fixed top-0 left-0 z-[40] hidden xl:flex 
         ${mode == 'light' ? 'bg-[#FFF2EB]' : 'bg-[#000] text-[#d3d3d3]'}`}>
             <nav className='w-[100%]'>
                 <ul className='flex flex-col gap-3 text-[20px] w-[100%] py-15 px-5'>
