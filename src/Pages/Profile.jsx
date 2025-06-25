@@ -7,6 +7,7 @@ import PostCard from '../components/PostCard';
 import Loader1 from '../components/Loaders/Loader1';
 import Loader2 from '../components/Loaders/Loader2';
 import { useNavigate } from 'react-router-dom';
+import { FormatTime } from '../utils/FormatTime';
 
 function Profile() {
 
@@ -35,22 +36,22 @@ function Profile() {
 
     console.log('posts', posts[0])
 
-    const timeAgo = (dateString) => {
-        const now = new Date();
-        const past = new Date(dateString);
-        const diff = Math.floor((now - past) / 1000); // difference in seconds
+    // const timeAgo = (dateString) => {
+    //     const now = new Date();
+    //     const past = new Date(dateString);
+    //     const diff = Math.floor((now - past) / 1000); // difference in seconds
 
-        if (diff < 60) return `${diff} sec ago`;
-        if (diff < 3600) return `${Math.floor(diff / 60)} min ago`;
-        if (diff < 86400) return `${Math.floor(diff / 3600)} h ago`;
-        if (diff < 604800) return `${Math.floor(diff / 86400)} day ago`;
+    //     if (diff < 60) return `${diff} sec ago`;
+    //     if (diff < 3600) return `${Math.floor(diff / 60)} min ago`;
+    //     if (diff < 86400) return `${Math.floor(diff / 3600)} h ago`;
+    //     if (diff < 604800) return `${Math.floor(diff / 86400)} day ago`;
 
-        return past.toLocaleDateString('en-IN'); // fallback
-    }
+    //     return past.toLocaleDateString('en-IN'); // fallback
+    // }
 
-    if (posts[0]?.createdAt) {
-        console.log("time in hours", timeAgo(posts[0].createdAt));  // Output: "6 day ago" or "18 h ago"
-    }
+    // if (posts[0]?.createdAt) {
+    //     console.log("time in hours", timeAgo(posts[0].createdAt));  // Output: "6 day ago" or "18 h ago"
+    // }
 
     const navigate = useNavigate();
 
@@ -125,7 +126,7 @@ function Profile() {
                                         <PostCard key={index}
                                             authorName={data.author.name}
                                             authorProfilePicture={data.author.profilePicture}
-                                            createdAt={timeAgo(data.createdAt)}
+                                            createdAt={FormatTime(data.createdAt)}
                                             postDesc={data.description}
                                             postImage={data.image}
                                             likesCount={data.likes}

@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import FollowButton from '../components/followButton';
+import PostCard from '../components/PostCard';
+import { FormatTime } from '../utils/FormatTime';
 
 function OtherUserProfile() {
 
@@ -11,6 +13,7 @@ function OtherUserProfile() {
 
     const [userData, setUserData] = useState([])
     const [userPostsIds, setUserPostsIds] = useState([])
+    const [allPosts, setAllPosts] = useState([])
 
     const getUserProfileById = async (id) => {
         try {
@@ -29,12 +32,14 @@ function OtherUserProfile() {
             const res = await axios.post("/api/v1/posts/userpostsbyid", {
                 postIds: userPostsIds
             });
-            console.log('other user data posts',res.data.data);
+            console.log('other user data posts', res.data.data);
+            setAllPosts(res.data.data)
         } catch (error) {
             console.error("Error while fetching user posts:", error.message);
         }
     };
 
+    FormatTime()
 
     useEffect(() => {
         getUserProfileById(id);
@@ -104,18 +109,18 @@ function OtherUserProfile() {
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 flex flex-col gap-2'>
                             <h1 className='text-[28px] lg:text-[32px]'>Posts</h1>
                             <div className='flex flex-col items-center '>
-                                {/* {
-                                    posts && posts.map((data, index) => (
+                                {
+                                    allPosts && allPosts.map((data, index) => (
                                         <PostCard key={index}
                                             authorName={data.author.name}
                                             authorProfilePicture={data.author.profilePicture}
-                                            createdAt={timeAgo(data.createdAt)}
+                                            createdAt={FormatTime(data.createdAt)}
                                             postDesc={data.description}
                                             postImage={data.image}
                                             likesCount={data.likes}
                                         />
                                     ))
-                                } */}
+                                }
                             </div>
 
                         </div>
