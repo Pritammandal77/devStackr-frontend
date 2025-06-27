@@ -6,15 +6,15 @@ import { useEffect } from 'react';
 
 function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, threeDot, followBtn }) {
 
-    const [postLikesData, setPostLikesData] = useState([])
+    const [postLikesData, setPostLikesData] = useState(false)
 
-    console.log(threeDot)
 
     const likeAPost = async (postId) => {
         console.log("postID", postId)
         try {
             const response = await axios.put("/api/v1/posts/likes", { postId: postId })
-            console.log(response.data.data)
+            console.log("like data at post card", response.data.data)
+            likesCount = false
             setPostLikesData(response.data.data)
         } catch (error) {
             console.log("Failed to like the posts", error)
@@ -52,13 +52,13 @@ function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postI
                         {
                             postImage && <img src={postImage} alt="" className='w-[100%] md:w-[100%] lg:w-[45vw] rounded-[5px]' />
                         }
-
                     </div>
 
                     <div className='flex flex-row w-full'>
                         <div className='w-[50%] flex items-center justify-center gap-2 pl-5 '>
                             <i className="fa-solid fa-thumbs-up" onClick={() => likeAPost(postId)}></i>
-                            <p>{likesCount.length}</p>
+                            {/* <p>{likesCount.length}</p> */}
+                            <p>{!postLikesData.likesCount ? likesCount.length : postLikesData.likesCount}</p>
                         </div>
                         <div className='w-[50%] flex items-center justify-center gap-2 pl-5 '>
                             <i className="fa-solid fa-comment"></i>

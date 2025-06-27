@@ -52,10 +52,16 @@ function SideBar() {
                 <ul className='flex flex-col gap-3 text-[20px] w-[100%] py-15 px-5'>
                     {
                         userData &&
-                        <li className='flex items-center gap-2 pb-5'>
-                            <img src={userData.profilePicture ? userData.profilePicture : "/defaultpfp.png"} alt=""
-                                className='h-15 w-15 rounded-full' />
-                            <p>{userData.name ? userData.name : "User"}</p>
+                        <li className=''>
+                            <NavLink to="/profile" className="flex items-center gap-2 pb-4 pt-2">
+                                <img src={userData.profilePicture ? userData.profilePicture : "/defaultpfp.png"} alt=""
+                                    className='h-15 w-15 rounded-full' />
+                                <div className='flex flex-col '>
+                                    <p className='text-[19px] font-semibold'>{userData.name ? userData.name : "User"}</p>
+                                    <p className='text-[16px]'>{userData.userName ? userData.userName : "User@123"}</p>
+                                </div>
+                            </NavLink>
+                            <hr className='text-[#daaf99] ' />
                         </li>
                     }
                     <NavLink
