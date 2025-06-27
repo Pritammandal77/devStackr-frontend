@@ -4,11 +4,11 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount }) {
+function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, threeDot, followBtn }) {
 
     const [postLikesData, setPostLikesData] = useState([])
 
-    console.log(likesCount.length)
+    console.log(threeDot)
 
     const likeAPost = async (postId) => {
         console.log("postID", postId)
@@ -42,7 +42,9 @@ function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postI
                                 <p className='text-[15px]'>{createdAt}</p>
                             </div>
                         </div>
-                        <FollowButton />
+
+                        {threeDot && <i className="fa-solid fa-ellipsis-vertical font-bold p-4 cursor-pointer"></i>}
+                        {followBtn && <FollowButton />}
                     </div>
 
                     <div className='flex flex-col gap-1'>
@@ -50,6 +52,7 @@ function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postI
                         {
                             postImage && <img src={postImage} alt="" className='w-[100%] md:w-[100%] lg:w-[45vw] rounded-[5px]' />
                         }
+
                     </div>
 
                     <div className='flex flex-row w-full'>

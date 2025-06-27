@@ -79,7 +79,9 @@ function CreatePost() {
                 id=""
                 className='border-1 w-full md:w-[100%] h-[250px] resize-none overflow-y-auto p-3 rounded-md text-sm'
                 value={description}
+                maxLength={400}
                 onChange={(e) => setDescription(e.target.value)}></textarea>
+              <p className='self-end'>{description.length}/400</p>
             </div>
 
             <div className='flex gap-5'>

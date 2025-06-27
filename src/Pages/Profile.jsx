@@ -27,7 +27,7 @@ function Profile() {
                 // dispatch(setUserData(res.data))
                 setPosts(res.data.data)
             } catch (err) {
-                console.log("User not logged ,we acnt fetch posts", err.message);
+                console.log("User not logged ,we can't fetch posts", err.message);
             }
         };
 
@@ -35,23 +35,6 @@ function Profile() {
     }, []);
 
     console.log('posts', posts[0])
-
-    // const timeAgo = (dateString) => {
-    //     const now = new Date();
-    //     const past = new Date(dateString);
-    //     const diff = Math.floor((now - past) / 1000); // difference in seconds
-
-    //     if (diff < 60) return `${diff} sec ago`;
-    //     if (diff < 3600) return `${Math.floor(diff / 60)} min ago`;
-    //     if (diff < 86400) return `${Math.floor(diff / 3600)} h ago`;
-    //     if (diff < 604800) return `${Math.floor(diff / 86400)} day ago`;
-
-    //     return past.toLocaleDateString('en-IN'); // fallback
-    // }
-
-    // if (posts[0]?.createdAt) {
-    //     console.log("time in hours", timeAgo(posts[0].createdAt));  // Output: "6 day ago" or "18 h ago"
-    // }
 
     const navigate = useNavigate();
 
@@ -78,7 +61,7 @@ function Profile() {
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] h-10  lg:text-center flex flex-row justify-between text-black px-10'>
                             <img src={currentUserData.profilePicture ? currentUserData.profilePicture : "/defaultpfp.png"} alt=""
                                 className='w-30 h-30 md:w-40 md:h-40 lg:h-50 lg:w-50 rounded-full relative bottom-15 md:bottom-20' />
-                            <FollowButton />
+                            
                         </div>
 
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 mt-5 lg:mt-20'>
@@ -130,6 +113,7 @@ function Profile() {
                                             postDesc={data.description}
                                             postImage={data.image}
                                             likesCount={data.likes}
+                                            threeDot="true"
                                         />
                                     ))
                                 }

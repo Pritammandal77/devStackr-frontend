@@ -82,7 +82,6 @@ function UpdateProfile() {
         }
     }
 
-    
     return (
         <>
             {
