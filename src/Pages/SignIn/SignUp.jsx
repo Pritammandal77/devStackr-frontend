@@ -45,6 +45,17 @@ function SignUp() {
 
         } catch (error) {
             console.error("Creating account failed:", error.response?.data || error.message);
+
+            //this is 3 lines are used, to get the actual text content from the error msg
+            const html = error.response.data;
+            const match = html.match(/Error:(.*?)<br>/i);
+            const message = match ? match[1].trim() : "Something went wrong";
+
+            if (error.response.data) {
+                toast.error(message);
+            } else {
+                toast.error('something went wrong');
+            }
         }
     }
 
@@ -57,7 +68,7 @@ function SignUp() {
                         <div>
                             <h1 className='text-4xl'>Welcome to <span className='russo-one-regular text-red-400'>devstackr</span></h1>
                             {/* <p className='text-xl'>Where ‘Hello World’ becomes ‘Hello, friend!’</p> */}
-                            <p className='text-2xl'>Start your journey with those <br /> who code and care</p>
+                            <p className='text-2xl'>Where ‘Hello World’ <br /> becomes ‘Hello, friend!</p>
                         </div>
                         <img src="/signupFormImg.svg" alt="" className='h-70' />
                     </div>
@@ -69,12 +80,13 @@ function SignUp() {
                         </div>
                         <div className='w-[100vw] xl:w-[100%] h-[80vh] pt-10 xl:pt-0 flex flex-col items-center justify-center px-8 rounded-t-3xl bg-white xl:rounded-r-3xl'>
                             <h1 className='text-4xl text-center '>Create Account </h1>
-                            <form action="" className='flex flex-col gap-5 w-[100%] md:w-[60%] xl:w-[90%]'>
+                            <form action="" className='flex flex-col gap-5 w-[100%] md:w-[60%] xl:w-[90%]' onSubmit={(e) => registerUser(e, name, userName, email, password)}>
                                 <div className='flex flex-col'>
                                     <label htmlFor="">Name</label>
                                     <input type="text"
                                         placeholder='Enter your name'
                                         className='bg-gray-300 p-2 rounded-xl'
+                                        required
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
                                     />
@@ -84,6 +96,7 @@ function SignUp() {
                                     <input type="text"
                                         placeholder='Enter username'
                                         className='bg-gray-300  p-2 rounded-xl'
+                                        required
                                         value={userName}
                                         onChange={(e) => setUserName(e.target.value)}
                                     />
@@ -94,6 +107,7 @@ function SignUp() {
                                         placeholder='Enter your email'
                                         className='bg-gray-300  p-2 rounded-xl'
                                         value={email}
+                                        required
                                         onChange={(e) => setEmail(e.target.value)}
                                     />
                                 </div>
@@ -102,13 +116,12 @@ function SignUp() {
                                     <input type="text"
                                         placeholder='Enter your password'
                                         className='bg-gray-300  p-2 rounded-xl'
+                                        required
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </div>
-                                <button className='bg-red-400 p-2 text-l font-bold rounded-2xl cursor-pointer'
-                                    onClick={(e) => registerUser(e, name, userName, email, password)}
-                                >
+                                <button className='bg-red-400 p-2 text-l font-bold rounded-2xl cursor-pointer'>
                                     Create account
                                 </button>
                                 <div className='text-[16px] text-center'>
