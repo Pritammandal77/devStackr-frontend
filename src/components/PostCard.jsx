@@ -4,26 +4,28 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, threeDot, followBtn }) {
+function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, threeDot, followBtn, isAlreadyLiked }) {
 
     const [postLikesData, setPostLikesData] = useState(false)
+
+    //storing the value isPostLiked
+    const [isLiked, setIsLiked] = useState(isAlreadyLiked);
 
     const likeAPost = async (postId) => {
         console.log("postID", postId)
         try {
             const response = await axios.put("/api/v1/posts/likes", { postId: postId })
             console.log("like data at post card", response.data.data)
-            likesCount = false
             setPostLikesData(response.data.data)
+            if (isLiked == true) {
+                setIsLiked(false)
+            } else {
+                setIsLiked(true)
+            }
         } catch (error) {
             console.log("Failed to like the posts", error)
         }
     }
-
-    // useEffect(() => {
-    //     likeAPost()
-    // }, [postLikesData]);
-
 
     return (
         <>
@@ -55,9 +57,9 @@ function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postI
 
                     <div className='flex flex-row w-full'>
                         <div className='w-[50%] flex items-center justify-center gap-2 pl-5 '>
-                            <i className="fa-solid fa-thumbs-up" onClick={() => likeAPost(postId)}></i>
+                            <i className={`fa-solid fa-thumbs-up like-icon ${isLiked && "text-red-600"}`} onClick={() => likeAPost(postId)}></i>
                             {/* <p>{likesCount.length}</p> */}
-                            <p>{!postLikesData.likesCount ? likesCount.length : postLikesData.likesCount}</p>
+                            <p>{postLikesData ? postLikesData.likesCount : likesCount.length}</p>
                         </div>
                         <div className='w-[50%] flex items-center justify-center gap-2 pl-5 '>
                             <i className="fa-solid fa-comment"></i>

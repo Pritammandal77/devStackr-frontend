@@ -12,13 +12,31 @@ function Home() {
     const mode = useSelector((state) => state.mode.mode)
     const [allPosts, setALLPosts] = useState([])
 
+    const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
+
+    useEffect(() => {
+        if (allPosts.length > 0) {
+            isPostLiked(allPosts);
+        }
+    }, [allPosts]); // will run whenever allPosts is updated
+
+    //this func() checks whether the currentUser liked the post or not 
+    const isPostLiked = (allPosts) => {
+        for (let posts of allPosts) {
+            // console.log("ids in home page", posts.likes)
+            if (posts?.likes.includes(currentUserId)) {
+                console.log(posts?.description)
+            }
+        }
+    }
+
     const getAllPosts = async () => {
         setIsLoading(true)
         try {
             const posts = await axios.get("/api/v1/posts/allposts", {
                 withCredentials: true
             })
-            console.log("allposts", posts.data.data)
+            console.log("allposts", posts.data?.data)
             setALLPosts(posts.data.data)
             if (posts.data.data) {
                 setIsLoading(false)
@@ -51,20 +69,8 @@ function Home() {
                                 postId={data._id}
                                 likesCount={data.likes}
                                 followBtn="true"
+                                isAlreadyLiked={data.likes.includes(currentUserId) && true}
                             />
-                            // <PostCard
-                            //     key={index}
-                            //     authorName={data.author.name}
-                            //     authorProfilePicture={data.author.profilePicture}
-                            //     createdAt={timeAgo(data.createdAt)}
-                            //     postDesc={data.description}
-                            //     postImage={data.image}
-                            //     postId={data._id}
-                            //     likesCount={data.likesCount}      // ✅ backend se array nahi, number bhej
-                            //     likedByUser={data.likedByUser}    // ✅ yeh bhi backend me bhejna padega
-                            //     allPosts={allPosts}               // ✅ new
-                            //     setALLPosts={setALLPosts}         // ✅ new
-                            // />
                         ))
                     ) : (
                         <Loader2 />
