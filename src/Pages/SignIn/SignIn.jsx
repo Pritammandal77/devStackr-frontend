@@ -40,7 +40,18 @@ function SignIn() {
 
         } catch (error) {
             console.error("Login failed:", error.response?.data || error.message);
-            toast.error('something went wrong');
+
+            //this is 3 lines are used, to get the actual text content from the error msg
+            const html = error.response.data;
+            const match = html.match(/Error:(.*?)<br>/i);
+            const message = match ? match[1].trim() : "Something went wrong";
+
+            if (error.message) {
+                toast.error(message);
+            } else {
+                toast.error('something went wrong');
+            }
+
         }
     };
 
@@ -70,12 +81,13 @@ function SignIn() {
                         </div>
                         <div className='w-[100vw] xl:w-[100%] h-[80vh] pt-10 xl:pt-0 flex flex-col items-center justify-center px-8 rounded-t-3xl bg-white xl:rounded-r-3xl'>
                             <h1 className='text-4xl text-center '>Login </h1>
-                            <form action="" className='flex flex-col gap-5 w-[100%] md:w-[60%] xl:w-[90%]'>
+                            <form action="" className='flex flex-col gap-5 w-[100%] md:w-[60%] xl:w-[90%]' onSubmit={handleLogin}>
                                 <div className='flex flex-col'>
                                     <label htmlFor="">Email</label>
                                     <input type="text"
                                         placeholder='Enter your email'
                                         className='bg-gray-300  p-2 rounded-xl'
+                                        required
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)} />
                                 </div>
@@ -84,11 +96,12 @@ function SignIn() {
                                     <input type="text"
                                         placeholder='Enter your password'
                                         className='bg-gray-300  p-2 rounded-xl'
+                                        required
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)} />
                                 </div>
                                 <button className='bg-red-400 p-2 text-l font-bold rounded-2xl cursor-pointer'
-                                    onClick={handleLogin}>
+                                    >
                                     Login
                                 </button>
                                 <div className='text-[16px] text-center'>

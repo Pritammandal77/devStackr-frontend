@@ -8,7 +8,6 @@ function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postI
 
     const [postLikesData, setPostLikesData] = useState(false)
 
-
     const likeAPost = async (postId) => {
         console.log("postID", postId)
         try {
