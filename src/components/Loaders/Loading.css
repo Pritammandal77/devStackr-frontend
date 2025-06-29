@@ -118,3 +118,43 @@
         margin-top: 0;
     }
 }
+
+
+
+
+
+/* Code for Loader3.jsx */
+.spinner3 {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.spinner3::before,
+.spinner3::after {
+    content: "";
+    position: absolute;
+    border-radius: inherit;
+}
+
+.spinner3::before {
+    width: 100%;
+    height: 100%;
+    /* background-image: linear-gradient(0deg, #0f93ff 0%, #ffffff 50%); */
+    animation: spin .5s infinite linear;
+}
+
+.spinner3::after {
+    width: 85%;
+    height: 85%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

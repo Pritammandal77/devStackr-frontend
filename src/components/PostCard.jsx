@@ -3,16 +3,17 @@ import FollowButton from './followButton';
 import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import Loader3 from './Loaders/Loader3';
 
 function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, threeDot, followBtn, isAlreadyLiked }) {
 
     const [postLikesData, setPostLikesData] = useState(false)
-
+    const [isLoading, setIsLoading] = useState(false)
     //storing the value isPostLiked
     const [isLiked, setIsLiked] = useState(isAlreadyLiked);
 
     const likeAPost = async (postId) => {
-        console.log("postID", postId)
+        setIsLoading(true)
         try {
             const response = await axios.put("/api/v1/posts/likes", { postId: postId })
             console.log("like data at post card", response.data.data)
@@ -24,6 +25,8 @@ function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postI
             }
         } catch (error) {
             console.log("Failed to like the posts", error)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -43,7 +46,7 @@ function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postI
                                 <p className='text-[15px]'>{createdAt}</p>
                             </div>
                         </div>
- 
+
                         {threeDot && <i className="fa-solid fa-ellipsis-vertical font-bold p-4 cursor-pointer"></i>}
                         {followBtn && <FollowButton />}
                     </div>
@@ -56,7 +59,10 @@ function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postI
                     </div>
 
                     <div className='flex flex-row w-full'>
-                        <div className='w-[50%] flex items-center justify-center gap-2 pl-5 '>
+                        <div className='w-[50%] flex items-center justify-center gap-2 pl-5 relative'>
+                            <div className='absolute left-5'>
+                                {isLoading && <Loader3 />}
+                            </div>
                             <i className={`fa-solid fa-thumbs-up cursor-pointer like-icon ${isLiked && "text-white bg-blue-600 p-2 rounded-full"}`} onClick={() => likeAPost(postId)}></i>
                             {/* <p>{likesCount.length}</p> */}
                             <p>{postLikesData ? postLikesData.likesCount : likesCount.length}</p>

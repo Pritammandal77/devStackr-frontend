@@ -88,7 +88,7 @@ function Header() {
             <li className='absolute top-2 right-2 lg:right-5 text-[22px] font-bold md:hidden cursor-pointer' onClick={handleOpenHamburger}>
               <HiOutlineMenuAlt3 onClick={handleOpenHamburger} className='cursor-pointer' />
             </li>
-            <li className='cursor-pointer hidden xl:flex text-[18px]'> 
+            <li className='cursor-pointer hidden xl:flex text-[18px]'>
               <i className="fa-solid fa-paper-plane"></i>
             </li>
           </ul>
