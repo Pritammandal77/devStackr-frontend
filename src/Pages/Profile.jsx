@@ -36,16 +36,6 @@ function Profile() {
 
     console.log('posts', posts[0])
 
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        setTimeout(() => {
-            if (!currentUserData) {
-                navigate("/signin");
-            }
-        }, 7000);
-    }, []);
-
     return (
         <>
             {
@@ -61,7 +51,7 @@ function Profile() {
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] h-10  lg:text-center flex flex-row justify-between text-black px-10'>
                             <img src={currentUserData.profilePicture ? currentUserData.profilePicture : "/defaultpfp.png"} alt=""
                                 className='w-30 h-30 md:w-40 md:h-40 lg:h-50 lg:w-50 rounded-full relative bottom-15 md:bottom-20' />
-                            
+
                         </div>
 
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 mt-5 lg:mt-20'>
@@ -113,7 +103,9 @@ function Profile() {
                                             postDesc={data.description}
                                             postImage={data.image}
                                             likesCount={data.likes}
+                                            postId={data._id}
                                             threeDot="true"
+                                            isAlreadyLiked={data.likes.includes(currentUserData._id) && true}
                                         />
                                     ))
                                 }

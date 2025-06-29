@@ -57,7 +57,7 @@ function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postI
 
                     <div className='flex flex-row w-full'>
                         <div className='w-[50%] flex items-center justify-center gap-2 pl-5 '>
-                            <i className={`fa-solid fa-thumbs-up like-icon ${isLiked && "text-red-600"}`} onClick={() => likeAPost(postId)}></i>
+                            <i className={`fa-solid fa-thumbs-up cursor-pointer like-icon ${isLiked && "text-white bg-blue-600 p-2 rounded-full"}`} onClick={() => likeAPost(postId)}></i>
                             {/* <p>{likesCount.length}</p> */}
                             <p>{postLikesData ? postLikesData.likesCount : likesCount.length}</p>
                         </div>

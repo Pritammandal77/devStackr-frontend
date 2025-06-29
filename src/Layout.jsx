@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Header from './components/Header';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import BottomMenu from './components/BottomMenu';
 import axios from "axios"
 import { useDispatch } from 'react-redux';
@@ -10,6 +10,7 @@ import SideBar from './components/SideBar';
 function Layout() {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const getUserData = async () => {
@@ -25,6 +26,7 @@ function Layout() {
                 }
             } catch (err) {
                 console.log("User not logged in", err.message);
+                navigate("/signup")
             }
         };
 
