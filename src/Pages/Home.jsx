@@ -36,7 +36,7 @@ function Home() {
             const posts = await axios.get("/api/v1/posts/allposts", {
                 withCredentials: true
             })
-            console.log("allposts", posts.data?.data)
+            // console.log("allposts", posts.data?.data)
             setALLPosts(posts.data.data)
             if (posts.data.data) {
                 setIsLoading(false)

@@ -11,6 +11,8 @@ function OtherUserProfile() {
     const { id } = useParams();
     console.log(id)
 
+    const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
+
     const [userData, setUserData] = useState([])
     const [userPostsIds, setUserPostsIds] = useState([])
     const [allPosts, setAllPosts] = useState([])
@@ -19,20 +21,21 @@ function OtherUserProfile() {
         try {
             const res = await axios.get(`/api/v1/users/${id}`);
             setUserData(res.data.data)
+            // console.log('other user profile', res.data.data);
             setUserPostsIds(res.data?.data?.posts)
         } catch (err) {
             console.error("Error fetching user profile:", err.message);
         }
     }
 
-    console.log("User profile:", userData);
+    // console.log("User profile dfsdfgfg:", userData._id);
 
     const getUserPostsById = async (userPostsIds) => {
         try {
             const res = await axios.post("/api/v1/posts/userpostsbyid", {
                 postIds: userPostsIds
             });
-            console.log('other user data posts', res.data.data);
+            // console.log('other user data posts', res.data.data[0]._id);
             setAllPosts(res.data.data)
         } catch (error) {
             console.error("Error while fetching user posts:", error.message);
@@ -118,11 +121,13 @@ function OtherUserProfile() {
                                             postDesc={data.description}
                                             postImage={data.image}
                                             likesCount={data.likes}
+                                            postId={data._id}
+                                            threeDot="true"
+                                            isAlreadyLiked={data.likes.includes(currentUserId) && true}
                                         />
                                     ))
                                 }
                             </div>
-
                         </div>
                     </div>
                 ) : (

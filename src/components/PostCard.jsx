@@ -43,7 +43,7 @@ function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postI
                                 <p className='text-[15px]'>{createdAt}</p>
                             </div>
                         </div>
-
+ 
                         {threeDot && <i className="fa-solid fa-ellipsis-vertical font-bold p-4 cursor-pointer"></i>}
                         {followBtn && <FollowButton />}
                     </div>
