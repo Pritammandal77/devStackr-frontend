@@ -8,8 +8,9 @@ import { FormatTime } from '../utils/FormatTime';
 
 function OtherUserProfile() {
 
+    //we are getting the id of user from parameter (react router's route)
     const { id } = useParams();
-    console.log(id)
+    // console.log(id)
 
     const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
 

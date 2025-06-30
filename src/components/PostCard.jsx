@@ -4,11 +4,16 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Loader3 from './Loaders/Loader3';
+import Button from './Button';
+import { useNavigate } from 'react-router-dom';
 
-function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, threeDot, followBtn, isAlreadyLiked }) {
+function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, threeDot, followBtn, isAlreadyLiked }) {
+
+    const navigate = useNavigate()
 
     const [postLikesData, setPostLikesData] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+
     //storing the value isPostLiked
     const [isLiked, setIsLiked] = useState(isAlreadyLiked);
 
@@ -34,12 +39,15 @@ function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postI
         <>
             <div className='w-[100vw] h-auto flex flex-col items-center p-2'>
 
-                <div className='w-[100%] md:w-[80%] lg:w-[45vw] flex flex-col gap-3 p-2 border-1 border-gray-600 rounded-[5px]'>
+                <div className='w-[100%] md:w-[80%] lg:w-[40vw] flex flex-col gap-3 p-2 border-1 border-gray-600 rounded-[5px]'>
 
                     <div className='flex flex-row items-center justify-between'>
                         <div className='flex flex-row gap-2 items-center'>
                             <img src={authorProfilePicture} alt=""
-                                className='h-10 w-10 rounded-full'
+                                className='h-10 w-10 rounded-full cursor-pointer'
+                                onClick={() => {
+                                    navigate(`/user/${authorUserId}`);     // Navigate
+                                }}
                             />
                             <div className='flex flex-col '>
                                 <p className='text-[18px]'>{authorName}</p>
@@ -71,6 +79,18 @@ function PostCard({ authorName, authorProfilePicture, createdAt, postDesc, postI
                             <i className="fa-solid fa-comment"></i>
                             <p>231</p>
                         </div>
+                    </div>
+                    <div className=''>
+                        <hr className='w-[80%] text-gray-300 self-center mt-2 mx-auto' />
+                        <div className='flex flex-col gap-2'>
+                            <textarea name=""
+                                placeholder='Add a comment...'
+                                id=""
+                                className='mt-4 border-1 w-full md:w-[100%] h-[100px] text-[17px] md:text-[18px] resize-none overflow-y-auto p-3 rounded-md text-sm border-gray-500'
+                            ></textarea>
+                            <button className='h-8 w-25 text-[16px] text-gray-200 bg-blue-500 hover:bg-blue-600 flex items-center justify-center rounded-xl cursor-pointer'>Comment</button>
+                        </div>
+
                     </div>
                 </div>
             </div>
