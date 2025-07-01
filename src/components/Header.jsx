@@ -9,11 +9,14 @@ import { setMode } from '../features/ToggleMode';
 import axios from 'axios';
 import axiosInstance from '../utils/axiosInstance';
 import { toast } from 'sonner';
+import Loader2 from './Loaders/Loader2';
 
 function Header() {
 
   // const hamburgerDiv = document.querySelector(".hamburgerDiv")
   const hamburgerRef = useRef()
+
+  const [isLoading, setIsLoading] = useState("")
 
   const handleOpenHamburger = () => {
     console.log("Hello")
@@ -48,8 +51,8 @@ function Header() {
     document.body.style.color = "#000"
   }
 
-
   const handleLogout = async () => {
+    setIsLoading(true)
     try {
       console.log("Logging out user...");
       const res = await axiosInstance.post('/api/v1/users/logout', {
@@ -58,9 +61,12 @@ function Header() {
       console.log('User logged out:', res.data);
       if (res.data.statusCode == 200) {
         toast("Logged out successfully")
+        location.reload();   //this will refresh the automatically website
       }
     } catch (error) {
       console.error('Logout error:', error.response?.data || error.message);
+    } finally {
+      setIsLoading(false)
     }
   };
 
@@ -195,6 +201,11 @@ function Header() {
           </li>
         </ul>
       </div>
+
+      {
+        isLoading && <Loader2 />
+      }
+
     </>
   );
 }

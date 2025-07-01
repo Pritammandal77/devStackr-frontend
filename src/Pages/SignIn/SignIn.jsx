@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import axiosInstance from '../../utils/axiosInstance';
+import Loader2 from '../../components/Loaders/Loader2';
 
 function SignIn() {
 
@@ -12,9 +13,12 @@ function SignIn() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
+    const [isLoading, setIsLoading] = useState(false)
+
     // console.log(email)
 
     const loginUser = async (email, password) => {
+        setIsLoading(true)
         try {
             const response = await axiosInstance.post(
                 "/api/v1/users/login", // Change URL accordingly
@@ -51,6 +55,8 @@ function SignIn() {
                 toast.error('something went wrong');
             }
 
+        } finally {
+            setIsLoading(false)
         }
     };
 
@@ -100,7 +106,7 @@ function SignIn() {
                                         onChange={(e) => setPassword(e.target.value)} />
                                 </div>
                                 <button className='bg-red-400 p-2 text-l font-bold rounded-2xl cursor-pointer'
-                                    >
+                                >
                                     Login
                                 </button>
                                 <div className='text-[16px] text-center'>
@@ -112,8 +118,11 @@ function SignIn() {
                         </div>
                     </div>
                 </div>
-
             </div>
+            
+            {
+                isLoading && <Loader2 />
+            }
         </>
     );
 }

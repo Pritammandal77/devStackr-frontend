@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { setCurrentUserData, setIsLoggedIn } from '../../features/UserProfileData';
 import { toast } from 'sonner';
 import axiosInstance from '../../utils/axiosInstance';
+import Loader2 from '../../components/Loaders/Loader2';
 
 function SignUp() {
 
@@ -15,9 +16,12 @@ function SignUp() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
+    const [isLoading, setIsLoading] = useState("")
+
+
     const registerUser = async (e, name, userName, email, password) => {
         e.preventDefault()
-
+        setIsLoading(true)
         try {
             console.log("creating user")
             const user = await axiosInstance.post("/api/v1/users/register",
@@ -57,6 +61,8 @@ function SignUp() {
             } else {
                 toast.error('something went wrong');
             }
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -134,8 +140,12 @@ function SignUp() {
                         </div>
                     </div>
                 </div>
-
             </div>
+
+            {
+                isLoading && <Loader2 />
+            }
+
         </>
     );
 }
