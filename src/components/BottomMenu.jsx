@@ -5,7 +5,8 @@ import { NavLink } from 'react-router-dom';
 function BottomMenu() {
 
     const mode = useSelector((state) => state.mode.mode)
-
+    const currentUserData = useSelector((state) => state.userData?.currentUserData.data)
+    console.log("userdata at bottomenu", currentUserData)
     return (
         <>
             <nav className={`w-[100vw] fixed bottom-0 h-12 flex items-center justify-center z-[50] xl:hidden
@@ -38,7 +39,7 @@ function BottomMenu() {
                     <li className='flex items-center justify-center'>
                         <NavLink to="/profile"
                             className={({ isActive }) => (isActive && "text-[#3f0064] font-bold border-2 rounded-full ")}>
-                            <img src="/myNewDp.jpg" alt=""
+                            <img src={currentUserData?.profilePicture} alt=""
                                 className='h-9 w-9 rounded-full' />
                         </NavLink>
                     </li>

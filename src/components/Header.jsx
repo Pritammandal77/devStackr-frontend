@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setMode } from '../features/ToggleMode';
 import axios from 'axios';
 import axiosInstance from '../utils/axiosInstance';
+import { toast } from 'sonner';
 
 function Header() {
 
@@ -55,6 +56,9 @@ function Header() {
         withCredentials: true
       });
       console.log('User logged out:', res.data);
+      if (res.data.statusCode == 200) {
+        toast("Logged out successfully")
+      }
     } catch (error) {
       console.error('Logout error:', error.response?.data || error.message);
     }

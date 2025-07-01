@@ -44,7 +44,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
 
                     <div className='flex flex-row items-center justify-between'>
                         <div className='flex flex-row gap-2 items-center'>
-                            <img src={authorProfilePicture} alt=""
+                            <img src={authorProfilePicture ? authorProfilePicture : "/defaultpfp.png"} alt=""
                                 className='h-10 w-10 rounded-full cursor-pointer'
                                 onClick={() => {
                                     navigate(`/user/${authorUserId}`);     // Navigate
