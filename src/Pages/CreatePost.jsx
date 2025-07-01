@@ -4,6 +4,7 @@ import axios from 'axios';
 import Loader2 from '../components/Loaders/Loader2';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../utils/axiosInstance';
 
 function CreatePost() {
 
@@ -44,7 +45,7 @@ function CreatePost() {
 
     try {
       console.log("Creating post")
-      const res = await axios.post('/api/v1/posts/createpost', formData, {
+      const res = await axiosInstance.post('/api/v1/posts/createpost', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

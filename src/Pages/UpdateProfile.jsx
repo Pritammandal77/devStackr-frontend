@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { toast } from 'sonner';
 import Loader2 from '../components/Loaders/Loader2';
+import axiosInstance from '../utils/axiosInstance';
 
 function UpdateProfile() {
 
@@ -66,7 +67,7 @@ function UpdateProfile() {
 
         try {
             console.log("updating profile")
-            const res = await axios.post('/api/v1/users/updateUserAboutData', formData, {
+            const res = await axiosInstance.post('/api/v1/users/updateUserAboutData', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

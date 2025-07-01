@@ -4,13 +4,12 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import Hamburger from './Hamburger';
 import { useRef } from 'react';
 import { BiLogOut } from "react-icons/bi";
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMode } from '../features/ToggleMode';
 import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance';
 
 function Header() {
-
 
   // const hamburgerDiv = document.querySelector(".hamburgerDiv")
   const hamburgerRef = useRef()
@@ -52,7 +51,7 @@ function Header() {
   const handleLogout = async () => {
     try {
       console.log("Logging out user...");
-      const res = await axios.post('/api/v1/users/logout', {
+      const res = await axiosInstance.post('/api/v1/users/logout', {
         withCredentials: true
       });
       console.log('User logged out:', res.data);

@@ -6,6 +6,7 @@ import axios from "axios"
 import { useDispatch } from 'react-redux';
 import { setCurrentUserData, setIsLoggedIn } from './features/UserProfileData';
 import SideBar from './components/SideBar';
+import axiosInstance from './utils/axiosInstance';
 
 function Layout() {
 
@@ -15,7 +16,7 @@ function Layout() {
     useEffect(() => {
         const getUserData = async () => {
             try {
-                const res = await axios.get("/api/v1/users/getCurrentUser", {
+                const res = await axiosInstance.get("/api/v1/users/getCurrentUser", {
                     withCredentials: true,
                 });
 
@@ -23,6 +24,7 @@ function Layout() {
                 dispatch(setCurrentUserData(res.data))
                 if (res.data.statusCode == 200) {
                     dispatch(setIsLoggedIn("true"))
+                    navigate("/")
                 }
             } catch (err) {
                 console.log("User not logged in", err.message);

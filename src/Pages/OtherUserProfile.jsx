@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import FollowButton from '../components/followButton';
 import PostCard from '../components/PostCard';
 import { FormatTime } from '../utils/FormatTime';
+import axiosInstance from '../utils/axiosInstance';
 
 function OtherUserProfile() {
 
@@ -20,9 +21,9 @@ function OtherUserProfile() {
 
     const getUserProfileById = async (id) => {
         try {
-            const res = await axios.get(`/api/v1/users/${id}`);
+            const res = await axiosInstance.get(`/api/v1/users/${id}`);
             setUserData(res.data.data)
-            // console.log('other user profile', res.data.data);
+            console.log('other user profile', res.data.data._id);
             setUserPostsIds(res.data?.data?.posts)
         } catch (err) {
             console.error("Error fetching user profile:", err.message);
@@ -33,7 +34,7 @@ function OtherUserProfile() {
 
     const getUserPostsById = async (userPostsIds) => {
         try {
-            const res = await axios.post("/api/v1/posts/userpostsbyid", {
+            const res = await axiosInstance.post("/api/v1/posts/userpostsbyid", {
                 postIds: userPostsIds
             });
             // console.log('other user data posts', res.data.data[0]._id);
@@ -70,7 +71,9 @@ function OtherUserProfile() {
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] h-10  lg:text-center flex flex-row justify-between text-black px-10'>
                             <img src={userData.profilePicture ? userData.profilePicture : "/defaultpfp.png"} alt=""
                                 className='w-30 h-30 md:w-40 md:h-40 lg:h-50 lg:w-50 rounded-full relative bottom-15 md:bottom-20' />
-                            <FollowButton />
+                            {
+                                currentUserId != userData._id && <FollowButton />    //means , if our currentLoggedInUserId != the otherUserId then show this followBtn
+                            }
                         </div>
 
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 mt-5 lg:mt-20'>

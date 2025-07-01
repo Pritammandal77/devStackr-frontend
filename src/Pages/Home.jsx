@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import axios from "axios"
 import Loader2 from '../components/Loaders/Loader2';
 import { FormatTime } from '../utils/FormatTime';
+import axiosInstance from '../utils/axiosInstance';
 
 function Home() {
 
@@ -32,7 +33,7 @@ function Home() {
     const getAllPosts = async () => {
         setIsLoading(true)
         try {
-            const posts = await axios.get("/api/v1/posts/allposts", {
+            const posts = await axiosInstance.get("/api/v1/posts/allposts", {
                 withCredentials: true
             })
             console.log("allposts", posts.data?.data)

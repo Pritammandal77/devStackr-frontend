@@ -8,6 +8,7 @@ import Loader1 from '../components/Loaders/Loader1';
 import Loader2 from '../components/Loaders/Loader2';
 import { useNavigate } from 'react-router-dom';
 import { FormatTime } from '../utils/FormatTime';
+import axiosInstance from '../utils/axiosInstance';
 
 function Profile() {
 
@@ -19,7 +20,7 @@ function Profile() {
     useEffect(() => {
         const getUserPosts = async () => {
             try {
-                const res = await axios.get("/api/v1/posts/getCurrentUserPosts", {
+                const res = await axiosInstance.get("/api/v1/posts/getCurrentUserPosts", {
                     withCredentials: true,
                 });
 

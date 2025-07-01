@@ -1,10 +1,9 @@
 import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-// import { setUserData } from '../../features/UserProfileData';
 import { toast } from 'sonner';
+import axiosInstance from '../../utils/axiosInstance';
 
 function SignIn() {
 
@@ -17,7 +16,7 @@ function SignIn() {
 
     const loginUser = async (email, password) => {
         try {
-            const response = await axios.post(
+            const response = await axiosInstance.post(
                 "/api/v1/users/login", // Change URL accordingly
                 {
                     email,

@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import Loader3 from './Loaders/Loader3';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../utils/axiosInstance';
 
 function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, threeDot, followBtn, isAlreadyLiked }) {
 
@@ -20,7 +21,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
     const likeAPost = async (postId) => {
         setIsLoading(true)
         try {
-            const response = await axios.put("/api/v1/posts/likes", { postId: postId })
+            const response = await axiosInstance.put("/api/v1/posts/likes", { postId: postId })
             console.log("like data at post card", response.data.data)
             setPostLikesData(response.data.data)
             if (isLiked == true) {

@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { setMode } from '../features/ToggleMode';
 import axios from 'axios';
 import { toast } from 'sonner';
+import axiosInstance from '../utils/axiosInstance';
 
 function SideBar() {
     const userData = useSelector((state) => state.userData?.currentUserData?.data)
@@ -36,7 +37,7 @@ function SideBar() {
         }
         try {
             console.log("Logging out user...");
-            const res = await axios.post('/api/v1/users/logout', {
+            const res = await axiosInstance.post('/api/v1/users/logout', {
                 withCredentials: true
             });
             console.log('User logged out:', res.data);
@@ -61,7 +62,7 @@ function SideBar() {
                                     <p className='text-[16px]'>{userData.userName ? userData.userName : "User@123"}</p>
                                 </div>
                             </NavLink>
-                            <hr className='text-[#daaf99] ' />
+                            <hr className='text-[#535353] ' />
                         </li>
                     }
                     <NavLink

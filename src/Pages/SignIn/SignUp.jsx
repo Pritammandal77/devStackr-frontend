@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { setCurrentUserData, setIsLoggedIn } from '../../features/UserProfileData';
 import { toast } from 'sonner';
+import axiosInstance from '../../utils/axiosInstance';
 
 function SignUp() {
 
@@ -19,7 +20,7 @@ function SignUp() {
 
         try {
             console.log("creating user")
-            const user = await axios.post("/api/v1/users/register",
+            const user = await axiosInstance.post("/api/v1/users/register",
                 {
                     name,
                     userName,

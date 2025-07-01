@@ -6,6 +6,7 @@ import FollowButton from '../components/followButton';
 import Loader2 from '../components/Loaders/Loader2';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../utils/axiosInstance';
 
 function Allusers() {
 
@@ -16,7 +17,7 @@ function Allusers() {
 
     const getAllUsers = async () => {
         try {
-            const users = await axios.get("/api/v1/users/allusers")
+            const users = await axiosInstance.get("/api/v1/users/allusers")
             console.log(users.data)
             setAllUsers(users.data.data)
         } catch (error) {
@@ -28,7 +29,7 @@ function Allusers() {
         getAllUsers()
     }, []);
 
-    
+
     return (
         <>
             <div className='py-20 w-[100vw] xl:w-[80vw] absolute right-0 flex flex-col items-center gap-5'>
@@ -45,7 +46,7 @@ function Allusers() {
                                     <img src={data.profilePicture}
                                         alt="sorry , the image can't be loaded"
                                         className='h-19 w-19 md:h-20 md:w-20 rounded-full'
-                                       />
+                                    />
                                 </div>
                                 <div className='flex flex-col justify-between w-[60%] lg:w-[35%]'>
                                     <p className='text-[18px] font-semibold'>{data.name}</p>
