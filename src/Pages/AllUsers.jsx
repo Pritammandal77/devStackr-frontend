@@ -43,7 +43,7 @@ function Allusers() {
                                 }}
                                 className='w-[90%] md:w-[80%] lg:w-[55vw] xl:w-[45vw] h-25 flex items-center gap-2 border-1 border-gray-600 rounded-2xl relative px-2'>
                                 <div className='h-25 flex items-center justify-center w-[25%] md:w-[20%] lg:w-[20%] xl:w-[15%]'>
-                                    <img src={data.profilePicture}
+                                    <img src={data.profilePicture ? data.profilePicture : "/defaultpfp.png"}
                                         alt="sorry , the image can't be loaded"
                                         className='h-19 w-19 md:h-20 md:w-20 rounded-full'
                                     />
