@@ -16,6 +16,7 @@ import Loader1 from './components/Loaders/Loader1'
 import ProtectedRoute from './components/ProtectedRoute'
 import { Toaster } from 'sonner';
 import OtherUserProfile from './Pages/OtherUserProfile'
+import FollowersList from './Pages/FollowersList'
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
         <Route path="/loader1" element={<Loader1 />}></Route>
         <Route path="/hii" element={<ProtectedRoute />}></Route>
         <Route path="/user/:id" element={<OtherUserProfile />}></Route>
+        <Route path="followerslist/:id" element={<FollowersList />}></Route>
       </Route>
     )
   )

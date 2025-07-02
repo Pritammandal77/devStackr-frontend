@@ -1,25 +1,27 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import FollowButton from '../components/followButton';
 import PostCard from '../components/PostCard';
 import { FormatTime } from '../utils/FormatTime';
 import axiosInstance from '../utils/axiosInstance';
-import { followUser, unFollowUser } from '../utils/FollowUnFollowUser';
-
+import { followUser, getFollowersList, unFollowUser } from '../utils/FollowUnFollowUser';
 
 function OtherUserProfile() {
 
     //we are getting the id of user from parameter (react router's route)
     const { id } = useParams();
-    // console.log(id)
 
     const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
 
     const [userData, setUserData] = useState([])
     const [userPostsIds, setUserPostsIds] = useState([])
     const [allPosts, setAllPosts] = useState([])
+
+    const [followersList, setFollowersList] = useState(null)        //storing the followers list array
+
+    const [isAlreadyFollowing, setIsAlreadyFollowing] = useState()
 
     const getUserProfileById = async (id) => {
         try {
@@ -31,8 +33,6 @@ function OtherUserProfile() {
             console.error("Error fetching user profile:", err.message);
         }
     }
-
-    // console.log("User profile dfsdfgfg:", userData._id);
 
     const getUserPostsById = async (userPostsIds) => {
         try {
@@ -46,17 +46,45 @@ function OtherUserProfile() {
         }
     };
 
-    FormatTime()
+    //fetching the list of follwers
+    const FetchFollowersList = async (id) => {
+        let followers = await getFollowersList(id);
+        console.log("sfdgesgergserdgrsgrg", followers)
+        setFollowersList(followers)
+    }
 
     useEffect(() => {
         getUserProfileById(id);
+        FetchFollowersList(id)
+        FormatTime()
     }, [id]);
 
     useEffect(() => {
         if (userPostsIds.length > 0) {
             getUserPostsById(userPostsIds);
         }
-    }, [userPostsIds]);
+    }, [userPostsIds, followersList]);
+
+
+    const handleFollow = async () => {
+        await followUser(id);                 // API call
+        await FetchFollowersList(id);        // Refresh followers list
+    }
+
+    const handleUnFollow = async () => {
+        await unFollowUser(id);              // API call
+        await FetchFollowersList(id);        // Refresh followers list
+    }
+
+    //checking is the followerslist contains the currentUserId
+    useEffect(() => {
+        if (followersList) {
+            const isFollowing = followersList.some(
+                (data) => data.follower._id.toString() === currentUserId
+            );
+            setIsAlreadyFollowing(isFollowing);
+        }
+    }, [followersList, currentUserId]);
 
 
     return (
@@ -75,12 +103,17 @@ function OtherUserProfile() {
                             <img src={userData.profilePicture ? userData.profilePicture : "/defaultpfp.png"} alt=""
                                 className='w-30 h-30 md:w-40 md:h-40 lg:h-50 lg:w-50 rounded-full relative bottom-15 md:bottom-20' />
                             {
-                                currentUserId != userData._id &&
-                                <button className='h-8 w-20 bg-blue-400 p-2 rounded-2xl flex items-center justify-center'
-                                    onClick={() => followUser(id)}>Follow</button>    //means , if our currentLoggedInUserId != the otherUserId then show this followBtn
+                                isAlreadyFollowing ?
+                                    (
+                                        currentUserId != userData._id &&
+                                        <FollowButton onClick={handleUnFollow} text="unfollow" />
+                                    )
+                                    :
+                                    (
+                                        currentUserId != userData._id &&   //means , if our currentLoggedInUserId != the otherUserId then show this followBtn
+                                        <FollowButton onClick={handleFollow} text="follow"/>
+                                    )
                             }
-                            <button className='h-8 w-20 bg-blue-400 p-2 rounded-2xl flex items-center justify-center'
-                                onClick={() => unFollowUser(id)}>unfollow</button>
                         </div>
 
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 mt-5 lg:mt-20'>
@@ -88,7 +121,9 @@ function OtherUserProfile() {
                             <p className='text-[16px] md:text-[20px] font-semibold'>{userData.userName}</p>
                             <p className='text-[20px]'>{userData.bio}</p>
                             <div className='flex flex-row items-center gap-10 md:gap-15 w-[90%] md:w-[50%] py-5'>
-                                <p className='text-[18px] md:text-[20px] text-blue-500 font-semibold py-1 px-2 rounded-[10px]' >499 followers</p>
+                                <NavLink to={`/followerslist/${id}`}>
+                                    <p className='text-[18px] md:text-[20px] text-blue-500 font-semibold py-1 px-2 rounded-[10px]' >{followersList ? followersList.length : 0} followers</p>
+                                </NavLink>
                                 <p className='text-[18px] md:text-[20px] text-blue-500 font-semibold py-1 px-2 rounded-[10px]'>198 following</p>
                             </div>
                             <div className='flex gap-5'>

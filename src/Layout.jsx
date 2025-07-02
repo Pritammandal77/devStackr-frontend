@@ -24,7 +24,7 @@ function Layout() {
                 dispatch(setCurrentUserData(res.data))
                 if (res.data.statusCode == 200) {
                     dispatch(setIsLoggedIn("true"))
-                    navigate("/")
+                    // navigate("/")
                 }
             } catch (err) {
                 console.log("User not logged in", err.message);
