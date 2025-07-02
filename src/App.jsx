@@ -17,6 +17,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import { Toaster } from 'sonner';
 import OtherUserProfile from './Pages/OtherUserProfile'
 import FollowersList from './Pages/FollowersList'
+import FollowingsList from './Pages/FollowingsList'
 
 function App() {
 
@@ -36,7 +37,8 @@ function App() {
         <Route path="/loader1" element={<Loader1 />}></Route>
         <Route path="/hii" element={<ProtectedRoute />}></Route>
         <Route path="/user/:id" element={<OtherUserProfile />}></Route>
-        <Route path="followerslist/:id" element={<FollowersList />}></Route>
+        <Route path="/followerslist/:id" element={<FollowersList />}></Route>
+        <Route path="/followingslist/:id" element={<FollowingsList />}></Route>
       </Route>
     )
   )
@@ -53,7 +55,7 @@ function App() {
             borderRadius: '10px',
             background: '#111',
             color: '#fff',
-            fontSize : "15px"
+            fontSize: "15px"
           },
           success: {
             style: { background: '#16a34a' }, // green

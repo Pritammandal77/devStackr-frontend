@@ -6,16 +6,20 @@ import { useState } from 'react';
 import PostCard from '../components/PostCard';
 import Loader1 from '../components/Loaders/Loader1';
 import Loader2 from '../components/Loaders/Loader2';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { FormatTime } from '../utils/FormatTime';
 import axiosInstance from '../utils/axiosInstance';
+import { getFollowersList, getFollowingsList } from '../utils/FollowUnFollowUser';
 
 function Profile() {
 
     const currentUserData = useSelector((state) => state.userData?.currentUserData.data)
-    console.log("user data at profile", currentUserData)
+    console.log("user data at profile", currentUserData?._id)
 
     const [posts, setPosts] = useState([])
+
+    const [followersList, setFollowersList] = useState(null)
+    const [followingsList, setFollowingsList] = useState(null)
 
     useEffect(() => {
         const getUserPosts = async () => {
@@ -23,9 +27,7 @@ function Profile() {
                 const res = await axiosInstance.get("/api/v1/posts/getCurrentUserPosts", {
                     withCredentials: true,
                 });
-
-                console.log("get user posts", res.data.data)
-                // dispatch(setUserData(res.data))
+                // console.log("get user posts", res.data.data)
                 setPosts(res.data.data)
             } catch (err) {
                 console.log("User not logged ,we can't fetch posts", err.message);
@@ -35,7 +37,31 @@ function Profile() {
         getUserPosts();
     }, []);
 
-    console.log('posts', posts[0])
+
+    const handleFetchFollowerList = async (id) => {
+        // alert(id)
+        let followers = await getFollowersList(id);
+        setFollowersList(followers)
+    }
+
+    const handleFetchFollowingList = async (userId) => {
+        let following = await getFollowingsList(userId)
+        console.log("following list", following)
+        setFollowingsList(following)
+    }
+
+    useEffect(() => {
+        handleFetchFollowerList(currentUserData?._id)
+        handleFetchFollowingList(currentUserData?._id)
+    }, [currentUserData]);
+
+    if (followersList) {
+        console.log("follower list at my profile", followersList)
+    }
+
+    if (followingsList) {
+        console.log("followings list at my profile", followingsList)
+    }
 
     return (
         <>
@@ -60,18 +86,29 @@ function Profile() {
                             <p className='text-[16px] md:text-[20px] font-semibold'>{currentUserData.userName}</p>
                             <p className='text-[20px]'>{currentUserData.bio}</p>
                             <div className='flex flex-row items-center gap-10 md:gap-15 w-[90%] md:w-[50%] py-5'>
-                                <p className='text-[18px] md:text-[20px] text-blue-500 font-semibold py-1 px-2 rounded-[10px]' >499 followers</p>
-                                <p className='text-[18px] md:text-[20px] text-blue-500 font-semibold py-1 px-2 rounded-[10px]'>198 following</p>
+                                <NavLink to={`/followerslist/${currentUserData._id}`}>
+                                    <p className='text-[18px] md:text-[20px] text-blue-500 font-semibold py-1 px-2 rounded-[10px]' >{followersList ? followersList.length : "0"} followers</p>
+                                </NavLink>
+                                <NavLink to={`/followingslist/${currentUserData._id}`}>
+                                    <p className='text-[18px] md:text-[20px] text-blue-500 font-semibold py-1 px-2 rounded-[10px]'>{followingsList ? followingsList.length : "0"} following</p>
+                                </NavLink>
                             </div>
                             <div className='flex gap-5'>
-                                <a href={currentUserData.githubLink} className='text-[16px] text-blue-600 ' target='_blank'>
-                                    github <i className="fa-solid fa-arrow-up-right-from-square"></i>
-                                </a>
-                                <a href={currentUserData.linkedinLink}
-                                    target='_blank'
-                                    className='text-[16px] text-blue-600 '>
-                                    linkedin <i className="fa-solid fa-arrow-up-right-from-square"></i>
-                                </a>
+                                {
+                                    currentUserData.githubLink &&
+                                    <a href={currentUserData.githubLink} className='text-[16px] text-blue-600 ' target='_blank'>
+                                        github <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </a>
+                                }
+
+                                {
+                                    currentUserData.linkedinLink &&
+                                    <a href={currentUserData.linkedinLink}
+                                        target='_blank'
+                                        className='text-[16px] text-blue-600 '>
+                                        linkedin <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </a>
+                                }
                             </div>
                         </div>
 

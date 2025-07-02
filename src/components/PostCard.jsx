@@ -57,7 +57,6 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                         </div>
 
                         {threeDot && <i className="fa-solid fa-ellipsis-vertical font-bold p-4 cursor-pointer"></i>}
-                        {followBtn && <FollowButton />}
                     </div>
 
                     <div className='flex flex-col gap-1'>

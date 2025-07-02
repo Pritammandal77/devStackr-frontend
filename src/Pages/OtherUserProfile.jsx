@@ -6,7 +6,7 @@ import FollowButton from '../components/followButton';
 import PostCard from '../components/PostCard';
 import { FormatTime } from '../utils/FormatTime';
 import axiosInstance from '../utils/axiosInstance';
-import { followUser, getFollowersList, unFollowUser } from '../utils/FollowUnFollowUser';
+import { followUser, getFollowersList, getFollowingsList, unFollowUser } from '../utils/FollowUnFollowUser';
 
 function OtherUserProfile() {
 
@@ -20,6 +20,7 @@ function OtherUserProfile() {
     const [allPosts, setAllPosts] = useState([])
 
     const [followersList, setFollowersList] = useState(null)        //storing the followers list array
+    const [followingsList, setFollowingsList] = useState(null)
 
     const [isAlreadyFollowing, setIsAlreadyFollowing] = useState()
 
@@ -46,16 +47,22 @@ function OtherUserProfile() {
         }
     };
 
-    //fetching the list of follwers
+    //fetching the list of followers
     const FetchFollowersList = async (id) => {
         let followers = await getFollowersList(id);
         console.log("sfdgesgergserdgrsgrg", followers)
         setFollowersList(followers)
     }
 
+    const FetchFollowingsList = async (id) => {
+        let followings = await getFollowingsList(id)
+        setFollowingsList(followings)
+    }
+
     useEffect(() => {
         getUserProfileById(id);
         FetchFollowersList(id)
+        FetchFollowingsList(id)
         FormatTime()
     }, [id]);
 
@@ -111,7 +118,7 @@ function OtherUserProfile() {
                                     :
                                     (
                                         currentUserId != userData._id &&   //means , if our currentLoggedInUserId != the otherUserId then show this followBtn
-                                        <FollowButton onClick={handleFollow} text="follow"/>
+                                        <FollowButton onClick={handleFollow} text="follow" />
                                     )
                             }
                         </div>
@@ -124,7 +131,9 @@ function OtherUserProfile() {
                                 <NavLink to={`/followerslist/${id}`}>
                                     <p className='text-[18px] md:text-[20px] text-blue-500 font-semibold py-1 px-2 rounded-[10px]' >{followersList ? followersList.length : 0} followers</p>
                                 </NavLink>
-                                <p className='text-[18px] md:text-[20px] text-blue-500 font-semibold py-1 px-2 rounded-[10px]'>198 following</p>
+                                <NavLink to={`/followingslist/${id}`}>
+                                    <p className='text-[18px] md:text-[20px] text-blue-500 font-semibold py-1 px-2 rounded-[10px]'>{followingsList ? followingsList.length : 0} following</p>
+                                </NavLink>
                             </div>
                             <div className='flex gap-5'>
                                 {

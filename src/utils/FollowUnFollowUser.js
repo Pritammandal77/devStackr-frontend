@@ -35,4 +35,13 @@ const getFollowersList = async (id) => {
     }
 }
 
-export { followUser, unFollowUser, getFollowersList }
+const getFollowingsList = async (id) => {
+    try {
+        const res = await axiosInstance.get(`/api/v1/follows/followingslist/${id}`)
+        return res.data.data
+    } catch (error) {
+        console.log("error while fetching the followings", error)
+    }
+}
+
+export { followUser, unFollowUser, getFollowersList, getFollowingsList }
