@@ -6,7 +6,6 @@ const followUser = async (userId) => {
         const res = await axiosInstance.post("/api/v1/follows/follow", {
             userToFollow: userId
         })
-        // console.log(res.data.message)
         toast(res.data.message)
     } catch (error) {
         console.log("error while following a user", error)
@@ -18,7 +17,6 @@ const unFollowUser = async (userId) => {
         const res = await axiosInstance.post("/api/v1/follows/unfollow", {
             userToUnfollowId: userId
         })
-        // console.log(res)
         toast(res.data.message)
     } catch (error) {
         console.log("error while unfollwowing the user", error)
@@ -28,7 +26,6 @@ const unFollowUser = async (userId) => {
 const getFollowersList = async (id) => {
     try {
         const res = await axiosInstance.get(`/api/v1/follows/followerslist/${id}`)
-        console.log(res)
         return res.data.data
     } catch (error) {
         console.log("error while fetching the followers", error)

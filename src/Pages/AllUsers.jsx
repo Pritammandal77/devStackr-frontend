@@ -18,7 +18,7 @@ function Allusers() {
     const getAllUsers = async () => {
         try {
             const users = await axiosInstance.get("/api/v1/users/allusers")
-            console.log(users.data)
+            // console.log(users.data)
             setAllUsers(users.data.data)
         } catch (error) {
             console.log("error while fethching all users")

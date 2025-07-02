@@ -9,7 +9,6 @@ import UserCard from '../components/UserCard';
 function FollowingsList() {
 
     const { id } = useParams();
-    console.log("id for followings list", id)
 
     const [followingsList, setFollowingsList] = useState()
 
@@ -22,9 +21,9 @@ function FollowingsList() {
         handleFetchFollowingList(id)
     }, []);
 
-    if (followingsList) {
-        console.log("followings at followers page", followingsList)
-    }
+    // if (followingsList) {
+    //     console.log("followings at followers page", followingsList)
+    // }
 
     return (
         <div className='py-13 flex flex-col xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center'>

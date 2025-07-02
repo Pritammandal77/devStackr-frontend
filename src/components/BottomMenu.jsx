@@ -6,7 +6,7 @@ function BottomMenu() {
 
     const mode = useSelector((state) => state.mode.mode)
     const currentUserData = useSelector((state) => state.userData?.currentUserData.data)
-    console.log("userdata at bottomenu", currentUserData)
+    
     return (
         <>
             <nav className={`w-[100vw] fixed bottom-0 h-12 flex items-center justify-center z-[50] xl:hidden

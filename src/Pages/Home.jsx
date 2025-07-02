@@ -15,28 +15,12 @@ function Home() {
 
     const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
 
-    // useEffect(() => {
-    //     if (allPosts.length > 0) {
-    //         isPostLiked(allPosts);
-    //     }
-    // }, [allPosts]); // will run whenever allPosts is updated
-
-    // // this func() checks whether the currentUser liked the post or not 
-    // const isPostLiked = (allPosts) => {
-    //     for (let posts of allPosts) {
-    //         if (posts?.likes.includes(currentUserId)) {
-    //             console.log(posts?.description)
-    //         }
-    //     }
-    // }
-
     const getAllPosts = async () => {
         setIsLoading(true)
         try {
             const posts = await axiosInstance.get("/api/v1/posts/allposts", {
                 withCredentials: true
             })
-            console.log("allposts", posts.data?.data)
             setALLPosts(posts.data.data)
             if (posts.data.data) {
                 setIsLoading(false)

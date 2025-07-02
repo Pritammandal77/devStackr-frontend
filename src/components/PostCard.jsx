@@ -22,7 +22,6 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
         setIsLoading(true)
         try {
             const response = await axiosInstance.put("/api/v1/posts/likes", { postId: postId })
-            console.log("like data at post card", response.data.data)
             setPostLikesData(response.data.data)
             if (isLiked == true) {
                 setIsLiked(false)

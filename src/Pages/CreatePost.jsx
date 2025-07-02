@@ -21,7 +21,6 @@ function CreatePost() {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
-    console.log(file)
     setImagePreview(URL.createObjectURL(file));
   };
 
@@ -31,7 +30,6 @@ function CreatePost() {
     setVideoPreview(URL.createObjectURL(file));
   };
 
-  console.log(description)
 
   //used to create
   const createNewPost = async (e) => {

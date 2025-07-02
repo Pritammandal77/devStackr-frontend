@@ -14,7 +14,6 @@ import { getFollowersList, getFollowingsList } from '../utils/FollowUnFollowUser
 function Profile() {
 
     const currentUserData = useSelector((state) => state.userData?.currentUserData.data)
-    console.log("user data at profile", currentUserData?._id)
 
     const [posts, setPosts] = useState([])
 
@@ -39,14 +38,12 @@ function Profile() {
 
 
     const handleFetchFollowerList = async (id) => {
-        // alert(id)
         let followers = await getFollowersList(id);
         setFollowersList(followers)
     }
 
     const handleFetchFollowingList = async (userId) => {
         let following = await getFollowingsList(userId)
-        console.log("following list", following)
         setFollowingsList(following)
     }
 
@@ -55,13 +52,13 @@ function Profile() {
         handleFetchFollowingList(currentUserData?._id)
     }, [currentUserData]);
 
-    if (followersList) {
-        console.log("follower list at my profile", followersList)
-    }
+    // if (followersList) {
+    //     console.log("follower list at my profile", followersList)
+    // }
 
-    if (followingsList) {
-        console.log("followings list at my profile", followingsList)
-    }
+    // if (followingsList) {
+    //     console.log("followings list at my profile", followingsList)
+    // }
 
     return (
         <>
