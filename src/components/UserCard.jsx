@@ -2,7 +2,7 @@ import React from 'react';
 import FollowButton from './followButton';
 import { useNavigate } from 'react-router-dom';
 
-function UserCard({ profilePicture, name, userName, bio, id }) {
+function UserCard({ profilePicture, name, userName, bio, id, isFollowBtnVisible }) {
 
     const navigate = useNavigate()
 
@@ -24,14 +24,16 @@ function UserCard({ profilePicture, name, userName, bio, id }) {
             </div>
             <div className='hidden lg:flex flex-col h-[100%] w-[35%] truncate justify-center '>
                 <p className='text-[16px] hidden lg:inline h-10 truncate p-2 text-left' >{bio}</p>
-                {/* <button className='bg-blue-400 h-8 px-2 py-1 text-[16px] rounded-[8px] font-semibold lg:w-[80%] cursor-pointer'>
-                                        Follow
-                                    </button> */}
-                <FollowButton />
+                {
+                    isFollowBtnVisible && <FollowButton />
+                }
+
             </div>
-            <div className='lg:hidden absolute top-2 right-2 bg-blue-400 h-8 w-8 flex items-center justify-center rounded-full'>
-                <i className="fa-solid fa-user-plus text-black"></i>
-            </div>
+            {
+                isFollowBtnVisible && <div className='lg:hidden absolute top-2 right-2 bg-blue-400 h-8 w-8 flex items-center justify-center rounded-full'>
+                    <i className="fa-solid fa-user-plus text-black"></i>
+                </div>
+            }
         </div>
     );
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getFollowersList } from '../utils/FollowUnFollowUser';
 import UserCard from '../components/UserCard';
+import Loader2 from '../components/Loaders/Loader2';
 
 function FollowersList() {
 
@@ -27,7 +28,11 @@ function FollowersList() {
     return (
         <>
             <div className='py-13 flex flex-col xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center'>
-                <h1 className='self-start p-4 text-xl font-semibold'>Followers</h1>
+                {
+                    followersList?.length > 0 &&
+                    <h1 className='self-start p-4 text-xl font-semibold'>Followers</h1>
+                }
+
                 <div className='flex flex-col items-center justify-center gap-3'>
                     {
                         followersList?.length > 0 ?
@@ -41,7 +46,15 @@ function FollowersList() {
                                     bio={data.follower.bio}
                                 />
                             )) :
-                            <h1>No followers</h1>
+                            followersList?.length == 0 ?
+                                (
+                                    <div className='h-[90vh] w-[100vw] flex items-center justify-center'>
+                                        <h1 className='text-2xl font-semibold'>No followers</h1>
+                                    </div>
+                                ) :
+                                (
+                                    <Loader2 />
+                                )
                     }
                 </div>
 
