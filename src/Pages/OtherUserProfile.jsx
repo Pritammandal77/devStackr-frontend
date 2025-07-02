@@ -6,6 +6,8 @@ import FollowButton from '../components/followButton';
 import PostCard from '../components/PostCard';
 import { FormatTime } from '../utils/FormatTime';
 import axiosInstance from '../utils/axiosInstance';
+import { followUser, unFollowUser } from '../utils/FollowUnFollowUser';
+
 
 function OtherUserProfile() {
 
@@ -56,6 +58,7 @@ function OtherUserProfile() {
         }
     }, [userPostsIds]);
 
+
     return (
         <>
             {
@@ -72,8 +75,12 @@ function OtherUserProfile() {
                             <img src={userData.profilePicture ? userData.profilePicture : "/defaultpfp.png"} alt=""
                                 className='w-30 h-30 md:w-40 md:h-40 lg:h-50 lg:w-50 rounded-full relative bottom-15 md:bottom-20' />
                             {
-                                currentUserId != userData._id && <FollowButton />    //means , if our currentLoggedInUserId != the otherUserId then show this followBtn
+                                currentUserId != userData._id &&
+                                <button className='h-8 w-20 bg-blue-400 p-2 rounded-2xl flex items-center justify-center'
+                                    onClick={() => followUser(id)}>Follow</button>    //means , if our currentLoggedInUserId != the otherUserId then show this followBtn
                             }
+                            <button className='h-8 w-20 bg-blue-400 p-2 rounded-2xl flex items-center justify-center'
+                                onClick={() => unFollowUser(id)}>unfollow</button>
                         </div>
 
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 mt-5 lg:mt-20'>
@@ -85,34 +92,46 @@ function OtherUserProfile() {
                                 <p className='text-[18px] md:text-[20px] text-blue-500 font-semibold py-1 px-2 rounded-[10px]'>198 following</p>
                             </div>
                             <div className='flex gap-5'>
-                                <a href={userData.githubLink} className='text-[16px] text-blue-600 ' target='_blank'>
-                                    github <i className="fa-solid fa-arrow-up-right-from-square"></i>
-                                </a>
-                                <a href={userData.linkedinLink}
-                                    target='_blank'
-                                    className='text-[16px] text-blue-600 '>
-                                    linkedin <i className="fa-solid fa-arrow-up-right-from-square"></i>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div className='w-[100%] md:w-[80%] lg:w-[60vw]  p-2 '>
-                            <h1 className='text-[28px] lg:text-[32px]'>About</h1>
-                            <p className='text-[16px] md:text-[18px]'>
-                                {userData.about}
-                            </p>
-                        </div>
-
-                        <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 flex flex-col gap-2'>
-                            <h1 className='text-[28px] lg:text-[32px]'>Skills</h1>
-                            <div className='flex flex-wrap gap-3'>
                                 {
-                                    userData.skills && userData.skills.map((skill, index) => (
-                                        <span className='px-3 py-1 border-2 border-gray-500 rounded-xl' key={index}>{skill}</span>
-                                    ))
+                                    userData.githubLink &&
+                                    <a href={userData.githubLink} className='text-[16px] text-blue-600 ' target='_blank'>
+                                        github <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </a>
+                                }
+                                {
+                                    userData.linkedinLink &&
+                                    <a href={userData.linkedinLink}
+                                        target='_blank'
+                                        className='text-[16px] text-blue-600 '>
+                                        linkedin <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </a>
                                 }
                             </div>
                         </div>
+                        {
+                            userData.about &&
+                            <div className='w-[100%] md:w-[80%] lg:w-[60vw]  p-2 '>
+                                <h1 className='text-[28px] lg:text-[32px]'>About</h1>
+                                <p className='text-[16px] md:text-[18px]'>
+                                    {userData.about}
+                                </p>
+                            </div>
+                        }
+
+                        {
+                            userData.skills &&
+                            <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 flex flex-col gap-2'>
+                                <h1 className='text-[28px] lg:text-[32px]'>Skills</h1>
+                                <div className='flex flex-wrap gap-3'>
+                                    {
+                                        userData.skills && userData.skills.map((skill, index) => (
+                                            <span className='px-3 py-1 border-2 border-gray-500 rounded-xl' key={index}>{skill}</span>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                        }
+
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 flex flex-col gap-2'>
                             <h1 className='text-[28px] lg:text-[32px]'>Posts</h1>
                             <div className='flex flex-col items-center '>
