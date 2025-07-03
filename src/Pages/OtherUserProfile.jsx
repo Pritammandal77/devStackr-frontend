@@ -14,7 +14,7 @@ function OtherUserProfile() {
     const { id } = useParams();
 
     const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
-
+    const mode = useSelector((state) => state.mode.mode)
     const [userData, setUserData] = useState([])
     const [userPostsIds, setUserPostsIds] = useState([])
     const [allPosts, setAllPosts] = useState([])
@@ -94,6 +94,7 @@ function OtherUserProfile() {
     }, [followersList, currentUserId]);
 
 
+
     return (
         <>
             {
@@ -123,19 +124,21 @@ function OtherUserProfile() {
                             }
                         </div>
 
-                        <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 mt-5 lg:mt-20'>
-                            <h1 className='text-[22px] md:text-[28px] font-semibold'>{userData.name}</h1>
-                            <p className='text-[16px] md:text-[20px] font-semibold'>{userData.userName}</p>
-                            <p className='text-[20px]'>{userData.bio}</p>
-                            <div className='flex flex-row items-center gap-10 md:gap-15 w-[90%] md:w-[50%] py-5'>
+                        <div className='w-[100%] md:w-[80%] lg:w-[60vw] mt-5 lg:mt-20 flex flex-col gap-2 px-2'>
+                            <div className='flex flex-col'>
+                                <h1 className='text-[22px] md:text-[28px] font-semibold'>{userData.name}</h1>
+                                <p className='text-[16px] md:text-[20px] font-semibold'>{userData.userName}</p>
+                                <p className='text-[20px]'>{userData.bio}</p>
+                            </div>
+                            <div className='flex flex-row items-center gap-10 md:gap-15 w-[90%] md:w-[50%] mt-1'>
                                 <NavLink to={`/followerslist/${id}`}>
-                                    <p className='text-[18px] md:text-[20px] text-blue-500 font-semibold py-1 px-2 rounded-[10px]' >{followersList ? followersList.length : 0} followers</p>
+                                    <p className={`text-[18px] md:text-[20px] text-blue-500 font-semibold border-1 px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-300' : 'bg-[#1e1e1e]'}`} >{followersList ? followersList.length : 0} followers</p>
                                 </NavLink>
                                 <NavLink to={`/followingslist/${id}`}>
-                                    <p className='text-[18px] md:text-[20px] text-blue-500 font-semibold py-1 px-2 rounded-[10px]'>{followingsList ? followingsList.length : 0} following</p>
+                                    <p className={`{text-[18px] md:text-[20px] text-blue-500 font-semibold border-1 px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-300' : 'bg-[#1e1e1e]'}`}>{followingsList ? followingsList.length : 0} following</p>
                                 </NavLink>
                             </div>
-                            <div className='flex gap-5'>
+                            <div className={`flex gap-5`}>
                                 {
                                     userData.githubLink &&
                                     <a href={userData.githubLink} className='text-[16px] text-blue-600 ' target='_blank'>
@@ -154,8 +157,8 @@ function OtherUserProfile() {
                         </div>
                         {
                             userData.about &&
-                            <div className='w-[100%] md:w-[80%] lg:w-[60vw]  p-2 '>
-                                <h1 className='text-[28px] lg:text-[32px]'>About</h1>
+                            <div className='w-[100%] md:w-[80%] lg:w-[60vw]  px-2'>
+                                <h1 className='text-[28px] lg:text-[32px] '>About</h1>
                                 <p className='text-[16px] md:text-[18px]'>
                                     {userData.about}
                                 </p>
@@ -164,7 +167,7 @@ function OtherUserProfile() {
 
                         {
                             userData.skills &&
-                            <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 flex flex-col gap-2'>
+                            <div className='w-[100%] md:w-[80%] lg:w-[60vw] flex flex-col gap-2 px-2'>
                                 <h1 className='text-[28px] lg:text-[32px]'>Skills</h1>
                                 <div className='flex flex-wrap gap-3'>
                                     {
@@ -176,8 +179,8 @@ function OtherUserProfile() {
                             </div>
                         }
 
-                        <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 flex flex-col gap-2'>
-                            <h1 className='text-[28px] lg:text-[32px]'>Posts</h1>
+                        <div className='w-[100%] md:w-[80%] lg:w-[60vw] flex flex-col gap-2'>
+                            <h1 className='text-[28px] lg:text-[32px] px-2'>Posts</h1>
                             <div className='flex flex-col items-center '>
                                 {
                                     allPosts && allPosts.map((data, index) => (

@@ -77,13 +77,13 @@ function Header() {
           ${mode == 'light' ? 'bg-[#f9ded1]' : 'bg-[#000] text-[#d3d3d3]'}`}>
           <ul className='w-[100%] flex items-center justify-between px-5 mx:px-0  md:justify-evenly md:gap-7'>
             <li className='flex flex-row items-center gap-2 '>
-              <NavLink to="/profile">
-                <img src="/logo1.png" alt=""
-                  className='h-10 w-10 rounded-full cursor-pointer' />
+              <NavLink to="/home">
+                {/* <img src="/logo1.png" alt=""
+                  className='h-10 w-10 rounded-full cursor-pointer' /> */}
+                <p className={`russo-one-regular text-[22px]  ${mode == 'light' ? 'text-black' : 'text-[#d3d3d3]'}`}>
+                  devStackr
+                </p>
               </NavLink>
-              <p className={`russo-one-regular text-[22px]  ${mode == 'light' ? 'text-black' : 'text-[#d3d3d3]'}`}>
-                devStackr
-              </p>
             </li>
             <li className='hidden md:flex flex-row items-center gap-3 '>
               <input type="text" className={` w-[60vw] lg:w-[50vw] h-9 md:h-10 rounded-2xl px-3 text-l ${mode == 'light' ? 'bg-white text-black border-1 border-gray-600' : 'bg-[#2e2e2e] text-white'}`}
