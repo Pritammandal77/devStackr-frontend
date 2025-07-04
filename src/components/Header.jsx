@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate, useNavigation, useSearchParams } from 'react-router-dom';
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import Hamburger from './Hamburger';
 import { useRef } from 'react';
@@ -13,10 +13,13 @@ import Loader2 from './Loaders/Loader2';
 
 function Header() {
 
-  // const hamburgerDiv = document.querySelector(".hamburgerDiv")
   const hamburgerRef = useRef()
+  const navigate = useNavigate()
 
   const [isLoading, setIsLoading] = useState("")
+  const [searchInput, setSearchInput] = useState(null)
+
+  console.log(searchInput)
 
   const handleOpenHamburger = () => {
     console.log("Hello")
@@ -70,6 +73,11 @@ function Header() {
     }
   };
 
+  //it will redirect to search page ,with the searchInput url i.e => /search?query=searchInput
+  const handleSearchUser = (searchInput) => {
+    navigate(`/search?query=${encodeURIComponent(searchInput)}`);
+  };
+
   return (
     <>
       <header>
@@ -87,9 +95,11 @@ function Header() {
             </li>
             <li className='hidden md:flex flex-row items-center gap-3 '>
               <input type="text" className={` w-[60vw] lg:w-[50vw] h-9 md:h-10 rounded-2xl px-3 text-l ${mode == 'light' ? 'bg-white text-black border-1 border-gray-600' : 'bg-[#2e2e2e] text-white'}`}
-                placeholder='search...'
+                placeholder='Enter name or username of a user...'
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
               />
-              <i className="fa-solid fa-magnifying-glass text-2xl"></i>
+              <i className="fa-solid fa-magnifying-glass cursor-pointer text-2xl hover:text-blue-500" onClick={() => handleSearchUser(searchInput)}></i>
             </li>
             <li className='text-[24px] font-bold hidden md:flex xl:hidden cursor-pointer' onClick={handleOpenHamburger}>
               <HiOutlineMenuAlt3 />

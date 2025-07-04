@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import axiosInstance from '../utils/axiosInstance';
 import Loader2 from '../components/Loaders/Loader2';
@@ -8,18 +8,20 @@ import { useSearchParams } from 'react-router-dom';
 function Search() {
 
     const mode = useSelector((state) => state.mode.mode);
+
     const [input, setInput] = useState("");
     const [searchedUsers, setSearchedUsers] = useState(null);
-    const [searchParams, setSearchParams] = useSearchParams();
     const [isLoading, setIsLoading] = useState(false)
 
-    const searchUser = async (searchTerm) => {
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const searchUser = async (input) => {
         setIsLoading(true)
         try {
-            setSearchParams({ query: searchTerm }); // put in URL
+            setSearchParams({ query: input }); // put in URL
             const res = await axiosInstance.get("/api/v1/users/searchuser", {
                 params: {
-                    userToSearch: searchTerm
+                    userToSearch: input.trim()
                 }
             });
             setSearchedUsers(res.data.data);
@@ -32,18 +34,18 @@ function Search() {
     };
 
     // On mount, check URL query param
-    React.useEffect(() => {
+    useEffect(() => {
         const query = searchParams.get("query");
         if (query) {
             setInput(query);
             searchUser(query);
         }
-    }, []);
+    }, [searchParams]);
 
 
     return (
         <div className='py-13 flex flex-col xl:w-[80vw] xl:absolute right-0'>
-            <div className='flex items-center justify-center gap-2 h-20'>
+            <div className='flex items-center justify-center gap-2 h-20 md:hidden'>
                 <div className='flex items-center justify-center gap-2 border-1 rounded-full'>
                     <input
                         type="text"
@@ -59,7 +61,7 @@ function Search() {
                 </div>
             </div>
 
-            <div className='flex flex-col w-full items-center gap-3'>
+            <div className='flex flex-col w-full items-center gap-3 md:mt-5'>
                 {searchedUsers?.length > 0 &&
                     searchedUsers.map((data, index) => (
                         <UserCard
