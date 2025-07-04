@@ -11,22 +11,27 @@ function Search() {
     const [input, setInput] = useState("");
     const [searchedUsers, setSearchedUsers] = useState(null);
     const [searchParams, setSearchParams] = useSearchParams();
+    const [isLoading, setIsLoading] = useState(false)
 
     const searchUser = async (searchTerm) => {
+        setIsLoading(true)
         try {
-            setSearchParams({ query: searchTerm }); // ✅ put in URL
+            setSearchParams({ query: searchTerm }); // put in URL
             const res = await axiosInstance.get("/api/v1/users/searchuser", {
                 params: {
                     userToSearch: searchTerm
                 }
             });
             setSearchedUsers(res.data.data);
+            console.log(res.data.data)
         } catch (error) {
             console.log("error occurred while searching a user", error);
+        } finally {
+            setIsLoading(false)
         }
     };
 
-    // 🔁 On mount, check URL query param
+    // On mount, check URL query param
     React.useEffect(() => {
         const query = searchParams.get("query");
         if (query) {
@@ -35,19 +40,20 @@ function Search() {
         }
     }, []);
 
+
     return (
         <div className='py-13 flex flex-col xl:w-[80vw] xl:absolute right-0'>
             <div className='flex items-center justify-center gap-2 h-20'>
                 <div className='flex items-center justify-center gap-2 border-1 rounded-full'>
                     <input
                         type="text"
-                        className='w-[77vw] border-0 focus:outline-none px-2'
+                        className='w-[77vw] border-0 focus:outline-none px-2 lg:w-[50vw]'
                         placeholder='enter name or username'
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                     />
                     <i
-                        className="fa-solid fa-magnifying-glass text-2xl bg-gray-400 p-2 rounded-full"
+                        className={`fa-solid fa-magnifying-glass text-xl cursor-pointer p-2 rounded-full ${mode == 'light' ? 'bg-[#f9ded1]' : 'bg-[#242424] text-[#d3d3d3]'}`}
                         onClick={() => searchUser(input)}
                     ></i>
                 </div>
@@ -66,6 +72,15 @@ function Search() {
                             isFollowBtnVisible={false}
                         />
                     ))}
+                {
+                    searchedUsers?.length == 0 &&
+                    <div className='h-[70vh] flex items-center justify-center'>
+                        <h1 className='text-[18px]'>No users found with this name or username !!</h1>
+                    </div>
+                }
+                {
+                    isLoading && <Loader2 />
+                }
             </div>
         </div>
     );
