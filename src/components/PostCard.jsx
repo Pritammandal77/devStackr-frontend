@@ -7,6 +7,7 @@ import Loader3 from './Loaders/Loader3';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
+import { createComment, getCurrentPostComments } from '../utils/CommentAPIs';
 
 function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, threeDot, followBtn, isAlreadyLiked }) {
 
@@ -33,6 +34,31 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
         } finally {
             setIsLoading(false)
         }
+    }
+
+
+    const [commentText, setCommentText] = useState(null)
+    const [currentPostId, setCurrentPostId] = useState("")
+
+    useEffect(() => {
+        console.log("curr post id at state", currentPostId)
+    }, [currentPostId]);
+
+    console.log(commentText)
+
+
+    const handleComment = async (postId, commentText) => {
+        const payload = {
+            postId,
+            commentText
+        };
+        const response = await createComment(payload)
+        console.log("response", response)
+    }
+
+    const handleGetCurrentPostComments = async (postId) => {
+        const response = await getCurrentPostComments(postId)
+        console.log("response",response)
     }
 
     return (
@@ -75,7 +101,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                             <p>{postLikesData ? postLikesData.likesCount : likesCount.length}</p>
                         </div>
                         <div className='w-[50%] flex items-center justify-center gap-2 pl-5 '>
-                            <i className="fa-solid fa-comment"></i>
+                            <i className="fa-solid fa-comment" onClick={() => handleGetCurrentPostComments(postId)}></i>
                             <p>231</p>
                         </div>
                     </div>
@@ -86,8 +112,11 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                                 placeholder='Add a comment...'
                                 id=""
                                 className='mt-4 border-1 w-full md:w-[100%] h-[100px] text-[17px] md:text-[18px] resize-none overflow-y-auto p-3 rounded-md text-sm border-gray-500'
+                                value={commentText}
+                                onChange={(e) => setCommentText(e.target.value)}
                             ></textarea>
-                            <button className='h-8 w-25 text-[16px] text-gray-200 bg-blue-500 hover:bg-blue-600 flex items-center justify-center rounded-xl cursor-pointer'>Comment</button>
+                            <button className='h-8 w-25 text-[16px] text-gray-200 bg-blue-500 hover:bg-blue-600 flex items-center justify-center rounded-xl cursor-pointer'
+                                onClick={() => handleComment(postId, commentText)}>Comment</button>
                         </div>
 
                     </div>
