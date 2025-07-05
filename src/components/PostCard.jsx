@@ -12,14 +12,14 @@ import { toast } from 'sonner';
 import { FormatTime } from '../utils/FormatTime';
 
 function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, threeDot, followBtn, isAlreadyLiked }) {
-    
+
     const navigate = useNavigate()
 
     const [isCommentSectionVisiblem, setIsCommentSEctionVisible] = useState(false) //to set , comment section will be visible or not
-    
+
     const [postLikesData, setPostLikesData] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    
+
     //storing the value isPostLiked
     const [isLiked, setIsLiked] = useState(isAlreadyLiked);
 
@@ -40,7 +40,6 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
         }
     }
 
-
     const [commentText, setCommentText] = useState("")   //to store comment from input
     const [allComments, setAllComments] = useState(false)
     const [isNewCommentAdded, setIsNewCommentAdded] = useState(false)     // I have created this state, to only recall the handleGetCurrentPostComments() in the useEffect , whenever a user adds a new comment.
@@ -54,16 +53,18 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                 commentText
             };
             const response = await createComment(payload)
-            console.log("response", response)
+            // console.log("response", response)
+
             if (response?.statusCode == 200) {
                 toast.success("commented successfully")
             }
+
         } catch (error) {
             console.log("error while creating comment", error)
         } finally {
             setIsNewCommentAdded(false)
+            setCommentText("")
         }
-
     }
 
     //to fetch comments of each posts by the postIds
@@ -130,20 +131,30 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                     {
                         isCommentSectionVisiblem &&
                         <div className=' h-auto flex flex-col gap-3 commentDiv z-[5] mt-5'>
-                            <div className='flex flex-col gap-2 border-1 p-2 rounded-xl'>
+                            <div className='flex flex-col gap-2 border-1 border-gray-500 p-2 rounded-xl'>
                                 <textarea name=""
                                     placeholder='Add a comment...'
                                     id=""
                                     required
-                                    className=' w-full md:w-[100%] h-[80px] text-[16px] md:text-[18px] border-0 focus:outline-none  resize-none overflow-y-auto text-sm border-gray-500'
+                                    maxLength={800} // 👈 sets max 200 characters
+                                    className='w-full md:w-[100%] min-h-[40px] text-[16px] md:text-[17px] border-0 focus:outline-none resize-none overflow-y-hidden text-sm border-gray-500 placeholder-gray-500'
                                     value={commentText}
-                                    onChange={(e) => setCommentText(e.target.value)}
+                                    onChange={(e) => {
+                                        setCommentText(e.target.value);
+                                        e.target.style.height = "auto";
+                                        e.target.style.height = `${e.target.scrollHeight}px`;
+                                    }
+                                    }
                                 ></textarea>
-                                <button className='h-8 w-25 text-[16px] text-gray-200 bg-blue-500 hover:bg-blue-600 flex items-center justify-center rounded-xl cursor-pointer'
-                                    onClick={() => handleComment(postId, commentText)}>Comment</button>
+                                <div className='flex items-center justify-between'>
+                                    <button className='h-8 w-25 text-[16px] text-gray-200 bg-blue-500 hover:bg-blue-600 flex items-center justify-center rounded-xl cursor-pointer'
+                                        onClick={() => handleComment(postId, commentText)}>Comment</button>
+                                    <p className='self-end'>{commentText.length}/800</p>
+                                </div>
+
                             </div>
 
-                            <div>
+                            <div className=''>
                                 {
                                     allComments.length > 0 &&
                                     <p className='text-[18px] md:text-[19px] font-bold'>Comments</p>
@@ -152,12 +163,16 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                                     {
                                         allComments &&
                                         allComments.map((data, index) => (
-                                            <div key={index} className='flex flex-col border-1 border-gray-300 p-2 rounded-2xl w-full'>
+                                            <div key={index} className='flex flex-col border-1 border-gray-500 p-2 rounded-2xl w-full'>
                                                 <div className='flex gap-3'>
-                                                    <div>
+                                                    <div className='min-w-10'>
                                                         <img src={data.user.profilePicture}
                                                             alt=""
-                                                            className='h-10 w-10 rounded-full cursor-pointer' />
+                                                            className='h-10 w-10 rounded-full cursor-pointer'
+                                                            onClick={() => {
+                                                                navigate(`/user/${data.user._id}`);
+                                                            }}
+                                                        />
                                                     </div>
                                                     <div className='flex flex-col gap-1'>
                                                         <div>
