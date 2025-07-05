@@ -1,3 +1,4 @@
+import { toast } from "sonner"
 import axiosInstance from "./axiosInstance"
 
 const createComment = async (payload) => {
@@ -6,6 +7,7 @@ const createComment = async (payload) => {
         return res.data
     } catch (error) {
         console.log("error occured while creating a comment", error)
+        toast.error("error while commenting")
     }
 }
 

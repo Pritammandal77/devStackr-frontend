@@ -8,14 +8,18 @@ import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import { createComment, getCurrentPostComments } from '../utils/CommentAPIs';
+import { toast } from 'sonner';
+import { FormatTime } from '../utils/FormatTime';
 
 function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, threeDot, followBtn, isAlreadyLiked }) {
-
+    
     const navigate = useNavigate()
 
+    const [isCommentSectionVisiblem, setIsCommentSEctionVisible] = useState(false) //to set , comment section will be visible or not
+    
     const [postLikesData, setPostLikesData] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-
+    
     //storing the value isPostLiked
     const [isLiked, setIsLiked] = useState(isAlreadyLiked);
 
@@ -37,29 +41,46 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
     }
 
 
-    const [commentText, setCommentText] = useState(null)
-    const [currentPostId, setCurrentPostId] = useState("")
+    const [commentText, setCommentText] = useState("")   //to store comment from input
+    const [allComments, setAllComments] = useState(false)
+    const [isNewCommentAdded, setIsNewCommentAdded] = useState(false)     // I have created this state, to only recall the handleGetCurrentPostComments() in the useEffect , whenever a user adds a new comment.
 
-    useEffect(() => {
-        console.log("curr post id at state", currentPostId)
-    }, [currentPostId]);
-
-    console.log(commentText)
-
-
+    // to create a comment
     const handleComment = async (postId, commentText) => {
-        const payload = {
-            postId,
-            commentText
-        };
-        const response = await createComment(payload)
-        console.log("response", response)
+        setIsNewCommentAdded(true)
+        try {
+            const payload = {
+                postId,
+                commentText
+            };
+            const response = await createComment(payload)
+            console.log("response", response)
+            if (response.statusCode == 200) {
+                toast.success("commented successfully")
+            }
+        } catch (error) {
+            console.log("error while creating comment", error)
+        } finally {
+            setIsNewCommentAdded(false)
+        }
+
     }
 
+    //to fetch comments of each posts by the postIds
     const handleGetCurrentPostComments = async (postId) => {
         const response = await getCurrentPostComments(postId)
-        console.log("response",response)
+        // console.log("response", response)
+        if (response) {
+            setAllComments(response.data.data)
+        }
     }
+
+    //when a user adds a new comment, we are calling the function again & again
+    useEffect(() => {
+        handleGetCurrentPostComments(postId)
+    }, [isNewCommentAdded]);
+
+
 
     return (
         <>
@@ -101,25 +122,63 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                             <p>{postLikesData ? postLikesData.likesCount : likesCount.length}</p>
                         </div>
                         <div className='w-[50%] flex items-center justify-center gap-2 pl-5 '>
-                            <i className="fa-solid fa-comment" onClick={() => handleGetCurrentPostComments(postId)}></i>
-                            <p>231</p>
+                            <i className="fa-solid fa-comment cursor-pointer" onClick={() => setIsCommentSEctionVisible((prev) => prev == false ? true : false)}></i>
+                            <p>{allComments.length > 0 ? allComments.length : "0"}</p>
                         </div>
                     </div>
-                    <div className=''>
-                        <hr className='w-[80%] text-gray-300 self-center mt-2 mx-auto' />
-                        <div className='flex flex-col gap-2'>
-                            <textarea name=""
-                                placeholder='Add a comment...'
-                                id=""
-                                className='mt-4 border-1 w-full md:w-[100%] h-[100px] text-[17px] md:text-[18px] resize-none overflow-y-auto p-3 rounded-md text-sm border-gray-500'
-                                value={commentText}
-                                onChange={(e) => setCommentText(e.target.value)}
-                            ></textarea>
-                            <button className='h-8 w-25 text-[16px] text-gray-200 bg-blue-500 hover:bg-blue-600 flex items-center justify-center rounded-xl cursor-pointer'
-                                onClick={() => handleComment(postId, commentText)}>Comment</button>
-                        </div>
 
-                    </div>
+                    {
+                        isCommentSectionVisiblem &&
+                        <div className=' h-auto flex flex-col gap-3'>
+                            <div className='flex flex-col gap-2 border-1 p-2 rounded-xl'>
+                                <textarea name=""
+                                    placeholder='Add a comment...'
+                                    id=""
+                                    required
+                                    className=' w-full md:w-[100%] h-[80px] text-[17px] md:text-[18px] border-0 focus:outline-none  resize-none overflow-y-auto text-sm border-gray-500'
+                                    value={commentText}
+                                    onChange={(e) => setCommentText(e.target.value)}
+                                ></textarea>
+                                <button className='h-8 w-25 text-[16px] text-gray-200 bg-blue-500 hover:bg-blue-600 flex items-center justify-center rounded-xl cursor-pointer'
+                                    onClick={() => handleComment(postId, commentText)}>Comment</button>
+                            </div>
+
+                            <div>
+                                {
+                                    allComments &&
+                                    <p className='text-[18px] md:text-[19px] font-bold'>Comments</p>
+                                }
+                                <div className='w-full h-auto flex flex-col gap-3 items-center justify-center'>
+                                    {
+                                        allComments &&
+                                        allComments.map((data, index) => (
+                                            <div key={index} className='flex flex-col border-1 border-gray-300 p-2 rounded-2xl w-full'>
+                                                <div className='flex gap-3'>
+                                                    <div>
+                                                        <img src={data.user.profilePicture}
+                                                            alt=""
+                                                            className='h-10 w-10 rounded-full cursor-pointer' />
+                                                    </div>
+                                                    <div className='flex flex-col gap-1'>
+                                                        <div>
+                                                            <p className='text-[17px]'>
+                                                                {data.user.name}
+                                                                <span className='text-[13px] ml-4 text-gray-600'>~{FormatTime(data.createdAt)}</span>
+                                                            </p>
+                                                            <p className='text-[14px] text-gray-600'>{data.user.userName}</p>
+                                                        </div>
+                                                        <p>{data.comment}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
                 </div>
             </div>
         </>
