@@ -55,7 +55,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
             };
             const response = await createComment(payload)
             console.log("response", response)
-            if (response.statusCode == 200) {
+            if (response?.statusCode == 200) {
                 toast.success("commented successfully")
             }
         } catch (error) {
@@ -112,7 +112,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                         }
                     </div>
 
-                    <div className='flex flex-row w-full'>
+                    <div className='flex flex-row w-full z-[10]'>
                         <div className='w-[50%] flex items-center justify-center gap-2 pl-5 relative'>
                             <div className='absolute left-5'>
                                 {isLoading && <Loader3 />}
@@ -129,13 +129,13 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
 
                     {
                         isCommentSectionVisiblem &&
-                        <div className=' h-auto flex flex-col gap-3'>
+                        <div className=' h-auto flex flex-col gap-3 commentDiv z-[5] mt-5'>
                             <div className='flex flex-col gap-2 border-1 p-2 rounded-xl'>
                                 <textarea name=""
                                     placeholder='Add a comment...'
                                     id=""
                                     required
-                                    className=' w-full md:w-[100%] h-[80px] text-[17px] md:text-[18px] border-0 focus:outline-none  resize-none overflow-y-auto text-sm border-gray-500'
+                                    className=' w-full md:w-[100%] h-[80px] text-[16px] md:text-[18px] border-0 focus:outline-none  resize-none overflow-y-auto text-sm border-gray-500'
                                     value={commentText}
                                     onChange={(e) => setCommentText(e.target.value)}
                                 ></textarea>
@@ -145,7 +145,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
 
                             <div>
                                 {
-                                    allComments &&
+                                    allComments.length > 0 &&
                                     <p className='text-[18px] md:text-[19px] font-bold'>Comments</p>
                                 }
                                 <div className='w-full h-auto flex flex-col gap-3 items-center justify-center'>
