@@ -1,16 +1,14 @@
 import React from 'react';
-import FollowButton from './followButton';
-import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Loader3 from './Loaders/Loader3';
-import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import { createComment, deleteComment, getCurrentPostComments } from '../utils/CommentAPIs';
 import { toast } from 'sonner';
 import { FormatTime } from '../utils/FormatTime';
 import { useSelector } from 'react-redux';
+import CommentCard from './CommentCard';
 
 function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, followBtn, isAlreadyLiked }) {
 
@@ -21,6 +19,8 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
     const [isCommentSectionVisiblem, setIsCommentSEctionVisible] = useState(false) //to set , comment section will be visible or not
 
     const [isMenuVisible, setIsMenuVisible] = useState(false) // to hide and show the dropdown menu on the posts i.e, delete post btn's etc
+
+    const [visibleCommentMenu, setVisibleCommentMenu] = useState(null);  //to hide or visible the commentmenu i.e, delete comment btn ,etc.
 
     const [postLikesData, setPostLikesData] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -75,17 +75,17 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
     //to fetch comments of each posts by the postIds
     const handleGetCurrentPostComments = async (postId) => {
         const response = await getCurrentPostComments(postId)
-        console.log("comments", response)
+        // console.log("comments", response)
         if (response) {
-            setAllComments(response.data.data) 
+            setAllComments(response.data.data)
         }
     }
 
     //to delete a comment
     const handleDeleteComment = async (id) => {
         const response = await deleteComment(id)
-        console.log(response)
-        if(response.data.statusCode == 200){
+        // console.log(response)
+        if (response.data.statusCode == 200) {
             toast.success("comment deleted successfully")
             handleGetCurrentPostComments(postId)  //after successfully deleting a comment , we are refetching the comments
         }
@@ -174,7 +174,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                                     placeholder='Add a comment...'
                                     id=""
                                     required
-                                    maxLength={800} // 👈 sets max 200 characters
+                                    maxLength={800} // sets max 200 characters
                                     className='w-full md:w-[100%] min-h-[40px] text-[16px] md:text-[17px] border-0 focus:outline-none resize-none overflow-y-hidden text-sm border-gray-500 placeholder-gray-500'
                                     value={commentText}
                                     onChange={(e) => {
@@ -226,18 +226,29 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
 
                                                 {
                                                     currentUserId == data.user._id &&
-                                                    <div className='absolute right-1 top-1 w-35 flex flex-col' onClick={(e) => setIsMenuVisible((prev) => prev == false ? true : false)}>
-                                                        <i className="fa-solid fa-ellipsis-vertical font-bold p-2 cursor-pointer self-end"></i>
+                                                    <div className='absolute right-1 top-1  flex flex-col'>
+                                                        <i
+                                                            className="fa-solid fa-ellipsis-vertical font-bold p-2 cursor-pointer self-end"
+                                                            onClick={() => setVisibleCommentMenu((prev) => prev === data._id ? null : data._id)}
+                                                        ></i>
                                                         {
-                                                            isMenuVisible &&
-                                                            <p className='absolute top-7 px-1 border-1 border-gray-500 flex items-center justify-center rounded-md cursor-pointer hover:text-blue-400'
-                                                                onClick={() => handleDeleteComment(data._id)}>
-                                                                delete comment
-                                                            </p>
+                                                            visibleCommentMenu === data._id && (
+                                                                <div className='box-shadow w-40 absolute top-7 right-3 p-2 z-[30] bg-white flex items-center justify-center rounded-md cursor-pointer hover:border-blue-600'>
+                                                                    <p
+                                                                        className=''
+                                                                        onClick={() => {
+                                                                            handleDeleteComment(data._id);
+                                                                            setVisibleCommentMenu(null); // Close menu after deletion
+                                                                        }}
+                                                                    >
+                                                                        delete comment
+                                                                    </p>
+                                                                </div>
+
+                                                            )
                                                         }
                                                     </div>
                                                 }
-
 
                                             </div>
                                         ))
@@ -255,3 +266,29 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
 }
 
 export default PostCard;
+
+
+
+
+
+
+
+
+
+
+
+// props for commentCard, if I use the seperate component for it
+// <CommentCard
+//     key={index}
+//     profilePicture={data.user.profilePicture}
+//     userId={data.user._id}
+//     name={data.user.name}
+//     createdAt={data.createdAt}
+//     userName={data.user.userName}
+//     comment={data.comment}
+//     commentId={data._id}
+//     currentUserId={currentUserId}
+//     setIsMenuVisible={setIsMenuVisible}
+//     isMenuVisible={isMenuVisible}
+//     handleDeleteComment={handleDeleteComment}
+// />

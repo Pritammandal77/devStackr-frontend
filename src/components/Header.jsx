@@ -19,8 +19,6 @@ function Header() {
   const [isLoading, setIsLoading] = useState(false)
   const [searchInput, setSearchInput] = useState(null)
 
-  console.log(searchInput)
-
   const handleOpenHamburger = () => {
     console.log("Hello")
     // hamburgerDiv.style.display = "inline"
@@ -33,7 +31,6 @@ function Header() {
   }
 
   const mode = useSelector((state) => state.mode.mode)
-  console.log(mode)
 
   const dispatch = useDispatch()
 
