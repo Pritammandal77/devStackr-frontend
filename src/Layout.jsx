@@ -35,8 +35,7 @@ function Layout() {
         getUserData();
     }, []);
 
-
-
+    
     const location = useLocation();
 
     // Define the routes where you DON'T want Header and BottomMenu

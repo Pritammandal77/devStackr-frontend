@@ -7,7 +7,7 @@ import Loader3 from './Loaders/Loader3';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
-import { createComment, getCurrentPostComments } from '../utils/CommentAPIs';
+import { createComment, deleteComment, getCurrentPostComments } from '../utils/CommentAPIs';
 import { toast } from 'sonner';
 import { FormatTime } from '../utils/FormatTime';
 import { useSelector } from 'react-redux';
@@ -75,9 +75,19 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
     //to fetch comments of each posts by the postIds
     const handleGetCurrentPostComments = async (postId) => {
         const response = await getCurrentPostComments(postId)
-        // console.log("response", response)
+        console.log("comments", response)
         if (response) {
-            setAllComments(response.data.data)
+            setAllComments(response.data.data) 
+        }
+    }
+
+    //to delete a comment
+    const handleDeleteComment = async (id) => {
+        const response = await deleteComment(id)
+        console.log(response)
+        if(response.data.statusCode == 200){
+            toast.success("comment deleted successfully")
+            handleGetCurrentPostComments(postId)  //after successfully deleting a comment , we are refetching the comments
         }
     }
 
@@ -191,7 +201,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                                     {
                                         allComments &&
                                         allComments.map((data, index) => (
-                                            <div key={index} className='flex flex-col border-1 border-gray-500 p-2 rounded-2xl w-full'>
+                                            <div key={index} className='relative flex flex-col border-1 border-gray-500 p-2 rounded-2xl w-full'>
                                                 <div className='flex gap-3'>
                                                     <div className='min-w-10'>
                                                         <img src={data.user.profilePicture}
@@ -213,6 +223,22 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                                                         <p>{data.comment}</p>
                                                     </div>
                                                 </div>
+
+                                                {
+                                                    currentUserId == data.user._id &&
+                                                    <div className='absolute right-1 top-1 w-35 flex flex-col' onClick={(e) => setIsMenuVisible((prev) => prev == false ? true : false)}>
+                                                        <i className="fa-solid fa-ellipsis-vertical font-bold p-2 cursor-pointer self-end"></i>
+                                                        {
+                                                            isMenuVisible &&
+                                                            <p className='absolute top-7 px-1 border-1 border-gray-500 flex items-center justify-center rounded-md cursor-pointer hover:text-blue-400'
+                                                                onClick={() => handleDeleteComment(data._id)}>
+                                                                delete comment
+                                                            </p>
+                                                        }
+                                                    </div>
+                                                }
+
+
                                             </div>
                                         ))
                                     }

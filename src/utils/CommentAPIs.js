@@ -22,4 +22,13 @@ const getCurrentPostComments = async (postId) => {
     }
 }
 
-export { createComment, getCurrentPostComments }
+const deleteComment = async (id) => {
+    try {
+        const res = await axiosInstance.delete(`api/v1/comments/delete-comment/${id}`)
+        return res
+    } catch (error) {
+        console.log("error while deleting a comment", error)
+    }
+}
+
+export { createComment, getCurrentPostComments, deleteComment }
