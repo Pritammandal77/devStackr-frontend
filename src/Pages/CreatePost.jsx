@@ -78,9 +78,9 @@ function CreatePost() {
                 id=""
                 className='border-1 w-full md:w-[100%] h-[250px] resize-none overflow-y-auto p-3 rounded-md text-sm'
                 value={description}
-                maxLength={400}
+                maxLength={800}
                 onChange={(e) => setDescription(e.target.value)}></textarea>
-              <p className='self-end'>{description.length}/400</p>
+              <p className='self-end'>{description.length}/800</p>
             </div>
 
             <div className='flex gap-5'>
@@ -103,8 +103,8 @@ function CreatePost() {
                 )}
               </div>
 
-              {/* Video Upload */}
-              <div>
+              {/* this is the input field to upload video, I have commented it temporarily , bocz to upload a video on server it takes many time , thats why */}
+              {/* <div>
                 <label className="cursor-pointer px-2 py-1 bg-red-400 text-black rounded-lg hover:bg-blue-700 transition duration-200 inline-block">
                   <i className="fa-solid fa-video"></i>
                   <input
@@ -121,7 +121,7 @@ function CreatePost() {
                     className="mt-4 w-80 rounded-lg shadow"
                   />
                 )}
-              </div>
+              </div> */}
 
             </div>
 
