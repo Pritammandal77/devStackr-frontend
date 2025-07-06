@@ -10,12 +10,17 @@ import axiosInstance from '../utils/axiosInstance';
 import { createComment, getCurrentPostComments } from '../utils/CommentAPIs';
 import { toast } from 'sonner';
 import { FormatTime } from '../utils/FormatTime';
+import { useSelector } from 'react-redux';
 
-function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, threeDot, followBtn, isAlreadyLiked }) {
+function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, followBtn, isAlreadyLiked }) {
+
+    const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
 
     const navigate = useNavigate()
 
     const [isCommentSectionVisiblem, setIsCommentSEctionVisible] = useState(false) //to set , comment section will be visible or not
+
+    const [isMenuVisible, setIsMenuVisible] = useState(false) // to hide and show the dropdown menu on the posts i.e, delete post btn's etc
 
     const [postLikesData, setPostLikesData] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -81,7 +86,18 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
         handleGetCurrentPostComments(postId)
     }, [isNewCommentAdded]);
 
-
+    //to delete a post
+    const handleDeletePost = async (postId) => {
+        try {
+            const res = await axiosInstance.delete(`/api/v1/posts/deletepost/${postId}`)
+            // console.log(res.data?.statusCode)
+            if (res.data?.statusCode == 200) {
+                toast.success("post deleted successfully")
+            }
+        } catch (error) {
+            console.log("error while deleting a post", error)
+        }
+    }
 
     return (
         <>
@@ -103,7 +119,19 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                             </div>
                         </div>
 
-                        {threeDot && <i className="fa-solid fa-ellipsis-vertical font-bold p-4 cursor-pointer"></i>}
+                        {
+                            currentUserId == authorUserId &&
+                            <div className='relative w-25 flex flex-col' onClick={(e) => setIsMenuVisible((prev) => prev == false ? true : false)}>
+                                <i className="fa-solid fa-ellipsis-vertical font-bold p-4 cursor-pointer self-end"></i>
+                                {
+                                    isMenuVisible &&
+                                    <p className='absolute top-10 px-1 border-1 border-gray-500 flex items-center justify-center rounded-md cursor-pointer hover:text-blue-400'
+                                        onClick={() => handleDeletePost(postId)}>
+                                        delete post
+                                    </p>
+                                }
+                            </div>
+                        }
                     </div>
 
                     <div className='flex flex-col gap-1'>
@@ -122,8 +150,8 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                             {/* <p>{likesCount.length}</p> */}
                             <p>{postLikesData ? postLikesData.likesCount : likesCount.length}</p>
                         </div>
-                        <div className='w-[50%] flex items-center justify-center gap-2 pl-5 '>
-                            <i className="fa-solid fa-comment cursor-pointer" onClick={() => setIsCommentSEctionVisible((prev) => prev == false ? true : false)}></i>
+                        <div className='w-[50%] flex items-center justify-center gap-2 pl-5' onClick={() => setIsCommentSEctionVisible((prev) => prev == false ? true : false)}>
+                            <i className="fa-solid fa-comment cursor-pointer"></i>
                             <p>{allComments.length > 0 ? allComments.length : "0"}</p>
                         </div>
                     </div>

@@ -132,6 +132,7 @@ function Profile() {
                                 {
                                     posts && posts.map((data, index) => (
                                         <PostCard key={index}
+                                            authorUserId={data.author._id}
                                             authorName={data.author.name}
                                             authorProfilePicture={data.author.profilePicture}
                                             createdAt={FormatTime(data.createdAt)}
@@ -139,7 +140,6 @@ function Profile() {
                                             postImage={data.image}
                                             likesCount={data.likes}
                                             postId={data._id}
-                                            threeDot="true"
                                             isAlreadyLiked={data.likes.includes(currentUserData._id) && true}
                                         />
                                     ))
