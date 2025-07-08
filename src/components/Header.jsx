@@ -17,7 +17,7 @@ function Header() {
   const navigate = useNavigate()
 
   const [isLoading, setIsLoading] = useState(false)
-  const [searchInput, setSearchInput] = useState(null)
+  const [searchInput, setSearchInput] = useState("")
 
   const handleOpenHamburger = () => {
     console.log("Hello")

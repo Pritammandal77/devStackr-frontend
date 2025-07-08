@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { FormatTime } from '../utils/FormatTime';
 import { useSelector } from 'react-redux';
 import CommentCard from './CommentCard';
+import Loader2 from './Loaders/Loader2';
 
 function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, followBtn, isAlreadyLiked }) {
 
@@ -24,13 +25,15 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
     const [visibleCommentMenu, setVisibleCommentMenu] = useState(null);  //to hide or visible the commentmenu i.e, delete comment btn ,etc.
 
     const [postLikesData, setPostLikesData] = useState(false)
+    const [isLiking, setIsLiking] = useState(false) //to track loading status of liking a post
+
     const [isLoading, setIsLoading] = useState(false)
 
     //storing the value isPostLiked
     const [isLiked, setIsLiked] = useState(isAlreadyLiked);
 
     const likeAPost = async (postId) => {
-        setIsLoading(true)
+        setIsLiking(true)
         try {
             const response = await axiosInstance.put("/api/v1/posts/likes", { postId: postId })
             setPostLikesData(response.data.data)
@@ -42,7 +45,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
         } catch (error) {
             console.log("Failed to like the posts", error)
         } finally {
-            setIsLoading(false)
+            setIsLiking(false)
         }
     }
 
@@ -53,6 +56,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
     // to create a comment
     const handleComment = async (postId, commentText) => {
         setIsNewCommentAdded(true)
+        setIsLoading(true)
         try {
             const payload = {
                 postId,
@@ -70,6 +74,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
         } finally {
             setIsNewCommentAdded(false)
             setCommentText("")
+            setIsLoading(false)
         }
     }
 
@@ -84,12 +89,19 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
 
     //to delete a comment
     const handleDeleteComment = async (id) => {
-        const response = await deleteComment(id)
-        // console.log(response)
-        if (response.data.statusCode == 200) {
-            toast.success("comment deleted successfully")
-            handleGetCurrentPostComments(postId)  //after successfully deleting a comment , we are refetching the comments
+        try {
+            setIsLoading(true)
+            const response = await deleteComment(id)
+            if (response.data.statusCode == 200) {
+                toast.success("comment deleted successfully")
+                handleGetCurrentPostComments(postId)  //after successfully deleting a comment , we are refetching the comments
+            }
+        } catch (error) {
+            console.log("error while deleting the comment",error)
+        }finally{
+            setIsLoading(false)
         }
+
     }
 
     //when a user adds a new comment, we are calling the function again & again
@@ -100,6 +112,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
     //to delete a post
     const handleDeletePost = async (postId) => {
         try {
+            setIsLoading(true)
             const res = await axiosInstance.delete(`/api/v1/posts/deletepost/${postId}`)
             // console.log(res.data?.statusCode)
             if (res.data?.statusCode == 200) {
@@ -107,6 +120,9 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
             }
         } catch (error) {
             console.log("error while deleting a post", error)
+        }finally{
+            location.reload();
+            setIsLoading(false) // reloading the website after deleting a post , because after deleting a post , it still appear in the website ,until we refresh the page.
         }
     }
 
@@ -139,17 +155,16 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                                     <div className={`absolute top-10 border-1 flex flex-col gap-1 items-start justify-center rounded-md cursor-pointer
                                                  ${mode == 'light' ? 'bg-white border-gray-500 ' : 'bg-[#000] text-[#d3d3d3] border-gray-700'}`}>
                                         <p className={`flex gap-2 items-center p-2 w-full ${mode == 'light' ? 'hover:bg-gray-300' : 'hover:bg-gray-800'}`}
-                                            onClick={() => handleDeletePost(postId)}>
-                                            <i className="fa-solid fa-trash"></i>
-                                            <span>delete post</span>
-                                        </p>
-                                        <p className={`flex gap-2 items-center p-2 w-full ${mode == 'light' ? 'hover:bg-gray-300' : 'hover:bg-gray-800'}`}
                                             onClick={() => navigate(`/editpost/${postId}`)}>
                                             <i className="fa-solid fa-pen-to-square"></i>
                                             <span>Edit post</span>
                                         </p>
+                                        <p className={`flex gap-2 items-center p-2 w-full ${mode == 'light' ? 'hover:bg-gray-300' : 'hover:bg-gray-800'}`}
+                                            onClick={() => handleDeletePost(postId)}>
+                                            <i className="fa-solid fa-trash"></i>
+                                            <span>delete post</span>
+                                        </p>
                                     </div>
-
                                 }
                             </div>
                         }
@@ -162,10 +177,10 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                         }
                     </div>
 
-                    <div className='flex flex-row w-full'>
+                    <div className='flex flex-row w-full h-12'>
                         <div className='w-[50%] flex items-center justify-center gap-2 pl-5 relative'>
                             <div className='absolute left-5'>
-                                {isLoading && <Loader3 />}
+                                {isLiking && <Loader3 />}
                             </div>
                             <i className={`fa-solid fa-thumbs-up cursor-pointer like-icon ${isLiked && "text-white bg-blue-600 p-2 rounded-full"}`} onClick={() => likeAPost(postId)}></i>
                             {/* <p>{likesCount.length}</p> */}
@@ -274,6 +289,9 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
 
                 </div>
             </div>
+            {
+                isLoading && <Loader2/>
+            }
         </>
     );
 }

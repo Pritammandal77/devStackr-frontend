@@ -45,7 +45,7 @@ function EditPost() {
     return (
         <>
             <div className='py-13 flex flex-col xl:w-[80vw] xl:absolute right-0 justify-center items-center'>
-                <div className='w-[90%] lg:w-[80%] h-[80vh] flex flex-col gap-2 items-center justify-center '>
+                <div className='w-[90%] lg:w-[80%] h-[70vh] md:h-[80vh] flex flex-col gap-2 items-center justify-center '>
                     <div className='flex flex-col gap-2 w-[100%]'>
                         <label htmlFor="" className='text-[26px] md:text-[30px]'>Edit post description</label>
                         <textarea name=""
