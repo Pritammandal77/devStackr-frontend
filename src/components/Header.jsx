@@ -91,7 +91,7 @@ function Header() {
               </NavLink>
             </li>
             <li className='hidden md:flex flex-row items-center gap-3 '>
-              <input type="text" className={` w-[60vw] lg:w-[50vw] h-9 md:h-10 rounded-2xl px-3 text-l ${mode == 'light' ? 'bg-white text-black border-1 border-gray-600' : 'bg-[#2e2e2e] text-white'}`}
+              <input type="text" className={` w-[60vw] lg:w-[50vw] h-9 md:h-10 rounded-2xl px-3 text-l ${mode == 'light' ? 'bg-white text-black border-1 border-gray-600' : 'bg-[#1b1b1b] text-white'}`}
                 placeholder='Enter name or username of a user...'
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}

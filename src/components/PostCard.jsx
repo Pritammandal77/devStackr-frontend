@@ -13,6 +13,7 @@ import CommentCard from './CommentCard';
 function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, followBtn, isAlreadyLiked }) {
 
     const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
+    const mode = useSelector((state) => state.mode.mode)
 
     const navigate = useNavigate()
 
@@ -113,7 +114,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
         <>
             <div className='w-[100vw] h-auto flex flex-col items-center p-2'>
 
-                <div className='w-[100%] md:w-[80%] lg:w-[40vw] flex flex-col gap-3 p-2 border-1 border-gray-600 rounded-[5px]'>
+                <div className={`w-[100%] md:w-[80%] lg:w-[40vw] flex flex-col gap-3 p-2 border-1 border-gray-600 rounded-[5px] ${mode == 'light' ? 'bg-[#ffffff] ' : 'bg-[#0e0e0e] '}`}>
 
                     <div className='flex flex-row items-center justify-between'>
                         <div className='flex flex-row gap-2 items-center'>
@@ -135,13 +136,14 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                                 <i className="fa-solid fa-ellipsis-vertical font-bold p-4 cursor-pointer self-end"></i>
                                 {
                                     isMenuVisible &&
-                                    <div className='absolute top-10 border-1 w-[10] bg-white border-gray-500 flex flex-col gap-1 items-start justify-center rounded-md cursor-pointer'>
-                                        <p className='flex gap-2 items-center hover:bg-gray-300 p-2 w-full'
+                                    <div className={`absolute top-10 border-1 flex flex-col gap-1 items-start justify-center rounded-md cursor-pointer
+                                                 ${mode == 'light' ? 'bg-white border-gray-500 ' : 'bg-[#000] text-[#d3d3d3] border-gray-700'}`}>
+                                        <p className={`flex gap-2 items-center p-2 w-full ${mode == 'light' ? 'hover:bg-gray-300' : 'hover:bg-gray-800'}`}
                                             onClick={() => handleDeletePost(postId)}>
                                             <i className="fa-solid fa-trash"></i>
                                             <span>delete post</span>
                                         </p>
-                                        <p className='flex gap-2 items-center p-2 hover:bg-gray-300 w-full'
+                                        <p className={`flex gap-2 items-center p-2 w-full ${mode == 'light' ? 'hover:bg-gray-300' : 'hover:bg-gray-800'}`}
                                             onClick={() => navigate(`/editpost/${postId}`)}>
                                             <i className="fa-solid fa-pen-to-square"></i>
                                             <span>Edit post</span>
@@ -160,7 +162,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                         }
                     </div>
 
-                    <div className='flex flex-row w-full z-[5]'>
+                    <div className='flex flex-row w-full'>
                         <div className='w-[50%] flex items-center justify-center gap-2 pl-5 relative'>
                             <div className='absolute left-5'>
                                 {isLoading && <Loader3 />}
@@ -178,13 +180,13 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                     {
                         isCommentSectionVisiblem &&
                         <div className=' h-auto flex flex-col gap-3 commentDiv z-[5] mt-5'>
-                            <div className='flex flex-col gap-2 border-1 border-gray-500 p-2 rounded-xl'>
+                            <div className={`flex flex-col gap-2 border-1 p-2 rounded-xl ${mode == 'light' ? 'border-gray-400 ' : 'border-gray-800'}`}>
                                 <textarea name=""
                                     placeholder='Add a comment...'
                                     id=""
                                     required
                                     maxLength={800} // sets max 200 characters
-                                    className='w-full md:w-[100%] min-h-[40px] text-[16px] md:text-[17px] border-0 focus:outline-none resize-none overflow-y-hidden text-sm border-gray-500 placeholder-gray-500'
+                                    className='w-full md:w-[100%] min-h-[40px] text-[15px] md:text-[16px] border-0 focus:outline-none resize-none overflow-y-hidden border-gray-500 placeholder-gray-500'
                                     value={commentText}
                                     onChange={(e) => {
                                         setCommentText(e.target.value);
@@ -210,7 +212,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                                     {
                                         allComments &&
                                         allComments.map((data, index) => (
-                                            <div key={index} className='relative flex flex-col border-1 border-gray-500 p-2 rounded-2xl w-full'>
+                                            <div key={index} className={`relative flex flex-col border-1 p-2 rounded-2xl w-full   ${mode == 'light' ? 'border-gray-400 ' : 'border-gray-800'}`}>
                                                 <div className='flex gap-3'>
                                                     <div className='min-w-10'>
                                                         <img src={data.user.profilePicture}
@@ -242,15 +244,17 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                                                         ></i>
                                                         {
                                                             visibleCommentMenu === data._id && (
-                                                                <div className='box-shadow w-40 absolute top-7 right-3 p-2 z-[30] bg-white flex items-center justify-center rounded-md cursor-pointer hover:border-blue-600'>
+                                                                <div className={`border-1 w-40 absolute top-7 right-3 z-[30] flex items-center justify-center rounded-md cursor-pointer ${mode == 'light' ? 'bg-white border-gray-500 ' : 'bg-[#000] text-[#d3d3d3] border-gray-700'}`}>
                                                                     <p
-                                                                        className=''
+                                                                        className={`flex gap-2 items-center hover:bg-gray-300 p-2 w-full  ${mode == 'light' ? 'hover:bg-gray-300' : 'hover:bg-gray-800'}`}
                                                                         onClick={() => {
                                                                             handleDeleteComment(data._id);
                                                                             setVisibleCommentMenu(null); // Close menu after deletion
                                                                         }}
                                                                     >
-                                                                        delete comment
+                                                                        <i className="fa-solid fa-trash"></i>
+                                                                        <span>delete comment</span>
+
                                                                     </p>
                                                                 </div>
 
