@@ -131,14 +131,23 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
 
                         {
                             currentUserId == authorUserId &&
-                            <div className='relative w-25 flex flex-col' onClick={(e) => setIsMenuVisible((prev) => prev == false ? true : false)}>
+                            <div className='relative w-35 flex flex-col' onClick={(e) => setIsMenuVisible((prev) => prev == false ? true : false)}>
                                 <i className="fa-solid fa-ellipsis-vertical font-bold p-4 cursor-pointer self-end"></i>
                                 {
                                     isMenuVisible &&
-                                    <p className='absolute top-10 px-1 border-1 border-gray-500 flex items-center justify-center rounded-md cursor-pointer hover:text-blue-400'
-                                        onClick={() => handleDeletePost(postId)}>
-                                        delete post
-                                    </p>
+                                    <div className='absolute top-10 border-1 w-[10] bg-white border-gray-500 flex flex-col gap-1 items-start justify-center rounded-md cursor-pointer'>
+                                        <p className='flex gap-2 items-center hover:bg-gray-300 p-2 w-full'
+                                            onClick={() => handleDeletePost(postId)}>
+                                            <i className="fa-solid fa-trash"></i>
+                                            <span>delete post</span>
+                                        </p>
+                                        <p className='flex gap-2 items-center p-2 hover:bg-gray-300 w-full'
+                                            onClick={() => navigate(`/editpost/${postId}`)}>
+                                            <i className="fa-solid fa-pen-to-square"></i>
+                                            <span>Edit post</span>
+                                        </p>
+                                    </div>
+
                                 }
                             </div>
                         }
@@ -151,7 +160,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                         }
                     </div>
 
-                    <div className='flex flex-row w-full z-[10]'>
+                    <div className='flex flex-row w-full z-[5]'>
                         <div className='w-[50%] flex items-center justify-center gap-2 pl-5 relative'>
                             <div className='absolute left-5'>
                                 {isLoading && <Loader3 />}

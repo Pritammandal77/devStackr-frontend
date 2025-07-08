@@ -18,6 +18,7 @@ import { Toaster } from 'sonner';
 import OtherUserProfile from './Pages/OtherUserProfile'
 import FollowersList from './Pages/FollowersList'
 import FollowingsList from './Pages/FollowingsList'
+import EditPost from './Pages/EditPost'
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
         <Route path="/user/:id" element={<OtherUserProfile />}></Route>
         <Route path="/followerslist/:id" element={<FollowersList />}></Route>
         <Route path="/followingslist/:id" element={<FollowingsList />}></Route>
+        <Route path="/editpost/:id" element={<EditPost />}></Route>
       </Route>
     )
   )
