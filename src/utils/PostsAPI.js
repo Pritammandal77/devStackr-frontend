@@ -9,7 +9,18 @@ const getPostById = async (postId) => {
     }
 }
 
+const editPost = async (postId, description) => {
+    try {
+        const res = await axiosInstance.post(`/api/v1/posts/editpost/${postId}`, {
+            description
+        })
+        return res
+    } catch (error) {
+        console.log("error while deleting a post", error)
+    }
+}
 
-export{
-    getPostById
+export {
+    getPostById,
+    editPost
 }
