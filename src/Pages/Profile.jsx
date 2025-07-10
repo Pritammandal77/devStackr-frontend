@@ -138,6 +138,7 @@ function Profile() {
                                             createdAt={FormatTime(data.createdAt)}
                                             postDesc={data.description}
                                             postImage={data.image}
+                                            postVideo={data.video}
                                             likesCount={data.likes}
                                             postId={data._id}
                                             isAlreadyLiked={data.likes.includes(currentUserData._id) && true}

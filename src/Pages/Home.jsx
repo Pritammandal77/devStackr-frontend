@@ -22,6 +22,7 @@ function Home() {
                 withCredentials: true
             })
             setALLPosts(posts.data.data)
+            console.log(posts.data.data)
             if (posts.data.data) {
                 setIsLoading(false)
             }
@@ -50,6 +51,7 @@ function Home() {
                                 createdAt={FormatTime(data.createdAt)}
                                 postDesc={data.description}
                                 postImage={data.image}
+                                postVideo={data.video}
                                 postId={data._id}
                                 likesCount={data.likes}
                                 followBtn="true"

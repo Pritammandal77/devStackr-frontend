@@ -10,8 +10,10 @@ import { FormatTime } from '../utils/FormatTime';
 import { useSelector } from 'react-redux';
 import CommentCard from './CommentCard';
 import Loader2 from './Loaders/Loader2';
+import ReactPlayer from 'react-player'
+import CustomVideoPlayer from './CustomVideoPlayer';
 
-function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, postDesc, postImage, postId, likesCount, followBtn, isAlreadyLiked }) {
+function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, postDesc, postImage, postVideo, postId, likesCount, followBtn, isAlreadyLiked }) {
 
     const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
     const mode = useSelector((state) => state.mode.mode)
@@ -97,8 +99,8 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                 handleGetCurrentPostComments(postId)  //after successfully deleting a comment , we are refetching the comments
             }
         } catch (error) {
-            console.log("error while deleting the comment",error)
-        }finally{
+            console.log("error while deleting the comment", error)
+        } finally {
             setIsLoading(false)
         }
 
@@ -120,7 +122,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
             }
         } catch (error) {
             console.log("error while deleting a post", error)
-        }finally{
+        } finally {
             location.reload();
             setIsLoading(false) // reloading the website after deleting a post , because after deleting a post , it still appear in the website ,until we refresh the page.
         }
@@ -173,7 +175,22 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                     <div className='flex flex-col gap-1'>
                         <p>{postDesc}</p>
                         {
-                            postImage && <img src={postImage} alt="" className='w-[100%] md:w-[100%] lg:w-[45vw] rounded-[5px]' />
+                            postImage && <img src={postImage} alt="image" className='w-[100%] md:w-[100%] lg:w-[45vw] rounded-[5px]' />
+                        }
+                        {
+                            postVideo &&
+                            // <video 
+                            // src={postVideo} 
+                            // alt="video" 
+                            // className='w-[100%] md:w-[100%] lg:w-[45vw] rounded-[5px]'
+                            // controls
+                            // autoPlay
+                            // muted
+                            // playsInline
+                            // ></video>
+                            <CustomVideoPlayer
+                                videoSrc={postVideo}
+                            />
                         }
                     </div>
 
@@ -290,7 +307,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                 </div>
             </div>
             {
-                isLoading && <Loader2/>
+                isLoading && <Loader2 />
             }
         </>
     );

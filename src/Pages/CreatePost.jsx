@@ -34,6 +34,12 @@ function CreatePost() {
   //used to create
   const createNewPost = async (e) => {
     e.preventDefault()
+
+    if(image && video){
+      toast.error("cannot upload both image & video at once")
+      return
+    }
+
     const formData = new FormData();
     formData.append('description', description); // state variable
     if (image) formData.append('image', image);  // File object
@@ -83,7 +89,7 @@ function CreatePost() {
               <p className='self-end'>{description.length}/800</p>
             </div>
 
-            <div className='flex gap-5'>
+            <div className='flex flex-col gap-5'>
               <div>
                 <label className="cursor-pointer px-2 py-1 bg-yellow-200 text-black rounded-lg hover:bg-blue-700 transition duration-200 inline-block">
                   <i className="fa-solid fa-image"></i>
@@ -104,7 +110,7 @@ function CreatePost() {
               </div>
 
               {/* this is the input field to upload video, I have commented it temporarily , bocz to upload a video on server it takes many time , thats why */}
-              {/* <div>
+              <div>
                 <label className="cursor-pointer px-2 py-1 bg-red-400 text-black rounded-lg hover:bg-blue-700 transition duration-200 inline-block">
                   <i className="fa-solid fa-video"></i>
                   <input
@@ -115,13 +121,16 @@ function CreatePost() {
                   />
                 </label>
                 {videoPreview && (
-                  <video
-                    src={videoPreview}
-                    controls
-                    className="mt-4 w-80 rounded-lg shadow"
-                  />
+                  <div className='mt-3'>
+                    <p className='text-[13px] lg:text-[14px] text-red-500'>video may take longer time to upload</p>
+                    <video
+                      src={videoPreview}
+                      controls
+                      className="w-80 rounded-lg shadow"
+                    />
+                  </div>
                 )}
-              </div> */}
+              </div>
 
             </div>
 
