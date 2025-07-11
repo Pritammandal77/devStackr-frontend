@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import {
     FaPlay,
     FaPause,
@@ -9,13 +9,7 @@ import {
 } from "react-icons/fa";
 
 function CustomVideoPlayer({ videoSrc }) {
-
-    //without this , the browser is showing not secure to my website , bacause video
-    //url is coming from cloudinary which gives us video in http format
     const secureVideoUrl = videoSrc.replace("http://", "https://");
-
-    console.log("asdasda", secureVideoUrl)
-
     const videoRef = useRef(null);
     const containerRef = useRef(null);
     const hideTimeoutRef = useRef(null);
@@ -24,35 +18,37 @@ function CustomVideoPlayer({ videoSrc }) {
     const [isMuted, setIsMuted] = useState(true);
     const [showControls, setShowControls] = useState(false);
 
-    // Handle visibility autoplay
+    // ✅ Lightweight visibility check without IntersectionObserver
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                const video = videoRef.current;
-                if (!video) return;
+        const video = videoRef.current;
+        if (!video) return;
 
-                if (entry.isIntersecting) {
-                    video.play().then(() => {
-                        setIsPlaying(true);
-                    }).catch(() => { });
-                } else {
-                    video.pause();
-                    setIsPlaying(false);
-                }
-            },
-            { threshold: 0.5 }
-        );
+        const handleVisibility = () => {
+            const rect = video.getBoundingClientRect();
+            const fullyVisible =
+                rect.top >= 0 &&
+                rect.bottom <= window.innerHeight;
 
-        if (containerRef.current) observer.observe(containerRef.current);
-        return () => containerRef.current && observer.unobserve(containerRef.current);
+            if (fullyVisible) {
+                video.play().catch(() => {});
+                setIsPlaying(true);
+            } else {
+                video.pause();
+                setIsPlaying(false);
+            }
+        };
+
+        handleVisibility();
+        window.addEventListener("scroll", handleVisibility);
+        return () => window.removeEventListener("scroll", handleVisibility);
     }, []);
 
-    // Auto-hide controls after 3s
+    // ✅ Auto-hide controls
     const startHideTimer = () => {
         clearTimeout(hideTimeoutRef.current);
         hideTimeoutRef.current = setTimeout(() => {
             setShowControls(false);
-        }, 3000);
+        }, 2500);
     };
 
     const handleUserInteraction = () => {
@@ -62,6 +58,8 @@ function CustomVideoPlayer({ videoSrc }) {
 
     const togglePlay = () => {
         const video = videoRef.current;
+        if (!video) return;
+
         if (video.paused) {
             video.play();
             setIsPlaying(true);
@@ -74,13 +72,18 @@ function CustomVideoPlayer({ videoSrc }) {
 
     const toggleMute = () => {
         const video = videoRef.current;
+        if (!video) return;
+
         video.muted = !video.muted;
         setIsMuted(video.muted);
         handleUserInteraction();
     };
 
     const skip = (seconds) => {
-        videoRef.current.currentTime += seconds;
+        const video = videoRef.current;
+        if (!video) return;
+
+        video.currentTime += seconds;
         handleUserInteraction();
     };
 
@@ -88,52 +91,51 @@ function CustomVideoPlayer({ videoSrc }) {
         <div
             ref={containerRef}
             onClick={handleUserInteraction}
-            className="w-full max-w-2xl mx-auto rounded-xl overflow-hidden relative group"
+            className="w-full max-w-2xl mx-auto rounded-xl overflow-hidden relative bg-black"
         >
             <video
                 ref={videoRef}
                 src={secureVideoUrl}
-                className="w-full h-auto object-cover"
+                className="w-full h-auto"
                 muted={isMuted}
-                preload="auto"
+                preload="metadata"
                 playsInline
             />
 
-            {/* Overlay Controls */}
             {showControls && (
                 <>
-                    {/* Center Play/Pause */}
+                    {/* Play/Pause */}
                     <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
                         <button
                             onClick={togglePlay}
-                            className="bg-black/60 text-white text-3xl p-4 rounded-full hover:bg-black/80 transition pointer-events-auto"
+                            className="bg-black/60 text-white text-3xl p-3 rounded-full pointer-events-auto"
                         >
-                            {isPlaying ? <FaPause className="text-2xl" /> : <FaPlay className="text-2xl" />}
+                            {isPlaying ? <FaPause /> : <FaPlay />}
                         </button>
                     </div>
 
-                    {/* Mute / Unmute (Bottom Right) */}
+                    {/* Mute */}
                     <button
                         onClick={toggleMute}
-                        className="absolute bottom-4 right-4 bg-black/60 text-white p-3 rounded-full hover:bg-black/80 transition pointer-events-auto"
+                        className="absolute bottom-4 right-4 bg-black/60 text-white p-2 rounded-full pointer-events-auto"
                         title="Mute/Unmute"
                     >
                         {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
                     </button>
 
-                    {/* Skip Backward (Left Center) */}
+                    {/* Rewind */}
                     <button
                         onClick={() => skip(-10)}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 text-white p-3 rounded-full hover:bg-black/80 transition pointer-events-auto"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 text-white p-2 rounded-full pointer-events-auto"
                         title="Rewind 10s"
                     >
                         <FaBackward />
                     </button>
 
-                    {/* Skip Forward (Right Center) */}
+                    {/* Forward */}
                     <button
                         onClick={() => skip(10)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 text-white p-3 rounded-full hover:bg-black/80 transition pointer-events-auto"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 text-white p-2 rounded-full pointer-events-auto"
                         title="Forward 10s"
                     >
                         <FaForward />

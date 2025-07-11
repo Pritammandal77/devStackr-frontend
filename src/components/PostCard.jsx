@@ -179,18 +179,18 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                         }
                         {
                             postVideo &&
-                            // <video 
-                            // src={postVideo} 
-                            // alt="video" 
-                            // className='w-[100%] md:w-[100%] lg:w-[45vw] rounded-[5px]'
-                            // controls
-                            // autoPlay
-                            // muted
-                            // playsInline
-                            // ></video>
-                            <CustomVideoPlayer
-                                videoSrc={postVideo}
-                            />
+                            <video 
+                            src={postVideo} 
+                            alt="video" 
+                            className='w-[100%] md:w-[100%] lg:w-[45vw] rounded-[5px]'
+                            controls
+                            autoPlay
+                            muted
+                            playsInline
+                            ></video>
+                            // <CustomVideoPlayer
+                            //     videoSrc={postVideo}
+                            // />
                         }
                     </div>
 
