@@ -84,10 +84,10 @@ function Profile() {
                             <p className='text-[20px]'>{currentUserData.bio}</p>
                             <div className='flex flex-row items-center gap-10 md:gap-15 w-[90%] md:w-[50%] pt-4 pb-2 lg:py-5'>
                                 <NavLink to={`/followerslist/${currentUserData._id}`}>
-                                    <p className={`text-[18px] md:text-[20px] text-blue-500 font-semibold border-1 px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-300' : 'bg-[#1e1e1e]'}`} >{followersList ? followersList.length : "0"} followers</p>
+                                    <p className={`text-[18px] md:text-[20px] text-blue-500 font-semibold px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-300' : 'bg-[#1e1e1e]'}`} >{followersList ? followersList.length : "0"} followers</p>
                                 </NavLink>
                                 <NavLink to={`/followingslist/${currentUserData._id}`}>
-                                    <p className={`text-[18px] md:text-[20px] text-blue-500 font-semibold border-1 px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-300' : 'bg-[#1e1e1e]'}`}>{followingsList ? followingsList.length : "0"} following</p>
+                                    <p className={`text-[18px] md:text-[20px] text-blue-500 font-semibold px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-300' : 'bg-[#1e1e1e]'}`}>{followingsList ? followingsList.length : "0"} following</p>
                                 </NavLink>
                             </div>
                             <div className='flex gap-5 mt-2'>
@@ -106,14 +106,37 @@ function Profile() {
                                         linkedin <i className="fa-solid fa-arrow-up-right-from-square"></i>
                                     </a>
                                 }
+
+                                {
+                                    currentUserData.portfolioLink &&
+                                    <a href={currentUserData.portfolioLink}
+                                        target='_blank'
+                                        className='text-[16px] text-blue-600 '>
+                                        Portfolio <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </a>
+                                }
+                                {
+                                    currentUserData.twitterLink &&
+                                    <a href={currentUserData.twitterLink}
+                                        target='_blank'
+                                        className='text-[16px] text-blue-600 '>
+                                        twitter <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </a>
+                                }
                             </div>
                         </div>
 
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] px-2 '>
-                            <h1 className='text-[28px] lg:text-[32px]'>About</h1>
-                            <p className='text-[16px] md:text-[18px]'>
-                                {currentUserData.about}
-                            </p>
+                            {
+                                currentUserData.about.length > 1 &&
+                                <div>
+                                    <h1 className='text-[28px] lg:text-[32px]'>About</h1>
+                                    <p className='text-[16px] md:text-[18px]'>
+                                        {currentUserData.about}
+                                    </p>
+                                </div>
+
+                            }
                         </div>
 
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 flex flex-col gap-2'>
@@ -121,7 +144,7 @@ function Profile() {
                             <div className='flex flex-wrap gap-3'>
                                 {
                                     currentUserData.skills && currentUserData.skills.map((skill, index) => (
-                                        <span className='px-3 py-1 border-2 border-gray-500 rounded-xl' key={index}>{skill}</span>
+                                        <span className={`px-3 py-1 rounded-xl  ${mode == 'light' ? 'bg-gray-300 ' : 'bg-[#1e1e1e]'}`} key={index}>{skill}</span>
                                     ))
                                 }
                             </div>

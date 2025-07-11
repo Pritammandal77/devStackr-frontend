@@ -35,7 +35,7 @@ function CreatePost() {
   const createNewPost = async (e) => {
     e.preventDefault()
 
-    if(image && video){
+    if (image && video) {
       toast.error("cannot upload both image & video at once")
       return
     }
@@ -75,7 +75,7 @@ function CreatePost() {
       }
       <div className='w-[100vw] h-auto flex flex-col items-center gap-2 p-3 py-15 xl:w-[80vw] absolute right-0' >
         <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 mt-10'>
-          <form action="" className='flex flex-col gap-5 md:p-2'>
+          <form action="" className='flex flex-col gap-3 md:p-2'>
 
             <div className='flex flex-col gap-2'>
               <label htmlFor="" className='text-[26px] md:text-[30px]'>Description</label>
@@ -89,47 +89,50 @@ function CreatePost() {
               <p className='self-end'>{description.length}/800</p>
             </div>
 
-            <div className='flex flex-col gap-5'>
-              <div>
-                <label className="cursor-pointer px-2 py-1 bg-yellow-200 text-black rounded-lg hover:bg-blue-700 transition duration-200 inline-block">
-                  <i className="fa-solid fa-image"></i>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    className="hidden"
-                  />
-                </label>
-                {imagePreview && (
-                  <img
-                    src={imagePreview}
-                    alt="Preview"
-                    className="mt-4 w-60 h-auto rounded-lg shadow"
-                  />
-                )}
-              </div>
-
-              {/* this is the input field to upload video, I have commented it temporarily , bocz to upload a video on server it takes many time , thats why */}
-              <div>
-                <label className="cursor-pointer px-2 py-1 bg-red-400 text-black rounded-lg hover:bg-blue-700 transition duration-200 inline-block">
-                  <i className="fa-solid fa-video"></i>
-                  <input
-                    type="file"
-                    accept="video/*"
-                    onChange={handleVideoChange}
-                    className="hidden"
-                  />
-                </label>
-                {videoPreview && (
-                  <div className='mt-3'>
-                    <p className='text-[13px] lg:text-[14px] text-red-500'>video may take longer time to upload</p>
-                    <video
-                      src={videoPreview}
-                      controls
-                      className="w-80 rounded-lg shadow"
+            <div className='flex flex-col gap-2'>
+              <h1 className='text-green-700 text-[16px]'>Upload image or video*</h1>
+              <div className='flex gap-5'>
+                <div>
+                  <label className="cursor-pointer px-2 py-1 bg-yellow-200 text-black rounded-lg hover:bg-blue-700 transition duration-200 inline-block">
+                    <i className="fa-solid fa-image"></i>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className="hidden"
                     />
-                  </div>
-                )}
+                  </label>
+                  {imagePreview && (
+                    <img
+                      src={imagePreview}
+                      alt="Preview"
+                      className="mt-4 w-60 h-auto rounded-lg shadow"
+                    />
+                  )}
+                </div>
+
+                {/* this is the input field to upload video, I have commented it temporarily , bocz to upload a video on server it takes many time , thats why */}
+                <div>
+                  <label className="cursor-pointer px-2 py-1 bg-red-400 text-black rounded-lg hover:bg-blue-700 transition duration-200 inline-block">
+                    <i className="fa-solid fa-video"></i>
+                    <input
+                      type="file"
+                      accept="video/*"
+                      onChange={handleVideoChange}
+                      className="hidden"
+                    />
+                  </label>
+                  {videoPreview && (
+                    <div className='mt-3'>
+                      <p className='text-[13px] lg:text-[14px] text-red-500'>video may take longer time to upload</p>
+                      <video
+                        src={videoPreview}
+                        controls
+                        className="w-80 rounded-lg shadow"
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
 
             </div>

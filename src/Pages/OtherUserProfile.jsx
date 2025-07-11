@@ -126,19 +126,19 @@ function OtherUserProfile() {
 
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] mt-5 lg:mt-20 flex flex-col gap-2 px-2'>
                             <div className='flex flex-col'>
-                                <h1 className='text-[22px] md:text-[28px] font-semibold'>{userData.name}</h1>
+                                <h1 className='text-[22px] md:text-[28px] font-semibold'>{userData.name}{currentUserId == userData._id && <span className='text-[18px] font-semibold px-3'>( Me )</span>}</h1>
                                 <p className='text-[16px] md:text-[20px] font-semibold'>{userData.userName}</p>
                                 <p className='text-[20px]'>{userData.bio}</p>
                             </div>
                             <div className='flex flex-row items-center gap-10 md:gap-15 w-[90%] md:w-[50%] mt-1'>
                                 <NavLink to={`/followerslist/${id}`}>
-                                    <p className={`text-[18px] md:text-[20px] text-blue-500 font-semibold border-1 px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-300' : 'bg-[#1e1e1e]'}`} >{followersList ? followersList.length : 0} followers</p>
+                                    <p className={`text-[18px] md:text-[20px] text-blue-500 font-semibold px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-300' : 'bg-[#1e1e1e]'}`} >{followersList ? followersList.length : 0} followers</p>
                                 </NavLink>
                                 <NavLink to={`/followingslist/${id}`}>
-                                    <p className={`{text-[18px] md:text-[20px] text-blue-500 font-semibold border-1 px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-300' : 'bg-[#1e1e1e]'}`}>{followingsList ? followingsList.length : 0} following</p>
+                                    <p className={`{text-[18px] md:text-[20px] text-blue-500 font-semibold  px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-300' : 'bg-[#1e1e1e]'}`}>{followingsList ? followingsList.length : 0} following</p>
                                 </NavLink>
                             </div>
-                            <div className={`flex gap-5`}>
+                            <div className={`flex gap-5 mt-2`}>
                                 {
                                     userData.githubLink &&
                                     <a href={userData.githubLink} className='text-[16px] text-blue-600 ' target='_blank'>
@@ -153,10 +153,26 @@ function OtherUserProfile() {
                                         linkedin <i className="fa-solid fa-arrow-up-right-from-square"></i>
                                     </a>
                                 }
+                                {
+                                    userData.portfolioLink &&
+                                    <a href={userData.portfolioLink}
+                                        target='_blank'
+                                        className='text-[16px] text-blue-600 '>
+                                        Portfolio <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </a>
+                                }
+                                 {
+                                    userData.twitterLink &&
+                                    <a href={userData.twitterLink}
+                                        target='_blank'
+                                        className='text-[16px] text-blue-600 '>
+                                        twitter <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </a>
+                                }
                             </div>
                         </div>
                         {
-                            userData.about &&
+                            userData?.about?.length > 1 &&
                             <div className='w-[100%] md:w-[80%] lg:w-[60vw]  px-2'>
                                 <h1 className='text-[28px] lg:text-[32px] '>About</h1>
                                 <p className='text-[16px] md:text-[18px]'>
@@ -172,7 +188,7 @@ function OtherUserProfile() {
                                 <div className='flex flex-wrap gap-3'>
                                     {
                                         userData.skills && userData.skills.map((skill, index) => (
-                                            <span className='px-3 py-1 border-2 border-gray-500 rounded-xl' key={index}>{skill}</span>
+                                            <span className={`px-3 py-1 rounded-xl  ${mode == 'light' ? 'bg-gray-300 ' : 'bg-[#1e1e1e]'}`} key={index}>{skill}</span>
                                         ))
                                     }
                                 </div>

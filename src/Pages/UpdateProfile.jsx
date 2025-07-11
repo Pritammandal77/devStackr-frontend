@@ -23,6 +23,8 @@ function UpdateProfile() {
     const [about, setAbout] = useState("")
     const [githubLink, setGithubLink] = useState("")
     const [linkedinLink, setLinkedInLink] = useState("")
+    const [portfolioLink, setPortfolioLink] = useState("")
+    const [twitterLink, setTwitterLink] = useState("")
 
     //to store skills array
     const [skill, setSkill] = useState("")
@@ -45,6 +47,8 @@ function UpdateProfile() {
             setAbout(userProfileData.about || "")
             setGithubLink(userProfileData.githubLink || "")
             setLinkedInLink(userProfileData.linkedinLink || "")
+            setPortfolioLink(userProfileData.portfolioLink || "")
+            setTwitterLink(userProfileData.twitterLink || "")
             setSkills(userProfileData.skills || "")
         }
     }, [userProfileData])
@@ -57,14 +61,16 @@ function UpdateProfile() {
         formData.append("coverImage", coverImage);         // if it's a File
         formData.append("name", name);
         formData.append("userName", userName);
-        formData.append("bio", bio);
-        formData.append("about", about);
-        formData.append("githubLink", githubLink);
-        formData.append("linkedinLink", linkedinLink);
+        formData.append("bio", bio.length > 10 ? bio : " ");
+        formData.append("about", about.length > 10 ? about : " ");
+        formData.append("githubLink", githubLink.length > 10 ? githubLink : " ");
+        formData.append("linkedinLink", linkedinLink.length > 10 ? linkedinLink : " ");
+        formData.append("portfolioLink", portfolioLink.length > 10 ? portfolioLink : " ");
+        formData.append("twitterLink", twitterLink.length > 10 ? twitterLink : " ");   //without this condition , if I want to save to empty twitterLink field , it saves the previous link that I have saved.
         formData.append("skills", JSON.stringify(skills)); // skills is an array
 
         setIsLoading(true)
-
+        console.log("twitterlink", twitterLink.length)
         try {
             console.log("updating profile")
             const res = await axiosInstance.post('/api/v1/users/updateUserAboutData', formData, {
@@ -80,6 +86,8 @@ function UpdateProfile() {
             }
         } catch (error) {
             console.error('Error creating post:', error.response?.data || error.message);
+            setIsLoading(false)
+            toast.error("error while updating profile")
         }
     }
 
@@ -166,6 +174,24 @@ function UpdateProfile() {
                                     placeholder='enter linkedin link'
                                     value={linkedinLink}
                                     onChange={(e) => setLinkedInLink(e.target.value)}
+                                />
+                            </div>
+                            <div className='flex flex-col '>
+                                <label htmlFor="" className='text-[18px] lg:text-[20px]'>Porfolio link</label>
+                                <input type="text"
+                                    className='border-1 rounded-[10px] text-[17px] md:text-[18px] px-2 py-1'
+                                    placeholder='enter portfolio link'
+                                    value={portfolioLink}
+                                    onChange={(e) => setPortfolioLink(e.target.value)}
+                                />
+                            </div>
+                            <div className='flex flex-col '>
+                                <label htmlFor="" className='text-[18px] lg:text-[20px]'>Twitter (X) link</label>
+                                <input type="text"
+                                    className='border-1 rounded-[10px] text-[17px] md:text-[18px] px-2 py-1'
+                                    placeholder='enter twitter link'
+                                    value={twitterLink}
+                                    onChange={(e) => setTwitterLink(e.target.value)}
                                 />
                             </div>
                             <div className='flex flex-col '>
