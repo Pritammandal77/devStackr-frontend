@@ -83,7 +83,6 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
     //to fetch comments of each posts by the postIds
     const handleGetCurrentPostComments = async (postId) => {
         const response = await getCurrentPostComments(postId)
-        // console.log("comments", response)
         if (response) {
             setAllComments(response.data.data)
         }
