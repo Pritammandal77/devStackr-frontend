@@ -81,10 +81,10 @@ function Header() {
         <nav className={`w-[100vw] h-13  flex items-center fixed top-0 z-[50] xl:w-[100vw] right-0
           ${mode == 'light' ? 'bg-[#f9ded1]' : 'bg-[#000] text-[#d3d3d3]'}`}>
           <ul className='w-[100%] flex items-center justify-between px-5 mx:px-0  md:justify-evenly md:gap-7'>
-            <li className='flex flex-row items-center gap-2 '>
-              <NavLink to="/home">
-                {/* <img src="/logo1.png" alt=""
-                  className='h-10 w-10 rounded-full cursor-pointer' /> */}
+            <li className=''>
+              <NavLink to="/home" className="flex flex-row items-center gap-2 ">
+                <img src="/logo1.png" alt=""
+                  className='h-10 w-10 rounded-full cursor-pointer' />
                 <p className={`russo-one-regular text-[22px]  ${mode == 'light' ? 'text-black' : 'text-[#d3d3d3]'}`}>
                   devStackr
                 </p>

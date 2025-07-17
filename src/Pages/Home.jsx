@@ -22,7 +22,6 @@ function Home() {
                 withCredentials: true
             })
             setALLPosts(posts.data.data)
-            console.log(posts.data.data)
             if (posts.data.data) {
                 setIsLoading(false)
             }

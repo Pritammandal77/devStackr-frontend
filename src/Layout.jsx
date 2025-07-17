@@ -7,36 +7,32 @@ import { useDispatch } from 'react-redux';
 import { setCurrentUserData, setIsLoggedIn } from './features/UserProfileData';
 import SideBar from './components/SideBar';
 import axiosInstance from './utils/axiosInstance';
+import { toast } from 'sonner';
 
 function Layout() {
 
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
-        const getUserData = async () => {
+        const fetchCurrentUser = async () => {
             try {
-                const res = await axiosInstance.get("/api/v1/users/getCurrentUser", {
-                    withCredentials: true,
-                });
-
-                console.log("get request data at layout.jsx", res.data)
-                dispatch(setCurrentUserData(res.data))
-                if (res.data.statusCode == 200) {
-                    dispatch(setIsLoggedIn("true"))
-                    // navigate("/")
-                }
+                const user = await axiosInstance.get("/api/v1/users/getCurrentUser");
+                console.log("current user", user)
+                dispatch(setCurrentUserData(user.data));
+                dispatch(setIsLoggedIn("true"));
             } catch (err) {
                 console.log("User not logged in", err.message);
-                navigate("/signup")
+                toast.error("Session expired, please log in again");
+                navigate("/signup");
             }
         };
 
-        getUserData();
+        fetchCurrentUser();
     }, []);
 
-    
-    const location = useLocation();
+
 
     // Define the routes where you DON'T want Header and BottomMenu
     const hideOnRoutes = ['/signup', '/signin',];
@@ -55,3 +51,47 @@ function Layout() {
 }
 
 export default Layout;
+
+
+
+
+
+// const dispatch = useDispatch()
+// const navigate = useNavigate()
+
+// useEffect(() => {
+//     const getUserData = async () => {
+//         try {
+//             const res = await axiosInstance.get("/api/v1/users/getCurrentUser", {
+//                 withCredentials: true,
+//             });
+
+//             console.log("get request data at layout.jsx", res.data)
+//             dispatch(setCurrentUserData(res.data))
+//             if (res.data.statusCode == 200) {
+//                 dispatch(setIsLoggedIn("true"))
+//                 // navigate("/")
+//             }
+//         } catch (err) {
+//             console.log("User not logged in", err.message);
+//             navigate("/signup")
+//         }
+//     };
+
+//     getUserData();
+// }, []);
+
+
+// useEffect(() => {
+//     const refreshAccessToken = async () => {
+//         try {
+//             const res = await API.post("/refresh-token");
+//             const newAccessToken = res.data.accessToken;
+//             localStorage.setItem("accessToken", newAccessToken);
+//         } catch (err) {
+//             console.log("Refresh failed. Maybe login again.");
+//         }
+//     };
+
+//     refreshAccessToken(); // call once on load
+// }, []);
