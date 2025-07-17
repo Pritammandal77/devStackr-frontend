@@ -16,6 +16,12 @@ function Profile() {
     const currentUserData = useSelector((state) => state.userData?.currentUserData.data)
     const mode = useSelector((state) => state.mode.mode)
 
+    //the aboutdata text is coming in raw format , so we are formatting it
+    let formattedAboutData, formattedBio;
+    if (currentUserData?.about) {
+        formattedAboutData = currentUserData.about.split("\r\n");
+        formattedBio = currentUserData.bio.split("\r\n");
+    }
     const [posts, setPosts] = useState([])
 
     const [followersList, setFollowersList] = useState(null)
@@ -81,7 +87,11 @@ function Profile() {
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 mt-5 lg:mt-20'>
                             <h1 className='text-[22px] md:text-[28px] font-semibold'>{currentUserData.name}</h1>
                             <p className='text-[16px] md:text-[20px] font-semibold'>{currentUserData.userName}</p>
-                            <p className='text-[20px]'>{currentUserData.bio}</p>
+                            <div className='text-[16px] md:text-[18px]'>
+                                {formattedBio?.map((line, index) => (
+                                    <p key={index}>{line}</p>
+                                ))}
+                            </div>
                             <div className='flex flex-row items-center gap-10 md:gap-15 w-[90%] md:w-[50%] pt-4 pb-2 lg:py-5'>
                                 <NavLink to={`/followerslist/${currentUserData._id}`}>
                                     <p className={`text-[18px] md:text-[20px] text-blue-500 font-semibold px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-300' : 'bg-[#1e1e1e]'}`} >{followersList ? followersList.length : "0"} followers</p>
@@ -131,9 +141,11 @@ function Profile() {
                                 currentUserData.about.length > 1 &&
                                 <div>
                                     <h1 className='text-[28px] lg:text-[32px]'>About</h1>
-                                    <p className='text-[16px] md:text-[18px]'>
-                                        {currentUserData.about}
-                                    </p>
+                                    <div className='text-[16px] md:text-[18px]'>
+                                        {formattedAboutData.map((line, index) => (
+                                            <p key={index}>{line}</p>
+                                        ))}
+                                    </div>
                                 </div>
 
                             }

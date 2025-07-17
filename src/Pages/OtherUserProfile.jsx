@@ -34,6 +34,13 @@ function OtherUserProfile() {
         }
     }
 
+    let formattedAboutData, formattedBio;
+    if (userData?.about) {
+        formattedAboutData = userData.about.split("\r\n");
+        formattedBio = userData.bio.split("\r\n");
+    }
+    
+
     const getUserPostsById = async (userPostsIds) => {
         try {
             const res = await axiosInstance.post("/api/v1/posts/userpostsbyid", {
@@ -128,7 +135,11 @@ function OtherUserProfile() {
                             <div className='flex flex-col'>
                                 <h1 className='text-[22px] md:text-[28px] font-semibold'>{userData.name}{currentUserId == userData._id && <span className='text-[18px] font-semibold px-3'>( Me )</span>}</h1>
                                 <p className='text-[16px] md:text-[20px] font-semibold'>{userData.userName}</p>
-                                <p className='text-[20px]'>{userData.bio}</p>
+                                <div className='text-[16px] md:text-[18px]'>
+                                    {formattedBio?.map((line, index) => (
+                                        <p key={index}>{line}</p>
+                                    ))}
+                                </div>
                             </div>
                             <div className='flex flex-row items-center gap-10 md:gap-15 w-[90%] md:w-[50%] mt-1'>
                                 <NavLink to={`/followerslist/${id}`}>
@@ -161,7 +172,7 @@ function OtherUserProfile() {
                                         Portfolio <i className="fa-solid fa-arrow-up-right-from-square"></i>
                                     </a>
                                 }
-                                 {
+                                {
                                     userData.twitterLink &&
                                     <a href={userData.twitterLink}
                                         target='_blank'
@@ -175,9 +186,11 @@ function OtherUserProfile() {
                             userData?.about?.length > 1 &&
                             <div className='w-[100%] md:w-[80%] lg:w-[60vw]  px-2'>
                                 <h1 className='text-[28px] lg:text-[32px] '>About</h1>
-                                <p className='text-[16px] md:text-[18px]'>
-                                    {userData.about}
-                                </p>
+                                <div className='text-[16px] md:text-[18px]'>
+                                    {formattedAboutData.map((line, index) => (
+                                        <p key={index}>{line}</p>
+                                    ))}
+                                </div>
                             </div>
                         }
 
