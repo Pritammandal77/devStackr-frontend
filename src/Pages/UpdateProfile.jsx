@@ -9,7 +9,7 @@ import axiosInstance from '../utils/axiosInstance';
 function UpdateProfile() {
 
     const userProfileData = useSelector((state) => state.userData.currentUserData.data)
-
+    const mode = useSelector((state) => state.mode.mode)
     // console.log("User data at update page", userProfileData)
 
     const [isLoading, setIsLoading] = useState(false)
@@ -226,7 +226,7 @@ function UpdateProfile() {
                                         skills && skills.map((skill, index) => (
                                             <div className='px-2 py-1 border-1 border-gray-600 rounded-xl flex items-center justify-center gap-2' key={index}>
                                                 {skill}
-                                                <span className=' bg-gray-400 h-5 w-5 flex items-center justify-center rounded-full cursor-pointer' onClick={(e) => handleRemoveSkill(e, skill, index)}>
+                                                <span className={`h-5 w-5 flex items-center justify-center rounded-full cursor-pointer ${mode == 'light' ? 'bg-gray-400 ' : 'bg-[#373737]'}`} onClick={(e) => handleRemoveSkill(e, skill, index)}>
                                                     <i class="fa-solid fa-xmark text-[15px]"></i>
                                                 </span>
                                             </div>
