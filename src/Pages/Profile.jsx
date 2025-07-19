@@ -151,16 +151,20 @@ function Profile() {
                             }
                         </div>
 
-                        <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 flex flex-col gap-2'>
-                            <h1 className='text-[28px] lg:text-[32px]'>Skills</h1>
-                            <div className='flex flex-wrap gap-3'>
-                                {
-                                    currentUserData.skills && currentUserData.skills.map((skill, index) => (
-                                        <span className={`px-3 py-1 rounded-xl  ${mode == 'light' ? 'bg-gray-300 ' : 'bg-[#1e1e1e]'}`} key={index}>{skill}</span>
-                                    ))
-                                }
+                        {
+                            currentUserData.skills.length >= 1 &&
+                            <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 flex flex-col gap-2'>
+                                <h1 className='text-[28px] lg:text-[32px]'>Skills</h1>
+                                <div className='flex flex-wrap gap-3'>
+                                    {
+                                        currentUserData.skills && currentUserData.skills.map((skill, index) => (
+                                            <span className={`px-3 py-1 rounded-xl  ${mode == 'light' ? 'bg-gray-300 ' : 'bg-[#1e1e1e]'}`} key={index}>{skill}</span>
+                                        ))
+                                    }
+                                </div>
                             </div>
-                        </div>
+                        }
+
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 flex flex-col gap-2'>
                             <h1 className='text-[28px] lg:text-[32px]'>Posts</h1>
                             <div className='flex flex-col items-center '>
