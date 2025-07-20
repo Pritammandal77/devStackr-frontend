@@ -5,12 +5,12 @@ function Hamburger() {
     <div className='w-full h-full'>
       <ul>
         <li>
-          <i class="fa-solid fa-xmark"></i>
+          <i className="fa-solid fa-xmark"></i>
         </li>
         <li>
           <ul>
             <li>
-              <i class="fa-solid fa-message"></i>
+              <i className="fa-solid fa-message"></i>
               Messages
             </li>
           </ul>

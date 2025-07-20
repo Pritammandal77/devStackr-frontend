@@ -20,13 +20,10 @@ function Header() {
   const [searchInput, setSearchInput] = useState("")
 
   const handleOpenHamburger = () => {
-    console.log("Hello")
-    // hamburgerDiv.style.display = "inline"
     hamburgerRef.current.style.display = "inline"; // Step 2
   }
 
   const handleCloseHamburger = () => {
-    // hamburgerDiv.style.display = "none"
     hamburgerRef.current.style.display = "none"; // Step 3
   }
 
@@ -122,10 +119,6 @@ function Header() {
           <li>
             <ul className='flex flex-col gap-3 text-[20px]'>
               <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
-                <i className="fa-solid fa-user"></i>
-                <p>Account setting</p>
-              </li>
-              <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
                 <NavLink to="/allusers" className="flex gap-3 items-center cursor-pointer" onClick={handleCloseHamburger}>
                   <i className="fa-solid fa-users"></i>
                   <p>All users</p>
@@ -137,23 +130,70 @@ function Header() {
                   <p>Edit profile</p>
                 </NavLink>
               </li>
-              <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
-                <NavLink to="/signup" className="flex gap-3 items-center cursor-pointer">
-                  <i className="fa-solid fa-right-to-bracket"></i>
-                  Create Account
-                </NavLink>
+
+              <li className="pl-2">
+                <details
+                  className={`group rounded-[8px] overflow-hidden ${mode === 'light' ? 'bg-[#FFF2EB]' : 'bg-[#000] text-[#d3d3d3]'
+                    }`}>
+                  <summary
+                    className={`flex items-center justify-between cursor-pointer py-2 px-3 text-[20px] font-medium
+                                            ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}
+                                            transition duration-200 rounded-[8px]`}>
+                    <span className="flex gap-2 items-center">
+                      <i className="fa-solid fa-gear"></i>
+                      <p>Account Settings</p>
+                    </span>
+                    <i className="fa-solid fa-chevron-down group-open:rotate-180 transition duration-300"></i>
+                  </summary>
+
+                  <ul className="pl-8 py-2 flex flex-col gap-2 text-[17px]">
+                    <li>
+                      <NavLink
+                        to="/signup"
+                        className={({ isActive }) =>
+                          `block px-2 py-1 rounded ${isActive
+                            ? mode === 'light'
+                              ? 'bg-[#fcd4bc]'
+                              : 'bg-[#1f1f1f]'
+                            : ''
+                          } ${mode === 'light'
+                            ? 'hover:bg-[#f8c5a8]'
+                            : 'hover:bg-[#373737]'
+                          }`
+                        }
+                      >
+                        Create Account
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/signin"
+                        className={({ isActive }) =>
+                          `block px-2 py-1 rounded ${isActive
+                            ? mode === 'light'
+                              ? 'bg-[#fcd4bc]'
+                              : 'bg-[#1f1f1f]'
+                            : ''
+                          } ${mode === 'light'
+                            ? 'hover:bg-[#f8c5a8]'
+                            : 'hover:bg-[#373737]'
+                          }`
+                        }
+                      >
+                        Log In
+                      </NavLink>
+                    </li>
+                    <li
+                      onClick={handleLogout}
+                      className={`block px-2 py-1 rounded cursor-pointer ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'
+                        }`}
+                    >
+                      Log Out
+                    </li>
+                  </ul>
+                </details>
               </li>
-              <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
-                <NavLink to="/signin" className="flex gap-3 items-center  cursor-pointer">
-                  <i className="fa-solid fa-right-to-bracket"></i>
-                  SignIn
-                </NavLink>
-              </li>
-              <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}
-                onClick={handleLogout}>
-                <BiLogOut className='text-[22px]' />
-                Logout
-              </li>
+
               <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
                 <input
                   type="checkbox"
@@ -220,3 +260,33 @@ function Header() {
 }
 
 export default Header;
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
+                <NavLink to="/signup" className="flex gap-3 items-center cursor-pointer">
+                  <i className="fa-solid fa-right-to-bracket"></i>
+                  Create Account
+                </NavLink>
+              </li>
+              <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
+                <NavLink to="/signin" className="flex gap-3 items-center  cursor-pointer">
+                  <i className="fa-solid fa-right-to-bracket"></i>
+                  SignIn
+                </NavLink>
+              </li>
+              <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}
+                onClick={handleLogout}>
+                <BiLogOut className='text-[22px]' />
+                Logout
+              </li> */}
