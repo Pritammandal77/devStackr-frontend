@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import FollowButton from '../components/followButton';
 import PostCard from '../components/PostCard';
 import { FormatTime } from '../utils/FormatTime';
@@ -12,6 +12,7 @@ function OtherUserProfile() {
 
     //we are getting the id of user from parameter (react router's route)
     const { id } = useParams();
+    const navigate = useNavigate()
 
     const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
     const mode = useSelector((state) => state.mode.mode)
@@ -100,6 +101,9 @@ function OtherUserProfile() {
         }
     }, [followersList, currentUserId]);
 
+    const handleCreateChat = (id) => {
+        navigate(`/chat/messages/${id}`)
+    }
 
 
     return (
@@ -167,7 +171,8 @@ function OtherUserProfile() {
                                 }
                                 {
                                     currentUserId != userData._id &&
-                                    <button className='bg-blue-400 h-[35px] w-[45vw] px-3 py-2 rounded-[10px] text-[19px] cursor-pointer flex flex-row items-center justify-center gap-2'>
+                                    <button className='bg-blue-400 h-[35px] w-[45vw] px-3 py-2 rounded-[10px] text-[19px] cursor-pointer flex flex-row items-center justify-center gap-2'
+                                        onClick={() => handleCreateChat(userData._id)}>
                                         <i className="fa-regular fa-paper-plane"></i>
                                         <span>Message</span>
                                     </button>

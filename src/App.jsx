@@ -20,6 +20,7 @@ import FollowersList from './Pages/FollowersList'
 import FollowingsList from './Pages/FollowingsList'
 import EditPost from './Pages/EditPost'
 import Chats from './Pages/Chats/ChatsPage'
+import ChatMessages from './Pages/Chats/ChatMessages'
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
         <Route path="/followingslist/:id" element={<FollowingsList />}></Route>
         <Route path="/editpost/:id" element={<EditPost />}></Route>
         <Route path="/chat" element={<Chats />}></Route>
+        <Route path="/chat/messages/:id" element={<ChatMessages />}></Route>
       </Route>
     )
   )
