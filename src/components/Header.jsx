@@ -133,7 +133,7 @@ function Header() {
 
               <li className="pl-2">
                 <details
-                  className={`group rounded-[8px] overflow-hidden ${mode === 'light' ? 'bg-[#FFF2EB]' : 'bg-[#000] text-[#d3d3d3]'
+                  className={`group rounded-[8px] overflow-hidden ${mode === 'light' ? 'bg-[#FFF2EB]' : ' text-[#d3d3d3]'
                     }`}>
                   <summary
                     className={`flex items-center justify-between cursor-pointer py-2 px-3 text-[20px] font-medium

@@ -13,7 +13,7 @@ function BottomMenu() {
                 ${mode == 'light' ? 'bg-[#f9ded1] text-black' : 'bg-[#000] text-[#d3d3d3]'}`}>
                 <ul className='w-[100%] lg:w-[60%] flex flex-row items-center justify-evenly text-[22px] '>
                     <li>
-                        <NavLink to="/chat"
+                        <NavLink to="/chatlist"
                             className={({ isActive }) => (isActive && "text-[#3f0064] font-bold border-b-3 rounded-xl p-1")}>
                             <i className="fa-solid fa-message"></i>
                         </NavLink>

@@ -6,13 +6,24 @@ const createOrFetchChat = async (userId) => {
         const chat = await axiosInstance.post("/api/v1/chat/createchat", {
             userId: userId
         })
-        console.log("chat", chat)
+        return chat
     } catch (error) {
-        console.log("error generated while creating or fetching chat", error)
+        console.log("error generated while creating chat", error)
         toast.error("error while creating chat")
     }
 }
 
+const fetchChats = async () => {
+    try {
+        const fetchedChats = await axiosInstance.get("/api/v1/chat/fetchchats")
+        return fetchedChats
+    } catch (error) {
+        console.log("error generated fetching chat", error)
+        toast.error("error while fetching chat")
+    }
+}
+
 export {
-    createOrFetchChat
+    createOrFetchChat,
+    fetchChats
 }
