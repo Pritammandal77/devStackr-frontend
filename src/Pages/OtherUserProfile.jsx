@@ -39,7 +39,7 @@ function OtherUserProfile() {
         formattedAboutData = userData.about.split("\r\n");
         formattedBio = userData.bio.split("\r\n");
     }
-    
+
 
     const getUserPostsById = async (userPostsIds) => {
         try {
@@ -117,22 +117,25 @@ function OtherUserProfile() {
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] h-10  lg:text-center flex flex-row justify-between text-black px-10'>
                             <img src={userData.profilePicture ? userData.profilePicture : "/defaultpfp.png"} alt=""
                                 className='w-30 h-30 md:w-40 md:h-40 lg:h-50 lg:w-50 rounded-full relative bottom-15 md:bottom-20' />
-                            {
-                                isAlreadyFollowing ?
-                                    (
-                                        currentUserId != userData._id &&
-                                        <FollowButton onClick={handleUnFollow} text="unfollow" />
-                                    )
-                                    :
-                                    (
-                                        currentUserId != userData._id &&   //means , if our currentLoggedInUserId != the otherUserId then show this followBtn
-                                        <FollowButton onClick={handleFollow} text="follow" />
-                                    )
-                            }
+                            <div className='hidden md:flex items-center justify-center gap-5'>
+                                {
+                                    isAlreadyFollowing ?
+                                        (
+                                            currentUserId != userData._id &&
+                                            <FollowButton onClick={handleUnFollow} text="unfollow" />
+                                        )
+                                        :
+                                        (
+                                            currentUserId != userData._id &&   //means , if our currentLoggedInUserId != the otherUserId then show this followBtn
+                                            <FollowButton onClick={handleFollow} text="follow" />
+                                        )
+                                }
+                                <button className='bg-blue-400 h-[35px] px-3 py-2 rounded-[10px] text-[19px] cursor-pointer flex flex-row items-center justify-center gap-2'>Message</button>
+                            </div>
                         </div>
 
-                        <div className='w-[100%] md:w-[80%] lg:w-[60vw] mt-5 lg:mt-20 flex flex-col gap-2 px-2'>
-                            <div className='flex flex-col'>
+                        <div className='w-[100%] md:w-[80%] lg:w-[60vw] mt-5 md:mt-10 lg:mt-20 flex flex-col gap-2 px-2'>
+                            <div className='flex flex-col '>
                                 <h1 className='text-[22px] md:text-[28px] font-semibold'>{userData.name}{currentUserId == userData._id && <span className='text-[18px] font-semibold px-3'>( Me )</span>}</h1>
                                 <p className='text-[16px] md:text-[20px] font-semibold'>{userData.userName}</p>
                                 <div className='text-[16px] md:text-[18px]'>
@@ -141,13 +144,34 @@ function OtherUserProfile() {
                                     ))}
                                 </div>
                             </div>
-                            <div className='flex flex-row items-center gap-10 md:gap-15 w-[90%] md:w-[50%] mt-1'>
+                            <div className='flex flex-row items-center  gap-5 md:gap-15 w-[80%] md:w-[50%] pt-2 pb-2 lg:py-5'>
                                 <NavLink to={`/followerslist/${id}`}>
-                                    <p className={`text-[18px] md:text-[20px] text-blue-500 font-semibold px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-300' : 'bg-[#1e1e1e]'}`} >{followersList ? followersList.length : 0} followers</p>
+                                    <p className={`text-[20px] md:text-[20px] text-blue-500 font-semibold px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-100' : 'bg-[#1e1e1e]'}`} >{followersList ? followersList.length : 0} followers</p>
                                 </NavLink>
                                 <NavLink to={`/followingslist/${id}`}>
-                                    <p className={`{text-[18px] md:text-[20px] text-blue-500 font-semibold  px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-300' : 'bg-[#1e1e1e]'}`}>{followingsList ? followingsList.length : 0} following</p>
+                                    <p className={`text-[20px] md:text-[20px] text-blue-500 font-semibold  px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-100' : 'bg-[#1e1e1e]'}`}>{followingsList ? followingsList.length : 0} following</p>
                                 </NavLink>
+                            </div>
+                            <div className='md:hidden flex items-center gap-5'>
+                                {
+                                    isAlreadyFollowing ?
+                                        (
+                                            currentUserId != userData._id &&
+                                            <FollowButton onClick={handleUnFollow} text="unfollow" />
+                                        )
+                                        :
+                                        (
+                                            currentUserId != userData._id &&   //means , if our currentLoggedInUserId != the otherUserId then show this followBtn
+                                            <FollowButton onClick={handleFollow} text="follow" />
+                                        )
+                                }
+                                {
+                                    currentUserId != userData._id &&
+                                    <button className='bg-blue-400 h-[35px] w-[45vw] px-3 py-2 rounded-[10px] text-[19px] cursor-pointer flex flex-row items-center justify-center gap-2'>
+                                        <i className="fa-regular fa-paper-plane"></i>
+                                        <span>Message</span>
+                                    </button>
+                                }
                             </div>
                             <div className={`flex gap-5 mt-2`}>
                                 {

@@ -227,11 +227,11 @@ function UpdateProfile() {
                                             <div className='px-2 py-1 border-1 border-gray-600 rounded-xl flex items-center justify-center gap-2' key={index}>
                                                 {skill}
                                                 <span className={`h-5 w-5 flex items-center justify-center rounded-full cursor-pointer ${mode == 'light' ? 'bg-gray-400 ' : 'bg-[#373737]'}`} onClick={(e) => handleRemoveSkill(e, skill, index)}>
-                                                    <i class="fa-solid fa-xmark text-[15px]"></i>
+                                                    <i className="fa-solid fa-xmark text-[15px]"></i>
                                                 </span>
                                             </div>
                                         ))
-                                    }
+                                    }     
                                 </div>
                             </div>
                             <div>

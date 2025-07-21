@@ -84,7 +84,7 @@ function Profile() {
                                 className='w-30 h-30 md:w-40 md:h-40 lg:h-50 lg:w-50 rounded-full relative bottom-15 md:bottom-20' />
                         </div>
 
-                        <div className='w-[100%] md:w-[80%] lg:w-[60vw] p-2 mt-5 lg:mt-20'>
+                        <div className='w-[100%] md:w-[80%] lg:w-[60vw] px-2 mt-5 lg:mt-20 '>
                             <h1 className='text-[22px] md:text-[28px] font-semibold'>{currentUserData.name}</h1>
                             <p className='text-[16px] md:text-[20px] font-semibold'>{currentUserData.userName}</p>
                             <div className='text-[16px] md:text-[18px]'>
@@ -92,15 +92,15 @@ function Profile() {
                                     <p key={index}>{line}</p>
                                 ))}
                             </div>
-                            <div className='flex flex-row items-center gap-10 md:gap-15 w-[90%] md:w-[50%] pt-4 pb-2 lg:py-5'>
+                            <div className='flex flex-row items-center  gap-5 md:gap-15 w-[80%] md:w-[50%] pt-4 lg:py-5'>
                                 <NavLink to={`/followerslist/${currentUserData._id}`}>
-                                    <p className={`text-[18px] md:text-[20px] text-blue-500 font-semibold px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-300' : 'bg-[#1e1e1e]'}`} >{followersList ? followersList.length : "0"} followers</p>
+                                    <p className={`text-[20px] md:text-[20px] text-blue-500 font-semibold px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-100' : 'bg-[#1e1e1e]'}`} >{followersList ? followersList.length : "0"} followers</p>
                                 </NavLink>
                                 <NavLink to={`/followingslist/${currentUserData._id}`}>
-                                    <p className={`text-[18px] md:text-[20px] text-blue-500 font-semibold px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-300' : 'bg-[#1e1e1e]'}`}>{followingsList ? followingsList.length : "0"} following</p>
+                                    <p className={`text-[20px] md:text-[20px] text-blue-500 font-semibold px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-100' : 'bg-[#1e1e1e]'}`}>{followingsList ? followingsList.length : "0"} following</p>
                                 </NavLink>
                             </div>
-                            <div className='flex gap-5 mt-2'>
+                            <div className='flex gap-5 mt-2 '>
                                 {
                                     currentUserData.githubLink &&
                                     <a href={currentUserData.githubLink} className='text-[16px] text-blue-600 ' target='_blank'>
@@ -147,7 +147,6 @@ function Profile() {
                                         ))}
                                     </div>
                                 </div>
-
                             }
                         </div>
 
