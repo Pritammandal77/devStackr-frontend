@@ -102,7 +102,7 @@ function Header() {
               <HiOutlineMenuAlt3 onClick={handleOpenHamburger} className='cursor-pointer' />
             </li>
             <li className='cursor-pointer hidden xl:flex text-[18px]'>
-              <NavLink to="/chat">
+              <NavLink to="/chatlist">
                 <i className="fa-solid fa-paper-plane"></i>
               </NavLink>
             </li>

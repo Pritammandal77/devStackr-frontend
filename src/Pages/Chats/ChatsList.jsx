@@ -17,7 +17,7 @@ function ChatsList() {
 
 
   if (chats) {
-    console.log(chats)
+    console.log(chats)   
   }
 
   return (
@@ -28,7 +28,8 @@ function ChatsList() {
           {
             chats &&
             chats.map((data, index) => (
-              <div key={index} className='border-1 h-30 w-full md:w-[70vw] bg-amber-300'>
+              <div key={index} className='border-1 h-30 w-full md:w-[70vw] xl:w-[50vw] bg-amber-300'>
+                
               </div>
             ))
           }
