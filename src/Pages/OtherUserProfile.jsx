@@ -171,7 +171,7 @@ function OtherUserProfile() {
                                 }
                                 {
                                     currentUserId != userData._id &&
-                                    <button className='bg-blue-400 h-[35px] w-[45vw] px-3 py-2 rounded-[10px] text-[19px] cursor-pointer flex flex-row items-center justify-center gap-2'
+                                    <button className='bg-blue-400 h-[35px] w-[45vw] md:w-auto px-3 py-2 rounded-[10px] text-[19px] cursor-pointer flex flex-row items-center justify-center gap-2'
                                         onClick={() => handleCreateChat(userData._id)}>
                                         <i className="fa-regular fa-paper-plane"></i>
                                         <span>Message</span>
