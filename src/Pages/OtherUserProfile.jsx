@@ -7,6 +7,7 @@ import PostCard from '../components/PostCard';
 import { FormatTime } from '../utils/FormatTime';
 import axiosInstance from '../utils/axiosInstance';
 import { followUser, getFollowersList, getFollowingsList, unFollowUser } from '../utils/FollowUnFollowUser';
+import { createOrFetchChat } from '../utils/ChatAPI';
 
 function OtherUserProfile() {
 
@@ -101,8 +102,13 @@ function OtherUserProfile() {
         }
     }, [followersList, currentUserId]);
 
-    const handleCreateChat = (id) => {
-        navigate(`/chat/messages/${id}`)
+    const handleCreateChat = async (id) => {
+        const response = await createOrFetchChat(id)
+        console.log(response)
+        if (response.data.data._id) {
+            const id = response.data.data._id
+            navigate(`/chat/messages/${id}`)
+        }
     }
 
 

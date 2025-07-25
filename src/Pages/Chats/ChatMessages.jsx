@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { createOrFetchChat, fetchMessagesByChatId, sendMessage } from '../../utils/ChatAPI';
+import { useSelector } from 'react-redux';
+import { FormatTime } from '../../utils/FormatTime';
 
 function ChatMessages() {
 
+  const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
   const { id } = useParams() //this is the ChatId
   const [inputMessage, setInputMessage] = useState("")
-  const [isMsgSent, setIsMsgSent] = useState(false)  // ye sirf siliye lagay ke 
+  const [allMessages, setAllMessages] = useState([])   // to store all the messages
 
-  const handleCreateChat = async (id) => {
-    const response = await createOrFetchChat(id)
-    console.log(response)
-  }
-
-  useEffect(() => {
-    handleCreateChat(id)
-  }, []);
+  // ye state sirf iliye lagaya ke taaki , jab bhe user koi new msg send kare ,
+  //  toh fetchallMessages bhe firse call ho jaaye , kyuki mene is state as a dependency lagaya hain
+  const [isMsgSent, setIsMsgSent] = useState(false)
 
   const handleSendNewMessage = async (id, inputMessage) => {
+    setInputMessage("")
     const messageSent = await sendMessage({
       chatId: id,
       message: inputMessage
@@ -34,6 +33,7 @@ function ChatMessages() {
     setIsMsgSent(false)
     const allMessages = await fetchMessagesByChatId(id)
     console.log("all messages", allMessages.data.data)
+    setAllMessages(allMessages?.data.data)
   }
 
   useEffect(() => {
@@ -42,14 +42,27 @@ function ChatMessages() {
 
   return (
     <>
-      <div className='h-[100vh] flex flex-col  xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center items-center'>
+      <div className='h-[100vh]  flex flex-col xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center items-center'>
 
-        <div className='pt-13 relative xl:mb-0 w-[100vw] border-gray-500 md:w-[100vw] xl:w-[50vw] bg-gray-100 h-full'>
-          <p>chat messages page</p>
-          {
-            id && id
-          }
-          <div className='w-full h-14 absolute bottom-0 flex items-center gap-2 px-2 xl:px-0'>
+        <div className='pt-13 relative xl:mb-0 w-[100vw] border-gray-500 md:w-[100vw] xl:w-[50vw] h-full'>
+
+          <div className='flex flex-col gap-2 mx-3 pt-3 pb-15'>
+            {
+              allMessages &&
+              allMessages.map((msg, index) => (
+                <div key={index} className={`rounded-xl flex ${msg.sender._id == currentUserId ? 'justify-end' : 'justify-start'} `}>
+                  <div className={`flex flex-col rounded-xl p-2  text-[18px] max-w-[75%] w-fit break-words ${msg.sender._id == currentUserId ? 'bg-green-300 ' : 'bg-blue-300 '}`}>
+                    <span className="">
+                      {msg.content}
+                    </span>
+                    <span className='text-[12px] self-end'>{FormatTime(msg.createdAt)}</span>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <div className='w-full xl:w-[50%] h-14 fixed bottom-0 flex items-center gap-2 px-2 xl:px-0 bg-white'>
             <input
               type="text"
               className='h-10 w-[90%] border-1 pl-2 rounded-xl'

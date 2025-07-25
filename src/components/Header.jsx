@@ -119,6 +119,12 @@ function Header() {
           <li>
             <ul className='flex flex-col gap-3 text-[20px]'>
               <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
+                <NavLink to='home' className="flex gap-3 items-center cursor-pointer" onClick={handleCloseHamburger}>
+                  <i className="fa-solid fa-house"></i>
+                  <p>Home</p>
+                </NavLink>
+              </li>
+              <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
                 <NavLink to="/allusers" className="flex gap-3 items-center cursor-pointer" onClick={handleCloseHamburger}>
                   <i className="fa-solid fa-users"></i>
                   <p>All users</p>

@@ -38,7 +38,6 @@ const sendMessage = async (body) => {
     }
 };
 
-
 const fetchMessagesByChatId = async (chatId) => {
     try {
         const chatMessages = await axiosInstance.get(`/api/v1/message/fetch-message/${chatId}`);
