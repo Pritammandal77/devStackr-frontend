@@ -23,7 +23,23 @@ const fetchChats = async () => {
     }
 }
 
+const sendMessage = async (body) => {
+    try {
+        const message = await axiosInstance.post("/api/v1/message/send-message", body, {
+            headers: {
+                'Content-Type': 'application/json',  // ✅ JSON not multipart
+            },
+            withCredentials: true,
+        });
+        return message;
+    } catch (error) {
+        console.log("error while sending message", error);
+        toast.error("error while sending message");
+    }
+};
+
 export {
     createOrFetchChat,
-    fetchChats
+    fetchChats,
+    sendMessage
 }

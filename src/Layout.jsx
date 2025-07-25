@@ -36,8 +36,16 @@ function Layout() {
 
     // Define the routes where you DON'T want Header and BottomMenu
     const hideOnRoutes = ['/signup', '/signin',];
-
     const shouldHideLayout = hideOnRoutes.includes(location.pathname);
+
+    //for hiding the bottomMenu on this routes
+    const pathname = location.pathname;
+    const shouldHideOnChatPages =
+        pathname === '/chatlist' ||
+        pathname.startsWith('/chat/messages/') ||
+        pathname === '/signup' ||
+        pathname === '/signin';
+
 
     return (
         <>
@@ -45,7 +53,7 @@ function Layout() {
             {!shouldHideLayout && <SideBar />}
             {/* <SideBar /> */}
             <Outlet />
-            {!shouldHideLayout && <BottomMenu />}
+            {!shouldHideOnChatPages && <BottomMenu />}
         </>
     );
 }
