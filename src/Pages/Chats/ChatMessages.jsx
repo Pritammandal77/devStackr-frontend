@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { createOrFetchChat, sendMessage } from '../../utils/ChatAPI';
+import { createOrFetchChat, fetchMessagesByChatId, sendMessage } from '../../utils/ChatAPI';
 
 function ChatMessages() {
 
   const { id } = useParams() //this is the ChatId
   const [inputMessage, setInputMessage] = useState("")
+  const [isMsgSent, setIsMsgSent] = useState(false)  // ye sirf siliye lagay ke 
 
   const handleCreateChat = async (id) => {
     const response = await createOrFetchChat(id)
@@ -16,19 +17,28 @@ function ChatMessages() {
     handleCreateChat(id)
   }, []);
 
-
   const handleSendNewMessage = async (id, inputMessage) => {
     const messageSent = await sendMessage({
       chatId: id,
       message: inputMessage
     });
     console.log("Message sent:", messageSent);
+    setIsMsgSent(true)
   };
-
 
   if (inputMessage) {
     console.log(inputMessage)
   }
+
+  const handleFetchAllMessages = async (id) => {
+    setIsMsgSent(false)
+    const allMessages = await fetchMessagesByChatId(id)
+    console.log("all messages", allMessages.data.data)
+  }
+
+  useEffect(() => {
+    handleFetchAllMessages(id)
+  }, [isMsgSent]);
 
   return (
     <>
