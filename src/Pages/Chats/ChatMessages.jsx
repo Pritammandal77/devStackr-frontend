@@ -7,6 +7,7 @@ import { FormatTime } from '../../utils/FormatTime';
 function ChatMessages() {
 
   const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
+  const mode = useSelector((state) => state.mode.mode)
   const { id } = useParams() //this is the ChatId
   const [inputMessage, setInputMessage] = useState("")
   const [allMessages, setAllMessages] = useState([])   // to store all the messages
@@ -51,8 +52,8 @@ function ChatMessages() {
               allMessages &&
               allMessages.map((msg, index) => (
                 <div key={index} className={`rounded-xl flex ${msg.sender._id == currentUserId ? 'justify-end' : 'justify-start'} `}>
-                  <div className={`flex flex-col rounded-xl p-2  text-[18px] max-w-[75%] w-fit break-words ${msg.sender._id == currentUserId ? 'bg-green-300 ' : 'bg-blue-300 '}`}>
-                    <span className="">
+                  <div className={`flex flex-col rounded-xl p-2  text-[18px] max-w-[75%] w-fit break-words text-black ${msg.sender._id == currentUserId ? 'bg-green-300 ' : 'bg-blue-300 '} `}>
+                    <span className="text-[17px] md:text-[21px] lg:text-[22px] xl:text-[18px]">
                       {msg.content}
                     </span>
                     <span className='text-[12px] self-end'>{FormatTime(msg.createdAt)}</span>
@@ -62,10 +63,10 @@ function ChatMessages() {
             }
           </div>
 
-          <div className='w-full xl:w-[50%] h-14 fixed bottom-0 flex items-center gap-2 px-2 xl:px-0 bg-white'>
+          <div className={`w-full xl:w-[50%] h-14 fixed bottom-0 flex items-center gap-2 px-2 xl:px-0  ${mode == 'light' ? 'bg-[#ffffff] ' : 'bg-[#0e0e0e] '}`}>
             <input
               type="text"
-              className='h-10 w-[90%] border-1 pl-2 rounded-xl'
+              className='h-10 w-[90%] border-1 border-gray-500 pl-2 rounded-xl placeholder:text-gray-500'
               placeholder='enter your message...'
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
@@ -73,7 +74,7 @@ function ChatMessages() {
             <div className='w-[10%] flex items-center justify-center bg-blue-400 h-10 rounded-xl hover:cursor-pointer hover:bg-blue-500'
               onClick={() => handleSendNewMessage(id, inputMessage)}
             >
-              <i className="fa-regular fa-paper-plane text-xl"></i>
+              <i className="fa-regular fa-paper-plane text-xl text-black"></i>
             </div>
           </div>
         </div>
