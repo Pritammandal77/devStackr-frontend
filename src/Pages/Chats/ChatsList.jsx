@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { fetchChats } from '../../utils/ChatAPI';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Loader2 from '../../components/Loaders/Loader2'
 import { NavLink } from 'react-router-dom';
+import { setCurrentSelectedChat } from '../../features/Chat';
 
 function ChatsList() {
 
   const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
   const [chatsList, setChatsList] = useState([])
+
+  const dispatch = useDispatch()
+  // console.log(currentSelectedChat)
 
   const handleFetchChats = async () => {
     const response = await fetchChats()
@@ -18,6 +22,12 @@ function ChatsList() {
   useEffect(() => {
     handleFetchChats()
   }, []);
+
+
+  const handleCurrentSelectedChat = (currChat) => {
+    console.log("currChat", currChat)
+    dispatch(setCurrentSelectedChat(currChat))
+  }
 
   return (
     <>
@@ -31,7 +41,7 @@ function ChatsList() {
                   const otherUser = data.users.find((user) => user._id !== currentUserId);
                   return (
                     <div key={index} className='border-1 border-gray-600 w-full md:w-[70vw] xl:w-[40vw] rounded-xl'>
-                      <NavLink to={`/chat/messages/${data._id}`} className="flex items-center p-1 h-25">
+                      <NavLink to={`/chat/messages/${data._id}`} className="flex items-center p-1 h-25" onClick={() => handleCurrentSelectedChat(data)}>
                         <div className='w-25 h-25 flex items-center justify-center'>
                           <img
                             src={otherUser?.profilePicture}
