@@ -84,7 +84,7 @@ function Profile() {
                                 className='w-30 h-30 md:w-40 md:h-40 lg:h-50 lg:w-50 rounded-full relative bottom-15 md:bottom-20' />
                         </div>
 
-                        <div className='w-[100%] md:w-[80%] lg:w-[60vw] px-2 mt-5 lg:mt-20 '>
+                        <div className='w-[100%] md:w-[80%] lg:w-[60vw] px-2 mt-5 lg:mt-20'>
                             <h1 className='text-[22px] md:text-[28px] font-semibold'>{currentUserData.name}</h1>
                             <p className='text-[16px] md:text-[20px] font-semibold'>{currentUserData.userName}</p>
                             <div className='text-[16px] md:text-[18px]'>
