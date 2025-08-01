@@ -49,9 +49,9 @@ function ChatsList() {
                             className='h-22 w-22 rounded-full object-cover'
                           />
                         </div>
-                        <div className='flex flex-col h-full p-4 font-[400]'>
+                        <div className='flex flex-col h-full p-4 font-[400] w-[70%]'>
                           <p className='text-[20px]'>{otherUser?.name}</p>
-                          <p className='text-gray-500 text-[16px] truncate'>
+                          <p className='text-gray-500 text-[16px] truncate w-[100%] overflow-x-hidden'>
                             {data?.latestMessage?.content || "Start your conversation..."}
                           </p>
                         </div>

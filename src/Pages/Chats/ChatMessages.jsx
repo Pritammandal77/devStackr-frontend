@@ -22,7 +22,10 @@ function ChatMessages() {
   const [inputMessage, setInputMessage] = useState("");
   const [allMessages, setAllMessages] = useState([]);
   const [isMsgSent, setIsMsgSent] = useState(false);
+
   const [socketConnected, setSocketConnected] = useState(false);
+  const [typing, setTyping] = useState(false)
+  const [isTyping , setIsTyping] = useState(false)
 
   //Setup socket connection
   useEffect(() => {
@@ -35,6 +38,9 @@ function ChatMessages() {
       console.log("Socket connected");
     });
 
+    socket.current.on('typing', () => setIsTyping(true))
+    socket.current.on('stop typing', () => setIsTyping(false))
+
     // cleanup on unmount
     return () => {
       socket.current.disconnect();
@@ -46,7 +52,7 @@ function ChatMessages() {
     if (!inputMessage.trim()) return;
 
     setInputMessage("");
-
+    socket.current.emit("stop typing", currentSelectedChat._id)
     try {
       const messageSent = await sendMessage({
         chatId,
@@ -112,6 +118,31 @@ function ChatMessages() {
   }, [allMessages]); // Whenever messages update, scroll to bottom
 
 
+  const handleTyping = (e) => {
+    setInputMessage(e.target.value)
+
+    if(!socketConnected) return;
+
+    if(!typing){
+      setTyping(true)
+      socket.current.emit('typing', currentSelectedChat._id)
+    }
+
+    let lastTypingTime = new Date().getTime()
+    const timerLength = 3000;
+
+    setTimeout(() => {
+      let timeNow = new Date().getTime()
+      let timeDifference = timeNow - lastTypingTime
+
+      if(timeDifference >= timerLength && typing){
+        socket.current.emit("stop typing", currentSelectedChat._id)
+        setTyping(false)
+      }
+
+    }, timerLength);
+  }
+
   return (
     <>
       <div className='h-[100vh]  flex flex-col xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center items-center'>
@@ -141,14 +172,16 @@ function ChatMessages() {
               ))
             }
           </div>
-
+            {
+              isTyping && <p className='text-xl text-black fixed bottom-14 ml-2'>typing...</p>
+            }
           <div className={`w-full xl:w-[50%] h-14 fixed bottom-0 flex items-center gap-2 px-2 xl:px-0  ${mode == 'light' ? 'bg-[#ffffff] ' : 'bg-[#0e0e0e] '}`}>
             <input
               type="text"
               className='h-10 w-[90%] border-1 border-gray-500 pl-2 rounded-xl placeholder:text-gray-500'
               placeholder='enter your message...'
               value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
+              onChange={(e) => handleTyping(e)}
             />
             <div className='w-[10%] flex items-center justify-center bg-blue-400 h-10 rounded-xl hover:cursor-pointer hover:bg-blue-500'
               onClick={() => handleSendNewMessage(id, inputMessage)}
