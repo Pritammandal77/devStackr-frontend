@@ -26,7 +26,7 @@ function ChatMessages() {
 
   //Setup socket connection
   useEffect(() => {
-    socket.current = io(import.meta.env.VITE_API_BASE_URL); //for production
+    socket.current = io(import.meta.env.VITE_API_BASE_URL);
 
     socket.current.emit("setup", currentUserData);
 
