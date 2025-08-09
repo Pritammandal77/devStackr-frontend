@@ -139,7 +139,7 @@ function UpdateProfile() {
                             <div className='flex flex-col '>
                                 <label htmlFor="" className='text-[18px] lg:text-[20px]'>name</label>
                                 <input type="text"
-                                    className='border-1 rounded-[10px] text-[17px] md:text-[18px] px-2 py-1'
+                                    className='border-1 border-[#454141] rounded-[10px] text-[17px] md:text-[18px] px-2 py-1'
                                     placeholder='enter name'
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
@@ -148,7 +148,7 @@ function UpdateProfile() {
                             <div className='flex flex-col '>
                                 <label htmlFor="" className='text-[18px] lg:text-[20px]'>username</label>
                                 <input type="text"
-                                    className='border-1 rounded-[10px] text-[17px] md:text-[18px] px-2 py-1'
+                                    className='border-1 border-[#454141] rounded-[10px] text-[17px] md:text-[18px] px-2 py-1'
                                     placeholder='enter name'
                                     value={userName}
                                     onChange={(e) => setUserName(e.target.value)}
@@ -159,7 +159,7 @@ function UpdateProfile() {
                                 <textarea name=""
                                     placeholder='Enter bio'
                                     id=""
-                                    className='border-1 w-full md:w-[100%] h-[150px] text-[17px] md:text-[18px] resize-none overflow-y-auto p-3 rounded-md text-sm'
+                                    className='border-1 border-[#454141] w-full md:w-[100%] h-[150px] text-[17px] md:text-[18px] resize-none overflow-y-auto p-3 rounded-md text-sm'
                                     value={bio}
                                     onChange={(e) => setBio(e.target.value)}
                                 ></textarea>
@@ -167,7 +167,7 @@ function UpdateProfile() {
                             <div className='flex flex-col '>
                                 <label htmlFor="" className='text-[18px] lg:text-[20px]'>github link</label>
                                 <input type="text"
-                                    className='border-1 rounded-[10px] text-[17px] md:text-[18px] px-2 py-1'
+                                    className='border-1 border-[#454141] rounded-[10px] text-[17px] md:text-[18px] px-2 py-1'
                                     placeholder='enter github link'
                                     value={githubLink}
                                     onChange={(e) => setGithubLink(e.target.value)}
@@ -176,7 +176,7 @@ function UpdateProfile() {
                             <div className='flex flex-col '>
                                 <label htmlFor="" className='text-[18px] lg:text-[20px]'>linkedin link</label>
                                 <input type="text"
-                                    className='border-1 rounded-[10px] text-[17px] md:text-[18px] px-2 py-1'
+                                    className='border-1 border-[#454141] rounded-[10px] text-[17px] md:text-[18px] px-2 py-1'
                                     placeholder='enter linkedin link'
                                     value={linkedinLink}
                                     onChange={(e) => setLinkedInLink(e.target.value)}
@@ -185,7 +185,7 @@ function UpdateProfile() {
                             <div className='flex flex-col '>
                                 <label htmlFor="" className='text-[18px] lg:text-[20px]'>Porfolio link</label>
                                 <input type="text"
-                                    className='border-1 rounded-[10px] text-[17px] md:text-[18px] px-2 py-1'
+                                    className='border-1 border-[#454141] rounded-[10px] text-[17px] md:text-[18px] px-2 py-1'
                                     placeholder='enter portfolio link'
                                     value={portfolioLink}
                                     onChange={(e) => setPortfolioLink(e.target.value)}
@@ -194,7 +194,7 @@ function UpdateProfile() {
                             <div className='flex flex-col '>
                                 <label htmlFor="" className='text-[18px] lg:text-[20px]'>Twitter (X) link</label>
                                 <input type="text"
-                                    className='border-1 rounded-[10px] text-[17px] md:text-[18px] px-2 py-1'
+                                    className='border-1 border-[#454141] rounded-[10px] text-[17px] md:text-[18px] px-2 py-1'
                                     placeholder='enter twitter link'
                                     value={twitterLink}
                                     onChange={(e) => setTwitterLink(e.target.value)}
@@ -205,7 +205,7 @@ function UpdateProfile() {
                                 <textarea name=""
                                     placeholder='Enter about'
                                     id=""
-                                    className='border-1 w-full md:w-[100%] h-[200px] text-[17px] md:text-[18px] resize-none overflow-y-auto p-3 rounded-md text-sm'
+                                    className='border-1 border-[#454141] w-full md:w-[100%] h-[200px] text-[17px] md:text-[18px] resize-none overflow-y-auto p-3 rounded-md text-sm'
                                     value={about}
                                     onChange={(e) => setAbout(e.target.value)}
                                 ></textarea>
@@ -214,12 +214,12 @@ function UpdateProfile() {
                                 <label htmlFor="" className='text-[18px] lg:text-[20px]'>skills</label>
                                 <div className='flex gap-5'>
                                     <input type="text"
-                                        className='border-1 rounded-[10px] text-[17px] md:text-[18px] px-2 py-1 '
+                                        className='border-1 border-[#454141] rounded-[10px] text-[17px] md:text-[18px] px-2 py-1 '
                                         placeholder='enter skills'
                                         value={skill}
                                         onChange={(e) => setSkill(e.target.value)}
                                     />
-                                    <button className='h-10 w-30 text-[20px] bg-yellow-500 hover:bg-yellow-600 flex items-center justify-center rounded-2xl cursor-pointer' onClick={(e) => HandlesetAllSkill(e, skill)}>Next</button>
+                                    <button className='h-10 w-30 text-[20px] bg-yellow-500 hover:bg-yellow-600 flex text-black items-center justify-center rounded-2xl cursor-pointer' onClick={(e) => HandlesetAllSkill(e, skill)}>Next</button>
                                 </div>
                                 <div className='flex flex-wrap gap-3 mt-5'>
                                     {
@@ -236,7 +236,7 @@ function UpdateProfile() {
                             </div>
                             <div>
 
-                                <button className='h-12 w-40 text-[20px] bg-blue-500 hover:bg-blue-600 flex items-center justify-center rounded-2xl cursor-pointer'
+                                <button className='h-12 w-40 text-[22px] font-semibold text-black bg-blue-500 hover:bg-blue-600 flex items-center justify-center rounded-2xl cursor-pointer'
                                     onClick={(e) => handleSaveUpdatedDataToDB(e)}>
                                     Save
                                 </button>

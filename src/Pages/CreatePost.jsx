@@ -82,7 +82,7 @@ function CreatePost() {
               <textarea name=""
                 placeholder='Enter the description'
                 id=""
-                className='border-1 w-full md:w-[100%] h-[250px] resize-none overflow-y-auto p-3 rounded-md text-sm'
+                className='border-1 border-[#454141] w-full md:w-[100%] h-[250px] resize-none overflow-y-auto p-3 rounded-md text-sm'
                 value={description}
                 maxLength={800}
                 onChange={(e) => setDescription(e.target.value)}></textarea>
@@ -137,7 +137,7 @@ function CreatePost() {
 
             </div>
 
-            <button className='h-12 w-40 text-[20px] bg-blue-500 hover:bg-blue-600 flex items-center justify-center rounded-2xl cursor-pointer'
+            <button className='h-12 w-40 text-black text-[20px] bg-blue-500 hover:bg-blue-600 flex items-center justify-center rounded-2xl cursor-pointer'
               onClick={(e) => createNewPost(e)}>
               create post
             </button>

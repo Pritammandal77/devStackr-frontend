@@ -22,6 +22,12 @@ function Layout() {
                 console.log("current user", user)
                 dispatch(setCurrentUserData(user.data));
                 dispatch(setIsLoggedIn("true"));
+                if(user.data.success){
+                    navigate('/')
+                }
+                // if(!user.data.success){
+                //     navigate("/signin")
+                // }
             } catch (err) {
                 console.log("User not logged in", err.message);
                 toast.error("Session expired, please log in again");

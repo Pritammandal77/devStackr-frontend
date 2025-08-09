@@ -8,13 +8,15 @@ import { FormatTime } from '../utils/FormatTime';
 import axiosInstance from '../utils/axiosInstance';
 import { followUser, getFollowersList, getFollowingsList, unFollowUser } from '../utils/FollowUnFollowUser';
 import { createOrFetchChat } from '../utils/ChatAPI';
+import useScrollToTop from '../utils/useScrollToTop';
 
 function OtherUserProfile() {
 
     //we are getting the id of user from parameter (react router's route)
     const { id } = useParams();
     const navigate = useNavigate()
-
+    useScrollToTop();
+    
     const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
     const mode = useSelector((state) => state.mode.mode)
     const [userData, setUserData] = useState([])

@@ -76,7 +76,7 @@ function Header() {
     <>
       <header>
         <nav className={`w-[100vw] h-13  flex items-center fixed top-0 z-[50] xl:w-[100vw] right-0
-          ${mode == 'light' ? 'bg-[#f9ded1]' : 'bg-[#000] text-[#d3d3d3]'}`}>
+          ${mode == 'light' ? 'bg-[#fdf7f4]' : 'bg-[#000] text-[#d3d3d3]'}`}>
           <ul className='w-[100%] flex items-center justify-between px-5 mx:px-0  md:justify-evenly md:gap-7'>
             <li className=''>
               <NavLink to="/home" className="flex flex-row items-center gap-2 ">
@@ -124,6 +124,12 @@ function Header() {
                   <p>Home</p>
                 </NavLink>
               </li>
+              <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[rgb(248,197,168)]' : 'hover:bg-[#373737]'}`}>
+                <NavLink to="/chatlist" className="flex gap-3 items-center cursor-pointer" onClick={handleCloseHamburger}>
+                  <i className="fa-solid fa-message"></i>
+                  <p>Chats</p>
+                </NavLink>
+              </li>
               <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
                 <NavLink to="/allusers" className="flex gap-3 items-center cursor-pointer" onClick={handleCloseHamburger}>
                   <i className="fa-solid fa-users"></i>
@@ -136,13 +142,25 @@ function Header() {
                   <p>Edit profile</p>
                 </NavLink>
               </li>
+              <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[rgb(248,197,168)]' : 'hover:bg-[#373737]'}`}>
+                <NavLink to="/createpost" className="flex gap-3 items-center cursor-pointer" onClick={handleCloseHamburger}>
+                  <i className="fa-solid fa-plus"></i>
+                  <p>Create post</p>
+                </NavLink>
+              </li>
+              <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[rgb(248,197,168)]' : 'hover:bg-[#373737]'}`}>
+                <NavLink to="/search" className="flex gap-3 items-center cursor-pointer" onClick={handleCloseHamburger}>
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                  <p>Search User</p>
+                </NavLink>
+              </li>
 
               <li className="pl-2">
                 <details
                   className={`group rounded-[8px] overflow-hidden ${mode === 'light' ? 'bg-[#FFF2EB]' : ' text-[#d3d3d3]'
                     }`}>
                   <summary
-                    className={`flex items-center justify-between cursor-pointer py-2 px-3 text-[20px] font-medium
+                    className={`flex items-center justify-between cursor-pointer px-3 text-[20px] font-medium
                                             ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}
                                             transition duration-200 rounded-[8px]`}>
                     <span className="flex gap-2 items-center">

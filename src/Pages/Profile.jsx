@@ -10,11 +10,14 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { FormatTime } from '../utils/FormatTime';
 import axiosInstance from '../utils/axiosInstance';
 import { getFollowersList, getFollowingsList } from '../utils/FollowUnFollowUser';
+import useScrollToTop from '../utils/useScrollToTop.js';
 
 function Profile() {
 
     const currentUserData = useSelector((state) => state.userData?.currentUserData.data)
     const mode = useSelector((state) => state.mode.mode)
+
+    useScrollToTop();
 
     //the aboutdata text is coming in raw format , so we are formatting it
     let formattedAboutData, formattedBio;
@@ -191,7 +194,6 @@ function Profile() {
                     <Loader2 />
                 )
             }
-
         </>
     );
 }

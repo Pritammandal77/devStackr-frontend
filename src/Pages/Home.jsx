@@ -5,6 +5,7 @@ import axios from "axios"
 import Loader2 from '../components/Loaders/Loader2';
 import { FormatTime } from '../utils/FormatTime';
 import axiosInstance from '../utils/axiosInstance';
+import Skeleton from '../components/Loaders/Skeleton';
 
 function Home() {
 
@@ -37,11 +38,19 @@ function Home() {
     return (
         <>
             {
-                isLoading && <Loader2 />
+                isLoading &&
+                <div className='py-13 flex flex-col xl:w-[80vw] xl:absolute right-0 items-center justify-center xl:justify-center xl:items-center'>
+                    <div className='w-[100vw] md:w-[80vw] xl:w-[50vw] flex flex-col gap-2'>
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                    </div>
+                </div>
             }
             <div className={`py-13 flex flex-col  xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center`}>
                 {
-                    allPosts ? (
+                    allPosts && 
                         allPosts.map((data, index) => (
                             <PostCard key={index}
                                 authorUserId={data.author._id}
@@ -57,9 +66,6 @@ function Home() {
                                 isAlreadyLiked={data.likes.includes(currentUserId) && true}
                             />
                         ))
-                    ) : (
-                        <Loader2 />
-                    )
                 }
             </div>
         </>

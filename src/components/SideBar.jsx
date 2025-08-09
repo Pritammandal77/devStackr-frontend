@@ -48,7 +48,7 @@ function SideBar() {
 
     return (
         <div className={`w-[20vw] h-[100vh] fixed top-0 left-0 z-[40] hidden xl:flex 
-        ${mode == 'light' ? 'bg-[#FFF2EB]' : 'bg-[#000] text-[#d3d3d3]'}`}>
+        ${mode == 'light' ? 'bg-[#fdf7f4]' : 'bg-[#000] text-[#d3d3d3]'}`}>
             <nav className='w-[100%]'>
                 <ul className='flex flex-col gap-3 text-[20px] w-[100%] py-15 px-5'>
                     {
@@ -123,6 +123,18 @@ function SideBar() {
                         <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
                             <i className="fa-solid fa-user-pen"></i>
                             <p>Edit profile</p>
+                        </li>
+                    </NavLink>
+                    <NavLink to="/chatlist"
+                        className={({ isActive }) =>
+                            `flex gap-3 items-center cursor-pointer rounded-[8px]
+                             ${isActive ? (mode === 'light' ? 'bg-[#fcd4bc]' : 'bg-[#1f1f1f]') : ''} 
+                             ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`
+                        }
+                    >
+                        <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
+                            <i className="fa-solid fa-paper-plane"></i>
+                            <p>Chats</p>
                         </li>
                     </NavLink>
                     <li className="pl-2">
