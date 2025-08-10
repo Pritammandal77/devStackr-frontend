@@ -62,13 +62,6 @@ function Profile() {
         handleFetchFollowingList(currentUserData?._id)
     }, [currentUserData]);
 
-    // if (followersList) {
-    //     console.log("follower list at my profile", followersList)
-    // }
-
-    // if (followingsList) {
-    //     console.log("followings list at my profile", followingsList)
-    // }
 
     return (
         <>

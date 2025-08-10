@@ -11,17 +11,17 @@
 
 import axios from 'axios';
 
-// 👉 Base axios instance
+// Base axios instance
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
     withCredentials: true, // so cookies (access/refresh token) are sent
 });
 
-// 👉 Flag to avoid infinite loop
+// Flag to avoid infinite loop
 let isRefreshing = false;
 let failedQueue = [];
 
-// ✅ Function to handle queue (in case multiple 401s happen together)
+// Function to handle queue (in case multiple 401s happen together)
 const processQueue = (error, token = null) => {
     failedQueue.forEach(prom => {
         if (error) {
@@ -33,7 +33,7 @@ const processQueue = (error, token = null) => {
     failedQueue = [];
 };
 
-// ✅ Interceptor to refresh token on 401
+// Interceptor to refresh token on 401
 axiosInstance.interceptors.response.use(
     (response) => response,
     async (error) => {
@@ -54,7 +54,7 @@ axiosInstance.interceptors.response.use(
             isRefreshing = true;
 
             try {
-                // 🔁 Call your refresh endpoint (must send refreshToken via cookie)
+                // Call your refresh endpoint (must send refreshToken via cookie)
                 //   const res = await axiosInstance.post('/api/v1/users/refresh-token');
                 const res = await axiosInstance.post('/api/v1/users/refresh-token', {}, {
                     withCredentials: true
@@ -63,7 +63,7 @@ axiosInstance.interceptors.response.use(
                 console.log(res)
 
                 processQueue(null);
-                return axiosInstance(originalRequest); // 🔁 Retry the original request
+                return axiosInstance(originalRequest); // Retry the original request
             } catch (err) {
                 processQueue(err, null);
                 return Promise.reject(err);

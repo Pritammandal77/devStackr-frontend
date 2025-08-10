@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import SignUp from './Pages/SignIn/SignUp'
 import Profile from './Pages/Profile'
@@ -57,7 +55,7 @@ function App() {
         richColors
         position="top-right"
         closeButton
-        duration={3000} // 4 seconds
+        duration={3000} 
         toastOptions={{
           style: {
             borderRadius: '10px',
@@ -66,10 +64,10 @@ function App() {
             fontSize: "15px"
           },
           success: {
-            style: { background: '#16a34a' }, // green
+            style: { background: '#16a34a' }, 
           },
           error: {
-            style: { background: '#dc2626' }, // red
+            style: { background: '#dc2626' },
           },
         }}
       />

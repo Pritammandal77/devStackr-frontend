@@ -3,7 +3,6 @@ import { NavLink, useNavigate, useNavigation, useSearchParams } from 'react-rout
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import Hamburger from './Hamburger';
 import { useRef } from 'react';
-import { BiLogOut } from "react-icons/bi";
 import { useDispatch, useSelector } from 'react-redux';
 import { setMode } from '../features/ToggleMode';
 import axios from 'axios';

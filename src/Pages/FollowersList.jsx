@@ -21,9 +21,6 @@ function FollowersList() {
         FetchFollowersList(id)
     }, [id]);
 
-    // if (followersList) {
-    //     console.log("followers at followers page", followersList[0].follower._id)
-    // }
 
     return (
         <>
