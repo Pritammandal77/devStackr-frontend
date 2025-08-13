@@ -1,19 +1,11 @@
 import React from 'react';
-import './Loading.css';
 
 function Loader1() {
     return (
         <div
-            className="fixed inset-0 flex items-center justify-center bg-opacity-80 z-[10]"
-            role="status"
-            aria-live="polite"
-        >
-            <div className="loader">
-                <span>&lt;</span>
-                <span>LOADING</span>
-                <span>/&gt;</span>
-            </div>
-        </div>
+            className="w-5 h-5 border-4 border-t-blue-500 border-gray-600 rounded-full animate-spin"
+        ></div>
+
     );
 }
 

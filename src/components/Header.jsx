@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate, useNavigation, useSearchParams } from 'react-router-dom';
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
-import Hamburger from './Hamburger';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMode } from '../features/ToggleMode';
@@ -153,7 +152,15 @@ function Header() {
                   <p>Search User</p>
                 </NavLink>
               </li>
-
+              <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}
+                onClick={handleMode}>
+                {
+                  mode == "dark" ?
+                    <i className="fa-solid fa-moon"></i> :
+                    <i className="fa-solid fa-sun"></i>
+                }
+                Mode
+              </li>
               <li className="pl-2">
                 <details
                   className={`group rounded-[8px] overflow-hidden ${mode === 'light' ? 'bg-[#FFF2EB]' : ' text-[#d3d3d3]'
@@ -215,58 +222,6 @@ function Header() {
                     </li>
                   </ul>
                 </details>
-              </li>
-
-              <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
-                <input
-                  type="checkbox"
-                  id="react-option"
-                  value=""
-                  className="hidden peer"
-                  required=""
-                  onClick={handleMode}
-                />
-
-                <label
-                  htmlFor="react-option"
-                  className="flex z-10 items-center peer relative justify-center w-7 h-7 shadow-lg duration-300 [box-shadow:1px_1px_0px_1px_#eab92d] border-2 border-gray-800 peer-checked:border-2 peer-checked:border-gray-800 rounded-lg cursor-pointer text-neutral-50 peer-checked:[box-shadow:1px_1px_0px_1px_#075985] peer-checked:hover:[box-shadow:1px_1px_0px_1px_#1e1e1e] hover:[box-shadow:1px_1px_0px_1px_#1e1e1e]"
-                >
-                </label>
-
-                <svg
-                  className="absolute stroke-sky-600 w-8 h-[16px] duration-300 peer-checked:opacity-100 opacity-0"
-                  height="100"
-                  preserveAspectRatio="xMidYMid meet"
-                  viewBox="0 0 100 100"
-                  width="100"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    className="svg-stroke-primary"
-                    d="M82.1,61.2a31.9,31.9,0,0,1-12.4,2.4A33.3,33.3,0,0,1,36.4,30.3a31.9,31.9,0,0,1,2.4-12.4A33.3,33.3,0,1,0,82.1,61.2Z"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="8"
-                  ></path>
-                </svg>
-
-                <svg
-                  className="absolute stroke-red-500 w-7 h-[16px] duration-300 peer-checked:opacity-0 opacity-100"
-                  height="100"
-                  preserveAspectRatio="xMidYMid meet"
-                  viewBox="0 0 100 100"
-                  width="100"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    className="svg-stroke-primary"
-                    d="M50,18v3.6m0,56.8V82M82,50H78.4M21.6,50H18M72.6,72.6l-2.5-2.5M29.9,29.9l-2.5-2.5m45.2,0-2.5,2.5M29.9,70.1l-2.5,2.5M64.2,50A14.2,14.2,0,1,1,50,35.8,14.3,14.3,0,0,1,64.2,50Z"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="8"
-                  ></path>
-                </svg>
-                Mode
               </li>
 
             </ul>

@@ -200,8 +200,9 @@ function SideBar() {
                         </details>
                     </li>
 
-                    <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
-                        <input
+                    <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}
+                    onClick={handleMode}>
+                        {/* <input
                             type="checkbox"
                             id="react-option"
                             value=""
@@ -248,7 +249,12 @@ function SideBar() {
                                 strokeLinejoin="round"
                                 strokeWidth="8"
                             ></path>
-                        </svg>
+                        </svg> */}
+                        {
+                            mode == "dark" ?
+                            <i className="fa-solid fa-moon"></i> :
+                            <i className="fa-solid fa-sun"></i>
+                        }
                         Mode
                     </li>
                 </ul>

@@ -19,15 +19,20 @@ function Layout() {
         const fetchCurrentUser = async () => {
             try {
                 const user = await axiosInstance.get("/api/v1/users/getCurrentUser");
-                console.log("current user", user)
+                // console.log("current user", user)
                 dispatch(setCurrentUserData(user.data));
                 dispatch(setIsLoggedIn("true"));
-                if(user.data.success){
+                if (user.data.success) {
                     navigate('/')
                 }
-                // if(!user.data.success){
-                //     navigate("/signin")
-                // }
+
+                setTimeout(() => {
+                    if (!user.data.success) {
+                        toast.error("please login to continue !! ")
+                        navigate("/signin")
+                    }
+                }, 5000);
+
             } catch (err) {
                 console.log("User not logged in", err.message);
                 toast.error("Session expired, please log in again");

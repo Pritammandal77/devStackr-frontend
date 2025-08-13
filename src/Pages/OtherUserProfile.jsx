@@ -16,7 +16,7 @@ function OtherUserProfile() {
     const { id } = useParams();
     const navigate = useNavigate()
     useScrollToTop();
-    
+
     const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
     const mode = useSelector((state) => state.mode.mode)
     const [userData, setUserData] = useState([])
@@ -25,6 +25,7 @@ function OtherUserProfile() {
 
     const [followersList, setFollowersList] = useState(null)        //storing the followers list array
     const [followingsList, setFollowingsList] = useState(null)
+    const [isFollowBtnClicked, setIsFollowBtnClicked] = useState(false) // to show a loader on followBtn
 
     const [isAlreadyFollowing, setIsAlreadyFollowing] = useState()
 
@@ -85,13 +86,17 @@ function OtherUserProfile() {
 
 
     const handleFollow = async () => {
+        setIsFollowBtnClicked(true)
         await followUser(id);                 // API call
         await FetchFollowersList(id);        // Refresh followers list
+        setIsFollowBtnClicked(false)
     }
 
     const handleUnFollow = async () => {
+        setIsFollowBtnClicked(true)
         await unFollowUser(id);              // API call
         await FetchFollowersList(id);        // Refresh followers list
+        setIsFollowBtnClicked(false)
     }
 
     //checking is the followerslist contains the currentUserId
@@ -134,15 +139,16 @@ function OtherUserProfile() {
                                     isAlreadyFollowing ?
                                         (
                                             currentUserId != userData._id &&
-                                            <FollowButton onClick={handleUnFollow} text="unfollow" />
+                                            <FollowButton onClick={handleUnFollow} text="unfollow" isLoading={isFollowBtnClicked} />
                                         )
                                         :
                                         (
                                             currentUserId != userData._id &&   //means , if our currentLoggedInUserId != the otherUserId then show this followBtn
-                                            <FollowButton onClick={handleFollow} text="follow" />
+                                            <FollowButton onClick={handleFollow} text="follow" isLoading={isFollowBtnClicked} />
                                         )
                                 }
-                                <button className='bg-blue-400 h-[35px] px-3 py-2 rounded-[10px] text-[19px] cursor-pointer flex flex-row items-center justify-center gap-2'>Message</button>
+                                <button className='bg-blue-400 h-[35px] px-3 py-2 rounded-[10px] text-[19px] cursor-pointer flex flex-row items-center justify-center gap-2'
+                                    onClick={() => handleCreateChat(userData._id)}>Message</button>
                             </div>
                         </div>
 
@@ -169,17 +175,17 @@ function OtherUserProfile() {
                                     isAlreadyFollowing ?
                                         (
                                             currentUserId != userData._id &&
-                                            <FollowButton onClick={handleUnFollow} text="unfollow" />
+                                            <FollowButton onClick={handleUnFollow} text="unfollow" isLoading={isFollowBtnClicked} />
                                         )
                                         :
                                         (
                                             currentUserId != userData._id &&   //means , if our currentLoggedInUserId != the otherUserId then show this followBtn
-                                            <FollowButton onClick={handleFollow} text="follow" />
+                                            <FollowButton onClick={handleFollow} text="follow" isLoading={isFollowBtnClicked} />
                                         )
                                 }
                                 {
                                     currentUserId != userData._id &&
-                                    <button className='bg-blue-400 h-[35px] w-[45vw] md:w-auto px-3 py-2 rounded-[10px] text-[19px] cursor-pointer flex flex-row items-center justify-center gap-2'
+                                    <button className='bg-blue-400 h-[35px] text-black w-[45vw] md:w-auto px-3 py-2 rounded-[10px] text-[19px] cursor-pointer flex flex-row items-center justify-center gap-2'
                                         onClick={() => handleCreateChat(userData._id)}>
                                         <i className="fa-regular fa-paper-plane"></i>
                                         <span>Message</span>
