@@ -3,7 +3,7 @@ import Header from './components/Header';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import BottomMenu from './components/BottomMenu';
 import axios from "axios"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentUserData, setIsLoggedIn } from './features/UserProfileData';
 import SideBar from './components/SideBar';
 import axiosInstance from './utils/axiosInstance';
@@ -15,24 +15,17 @@ function Layout() {
     const navigate = useNavigate();
     const location = useLocation();
 
+    let user;
     useEffect(() => {
         const fetchCurrentUser = async () => {
             try {
-                const user = await axiosInstance.get("/api/v1/users/getCurrentUser");
+               user = await axiosInstance.get("/api/v1/users/getCurrentUser");
                 // console.log("current user", user)
                 dispatch(setCurrentUserData(user.data));
                 dispatch(setIsLoggedIn("true"));
                 if (user.data.success) {
                     navigate('/')
                 }
-
-                setTimeout(() => {
-                    if (!user.data.success) {
-                        toast.error("please login to continue !! ")
-                        navigate("/signin")
-                    }
-                }, 5000);
-
             } catch (err) {
                 console.log("User not logged in", err.message);
                 toast.error("Session expired, please log in again");
@@ -43,6 +36,14 @@ function Layout() {
         fetchCurrentUser();
     }, []);
 
+    useEffect(() => {
+        setTimeout(() => {
+            if (!user) {
+                toast.error("Please login to continue")
+                navigate("/signin")
+            }
+        }, 5000);
+    }, []);
 
 
     // Define the routes where you DON'T want Header and BottomMenu

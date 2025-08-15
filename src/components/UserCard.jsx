@@ -1,10 +1,12 @@
 import React from 'react';
 import FollowButton from './followButton';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function UserCard({ profilePicture, name, userName, bio, id, isFollowBtnVisible }) {
 
     const navigate = useNavigate()
+    const currentUserData = useSelector((state) => state.userData?.currentUserData.data)
 
     return (
         <div
@@ -19,7 +21,7 @@ function UserCard({ profilePicture, name, userName, bio, id, isFollowBtnVisible 
                 />
             </div>
             <div className='flex flex-col justify-between w-[60%] lg:w-[35%]'>
-                <p className='text-[18px] font-semibold'>{name}</p>
+                <p className='text-[18px] font-semibold'>{name} <span>{currentUserData._id == id && "(Me)"}</span></p>
                 <p className='text-[16px]'>{userName}</p>
             </div>
             <div className='hidden lg:flex flex-col h-[100%] w-[35%] truncate justify-center '>

@@ -53,7 +53,6 @@ function Header() {
       const res = await axiosInstance.post('/api/v1/users/logout', {
         withCredentials: true
       });
-      console.log('User logged out:', res.data);
       if (res.data.statusCode == 200) {
         toast("Logged out successfully")
         location.reload();   //this will refresh the automatically website
@@ -108,7 +107,7 @@ function Header() {
         </nav>
       </header>
 
-      <div className={`hamburgerDiv fixed top-0 right-0 w-[60vw] md:w-[40vw] lg:w-[25vw] h-[100vh] z-[200] hidden text-[22px]
+      <div className={`hamburgerDiv fixed top-0 right-0 w-[60vw] md:w-[40vw] lg:w-[25vw] h-[100vh] z-[100] hidden text-[22px]
         ${mode == 'light' ? 'bg-[#FFF2EB]' : 'bg-[#0f0f0f] text-white'}`} ref={hamburgerRef}>
         <ul className='flex flex-col gap-15'>
           <li>

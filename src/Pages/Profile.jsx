@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
-import FollowButton from '../components/followButton';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
 import { useState } from 'react';
 import PostCard from '../components/PostCard';
-import Loader1 from '../components/Loaders/Loader1';
 import Loader2 from '../components/Loaders/Loader2';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FormatTime } from '../utils/FormatTime';
@@ -96,7 +93,7 @@ function Profile() {
                                     <p className={`text-[20px] md:text-[20px] text-blue-500 font-semibold px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-100' : 'bg-[#1e1e1e]'}`}>{followingsList ? followingsList.length : "0"} following</p>
                                 </NavLink>
                             </div>
-                            <div className='flex gap-5 mt-2 '>
+                            <div className='flex gap-5 mt-3 '>
                                 {
                                     currentUserData.githubLink &&
                                     <a href={currentUserData.githubLink} className='text-[16px] text-blue-600 ' target='_blank'>

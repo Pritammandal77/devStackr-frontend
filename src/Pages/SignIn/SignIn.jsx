@@ -81,7 +81,7 @@ function SignIn() {
                     <div className='flex flex-col items-center gap-5 w-[100%] xl:w-[50%] p-0  h-[100vh] xl:h-[65vh] bg-gray-900 xl:rounded-3xl'>
                         <div className='w-full h-[20vh] flex flex-col justify-center px-10 xl:hidden'>
                             <h1 className='text-5xl russo-one-regular text-red-400'>devstackr</h1>
-                            <p className='text-3xl text-white'>Where ‘Hello World’ <br /> becomes ‘Hello friend’</p>
+                            <p className='text-3xl text-white'>Where ‘hello world’ <br /> becomes ‘hello friend’</p>
                             {/* <p className='text-2xl'>Start your journey with those <br /> who code and care</p> */}
                         </div>
                         <div className='w-[100vw] xl:w-[100%] h-[80vh] pt-10 xl:pt-0 flex flex-col items-center justify-center px-8 rounded-t-3xl bg-white xl:rounded-r-3xl'>

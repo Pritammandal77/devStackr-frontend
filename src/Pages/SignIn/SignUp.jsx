@@ -35,7 +35,7 @@ function SignUp() {
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    withCredentials: true // only if you're using cookies for auth
+                    withCredentials: true
                 }
             )
 
@@ -75,7 +75,7 @@ function SignUp() {
                         <div>
                             <h1 className='text-4xl'>Welcome to <span className='russo-one-regular text-red-400'>devstackr</span></h1>
                             {/* <p className='text-xl'>Where ‘Hello World’ becomes ‘Hello, friend!’</p> */}
-                            <p className='text-2xl'>Where ‘Hello World’ <br /> becomes ‘Hello, friend!</p>
+                            <p className='text-2xl'>Where ‘hello world’ <br /> becomes ‘hello, friend!</p>
                         </div>
                         <img src="/signupFormImg.svg" alt="" className='h-70' />
                     </div>

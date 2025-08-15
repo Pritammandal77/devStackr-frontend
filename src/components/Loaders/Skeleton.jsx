@@ -5,7 +5,6 @@ import './Loading.css'
 function Skeleton() {
 
     const mode = useSelector((state) => state.mode.mode)
-    console.log(mode)
 
     return (
         <>

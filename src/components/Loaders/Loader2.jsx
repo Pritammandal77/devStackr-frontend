@@ -7,7 +7,7 @@ function Loader2() {
 
     return (
         <div
-            className="fixed inset-0 flex items-center justify-center bg-opacity-80 z-[10]"
+            className="fixed inset-0 flex items-center justify-center bg-opacity-80 z-[200]"
             role="status"
             aria-live="polite"
         >
