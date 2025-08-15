@@ -1,5 +1,4 @@
 import React from 'react';
-import FollowButton from './followButton';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
