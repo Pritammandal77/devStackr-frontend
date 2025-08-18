@@ -2,9 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
-// import FollowButton from '../components/followButton';
 import PostCard from '../components/PostCard';
 import { FormatTime } from '../utils/FormatTime';
+import FollowButton from '../components/FollowButton'
 import axiosInstance from '../utils/axiosInstance';
 import { followUser, getFollowersList, getFollowingsList, unFollowUser } from '../utils/FollowUnFollowUser';
 import { createOrFetchChat } from '../utils/ChatAPI';

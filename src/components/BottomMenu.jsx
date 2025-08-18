@@ -9,18 +9,18 @@ function BottomMenu() {
     
     return (
         <>
-            <nav className={`w-[100vw] fixed bottom-0 h-12 flex items-center justify-center z-[50] xl:hidden
+            <nav className={`w-[100vw] fixed bottom-0 h-12 flex items-center justify-center z-[300] xl:hidden
                 ${mode == 'light' ? 'bg-[#fdf7f4] text-black' : 'bg-[#000] text-[#d3d3d3]'}`}>
                 <ul className='w-[100%] lg:w-[60%] flex flex-row items-center justify-evenly text-[22px] '>
                     <li>
                         <NavLink to="/chatlist"
-                            className={({ isActive }) => (isActive && "text-[#3f0064] font-bold border-b-3 rounded-xl p-1")}>
+                            className={({ isActive }) => (isActive ? "text-[#3f0064] font-bold border-b-3 rounded-xl p-1" : "")}>
                             <i className="fa-solid fa-message"></i>
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to="/search"
-                            className={({ isActive }) => (isActive && "text-[#3f0064] font-bold border-b-3 rounded-xl p-1")}>
+                            className={({ isActive }) => (isActive ? "text-[#3f0064] font-bold border-b-3 rounded-xl p-1": "")}>
                             <i className="fa-solid fa-magnifying-glass"></i>
                         </NavLink>
                     </li>
@@ -32,13 +32,13 @@ function BottomMenu() {
                     </li>
                     <li className=''>
                         <NavLink to='home'
-                            className={({ isActive }) => (isActive && "text-[#3f0064] font-bold border-b-3 rounded-xl p-1")}>
+                            className={({ isActive }) => (isActive ? "text-[#3f0064] font-bold border-b-3 rounded-xl p-1" : "")}>
                             <i className="fa-solid fa-house"></i>
                         </NavLink>
                     </li>
                     <li className='flex items-center justify-center'>
                         <NavLink to="/profile"
-                            className={({ isActive }) => (isActive && "text-[#3f0064] font-bold border-2 rounded-full ")}>
+                            className={({ isActive }) => (isActive ? "text-[#3f0064] font-bold border-2 rounded-full " : "")}>
                             <img src={currentUserData?.profilePicture} alt=""
                                 className='h-9 w-9 rounded-full' />
                         </NavLink>

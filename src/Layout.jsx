@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import BottomMenu from './components/BottomMenu';
@@ -14,15 +14,18 @@ function Layout() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+    const [currUser, setCurrUser] = useState(null);
 
     let user;
     useEffect(() => {
         const fetchCurrentUser = async () => {
             try {
-               user = await axiosInstance.get("/api/v1/users/getCurrentUser");
-                // console.log("current user", user)
+                user = await axiosInstance.get("/api/v1/users/getCurrentUser");
+                console.log("current user", user)
+                setCurrUser(user);
                 dispatch(setCurrentUserData(user.data));
-                dispatch(setIsLoggedIn("true"));
+                dispatch(setIsLoggedIn(user.data.success));
+                console.log("isSuccess", user.data.success)
                 if (user.data.success) {
                     navigate('/')
                 }
@@ -37,14 +40,16 @@ function Layout() {
     }, []);
 
     useEffect(() => {
-        setTimeout(() => {
-            if (!user) {
-                toast.error("Please login to continue")
-                navigate("/signin")
-            }
-        }, 5000);
-    }, []);
+        console.log("User after state change", currUser)
+        if (currUser) {
+            navigate("/")
+        }
+        console.log(currUser)
+        if (!currUser) {
+            dispatch(setIsLoggedIn(false));
+        }
 
+    }, [currUser]);
 
     // Define the routes where you DON'T want Header and BottomMenu
     const hideOnRoutes = ['/signup', '/signin',];

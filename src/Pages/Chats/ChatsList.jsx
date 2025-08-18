@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchChats } from '../../utils/ChatAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader2 from '../../components/Loaders/Loader2'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { setCurrentSelectedChat } from '../../features/Chat';
 import ProfileSkeleton from '../../components/Loaders/ProfileSkeleton';
 
@@ -11,6 +11,7 @@ function ChatsList() {
   const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
   const [chatsList, setChatsList] = useState([])
 
+  const navigate = useNavigate();
   const dispatch = useDispatch()
   // console.log(currentSelectedChat)
 
@@ -34,7 +35,10 @@ function ChatsList() {
     <>
       <div className='py-13 flex flex-col xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center p-3 mt-2'>
         <div className='flex flex-col gap-2 items-center'>
-        <h1 className='text-[23px] md:text-[25px] py-2 xl:self-start'>Chats</h1>
+          <div className='w-[100%] md:w-[80%] xl:w-[100%] flex items-center justify-between'>
+            <i className="fa-solid fa-arrow-left text-[20px] cursor-pointer" onClick={() => navigate("/")}></i>
+            <h1 className='text-[23px] md:text-[25px] py-2 xl:self-start'>Chats</h1>
+          </div>
           {
             chatsList.length >= 1 &&
 
@@ -64,26 +68,26 @@ function ChatsList() {
         </div>
       </div>
 
-        {
-            chatsList.length < 1 &&
-            <div className='flex flex-col absolute md:w-full top-27 xl:w-[80vw] items-center justify-center xl:absolute xl:right-0 xl:justify-center xl:items-center'>
-              <div className='flex flex-col gap-3 w-[100vw] md:w-[80vw] xl:w-[50vw]'>
-                <ProfileSkeleton />
-                <ProfileSkeleton />
-                <ProfileSkeleton />
-                <ProfileSkeleton />
-                <ProfileSkeleton />
-                <ProfileSkeleton />
-                <ProfileSkeleton />
-                <ProfileSkeleton />
-                <ProfileSkeleton />
-                <ProfileSkeleton />
-                <ProfileSkeleton />
-                <ProfileSkeleton />
-                <ProfileSkeleton />
-              </div>
-            </div>
-          }
+      {
+        chatsList.length < 1 &&
+        <div className='flex flex-col absolute md:w-full top-27 xl:w-[80vw] items-center justify-center xl:absolute xl:right-0 xl:justify-center xl:items-center'>
+          <div className='flex flex-col gap-3 w-[100vw] md:w-[80vw] xl:w-[50vw]'>
+            <ProfileSkeleton />
+            <ProfileSkeleton />
+            <ProfileSkeleton />
+            <ProfileSkeleton />
+            <ProfileSkeleton />
+            <ProfileSkeleton />
+            <ProfileSkeleton />
+            <ProfileSkeleton />
+            <ProfileSkeleton />
+            <ProfileSkeleton />
+            <ProfileSkeleton />
+            <ProfileSkeleton />
+            <ProfileSkeleton />
+          </div>
+        </div>
+      }
     </>
   );
 }

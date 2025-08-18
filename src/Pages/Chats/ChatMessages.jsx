@@ -26,7 +26,7 @@ function ChatMessages() {
 
   const [socketConnected, setSocketConnected] = useState(false);
   const [typing, setTyping] = useState(false)
-  const [isTyping , setIsTyping] = useState(false)
+  const [isTyping, setIsTyping] = useState(false)
 
   //Setup socket connection
   useEffect(() => {
@@ -122,9 +122,9 @@ function ChatMessages() {
   const handleTyping = (e) => {
     setInputMessage(e.target.value)
 
-    if(!socketConnected) return;
+    if (!socketConnected) return;
 
-    if(!typing){
+    if (!typing) {
       setTyping(true)
       socket.current.emit('typing', currentSelectedChat._id)
     }
@@ -136,7 +136,7 @@ function ChatMessages() {
       let timeNow = new Date().getTime()
       let timeDifference = timeNow - lastTypingTime
 
-      if(timeDifference >= timerLength && typing){
+      if (timeDifference >= timerLength && typing) {
         socket.current.emit("stop typing", currentSelectedChat._id)
         setTyping(false)
       }
@@ -157,7 +157,7 @@ function ChatMessages() {
                 <div key={index} className={`rounded-xl flex ${msg.sender._id == currentUserId ? 'justify-end' : 'justify-start gap-1 md:gap-2'} `}>
                   {
                     msg.sender._id != currentUserId &&
-                    <img src={msg.sender.profilePicture} alt="" className='h-8 w-8 rounded-full cursor-pointer' onClick={() => navigate(`/user/${msg.sender._id}`)}/>
+                    <img src={msg.sender.profilePicture} alt="" className='h-8 w-8 rounded-full cursor-pointer' onClick={() => navigate(`/user/${msg.sender._id}`)} />
                   }
                   <div className={`flex flex-col rounded-xl p-2  text-[18px] max-w-[75%] w-fit break-words text-black ${msg.sender._id == currentUserId ? 'bg-green-300 ' : 'bg-blue-300 '} `}>
                     <span className="text-[17px] md:text-[21px] lg:text-[22px] xl:text-[18px] ">
@@ -173,10 +173,10 @@ function ChatMessages() {
               ))
             }
           </div>
-            {
-              isTyping && <p className='text-xl text-black fixed bottom-14 ml-2'>typing...</p>
-            }
-          <div className={`w-full xl:w-[50%] h-14 fixed bottom-0 flex items-center gap-2 px-2 xl:px-0  ${mode == 'light' ? 'bg-[#ffffff] ' : 'bg-[#0e0e0e] '}`}>
+          {
+            isTyping && <p className='text-xl text-black fixed bottom-14 ml-2'>typing...</p>
+          }
+          <div className={`z-[300] w-full xl:w-[50%] h-14 fixed bottom-0 flex items-center gap-2 px-2 xl:px-0  ${mode == 'light' ? 'bg-[#ffffff] ' : 'bg-[#0e0e0e] '}`}>
             <input
               type="text"
               className='h-10 w-[90%] border-1 border-gray-500 pl-2 rounded-xl placeholder:text-gray-500'
@@ -195,7 +195,10 @@ function ChatMessages() {
 
       {
         allMessages.length == 0 &&
-        <Loader2 />
+        // <Loader2 />
+        <div className='absolute top-0 w-full h-screen fles items-center justify-center'>
+          <p className='text-2xl'>Start your chat</p>
+        </div>
       }
     </>
   );

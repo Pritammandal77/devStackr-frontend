@@ -36,9 +36,10 @@ function SignIn() {
 
             console.log("Login successful:", response.data);
 
-            if (response.data.statusCode == 200) {
+            if (response.data.success) {
                 toast.success('login successfull!');
-                navigate('/home')
+                window.location.reload();
+                navigate("/");
             }
 
         } catch (error) {
@@ -119,7 +120,7 @@ function SignIn() {
                     </div>
                 </div>
             </div>
-            
+
             {
                 isLoading && <Loader2 />
             }
