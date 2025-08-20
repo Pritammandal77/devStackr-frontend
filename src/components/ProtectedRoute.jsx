@@ -10,7 +10,6 @@ const ProtectedRoute = ({ children }) => {
     useEffect(() => {
         // setTimeout(() => {
             if (!isLoggedIn) {
-                console.log("jhwgjgjc")
                 navigate("/signin")
             }
         // }, 5000);
