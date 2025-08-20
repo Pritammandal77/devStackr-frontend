@@ -20,7 +20,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
 
     const navigate = useNavigate()
 
-    const [isCommentSectionVisiblem, setIsCommentSEctionVisible] = useState(false) //to set , comment section will be visible or not
+    const [isCommentSectionVisiblem, setIsCommentSectionVisible] = useState(false) //to set , comment section will be visible or not
 
     const [isMenuVisible, setIsMenuVisible] = useState(false) // to hide and show the dropdown menu on the posts i.e, delete post btn's etc
 
@@ -138,7 +138,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                             <img src={authorProfilePicture ? authorProfilePicture : "/defaultpfp.png"} alt=""
                                 className='h-10 w-10 rounded-full cursor-pointer'
                                 onClick={() => {
-                                    navigate(`/user/${authorUserId}`);     // Navigate
+                                    navigate(`/user/${authorUserId}`);     
                                 }}
                             />
                             <div className='flex flex-col '>
@@ -202,7 +202,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                             {/* <p>{likesCount.length}</p> */}
                             <p>{postLikesData ? postLikesData.likesCount : likesCount.length}</p>
                         </div>
-                        <div className='w-[50%] flex items-center justify-center gap-2 pl-5' onClick={() => setIsCommentSEctionVisible((prev) => prev == false ? true : false)}>
+                        <div className='w-[50%] flex items-center justify-center gap-2 pl-5' onClick={() => setIsCommentSectionVisible((prev) => prev == false ? true : false)}>
                             <i className="fa-solid fa-comment cursor-pointer"></i>
                             <p>{allComments.length > 0 ? allComments.length : "0"}</p>
                         </div>
@@ -216,7 +216,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                                     placeholder='Add a comment...'
                                     id=""
                                     required
-                                    maxLength={800} // sets max 200 characters
+                                    maxLength={800}
                                     className='w-full md:w-[100%] min-h-[40px] text-[15px] md:text-[16px] border-0 focus:outline-none resize-none overflow-y-hidden border-gray-500 placeholder-gray-500'
                                     value={commentText}
                                     onChange={(e) => {

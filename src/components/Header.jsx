@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate, useNavigation, useSearchParams } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMode } from '../features/ToggleMode';
-import axios from 'axios';
 import axiosInstance from '../utils/axiosInstance';
 import { toast } from 'sonner';
 import Loader2 from './Loaders/Loader2';
@@ -18,11 +17,11 @@ function Header() {
   const [searchInput, setSearchInput] = useState("")
 
   const handleOpenHamburger = () => {
-    hamburgerRef.current.style.display = "inline"; // Step 2
+    hamburgerRef.current.style.display = "inline"; 
   }
 
   const handleCloseHamburger = () => {
-    hamburgerRef.current.style.display = "none"; // Step 3
+    hamburgerRef.current.style.display = "none"; 
   }
 
   const mode = useSelector((state) => state.mode.mode)

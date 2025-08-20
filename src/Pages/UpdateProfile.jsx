@@ -10,7 +10,6 @@ function UpdateProfile() {
 
     const userProfileData = useSelector((state) => state.userData.currentUserData.data)
     const mode = useSelector((state) => state.mode.mode)
-    // console.log("User data at update page", userProfileData)
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -63,8 +62,8 @@ function UpdateProfile() {
     const handleSaveUpdatedDataToDB = async (e) => {
         e.preventDefault()
         const formData = new FormData();
-        formData.append("profilePicture", profilePicture); // if it's a File
-        formData.append("coverImage", coverImage);         // if it's a File
+        formData.append("profilePicture", profilePicture); 
+        formData.append("coverImage", coverImage);         
         formData.append("name", name);
         formData.append("userName", userName);
         formData.append("bio", bio.length > 10 ? bio : " ");
@@ -76,7 +75,6 @@ function UpdateProfile() {
         formData.append("skills", JSON.stringify(skills)); // skills is an array
 
         setIsLoading(true)
-        console.log("twitterlink", twitterLink.length)
         try {
             console.log("updating profile")
             const res = await axiosInstance.post('/api/v1/users/updateUserAboutData', formData, {
@@ -85,7 +83,6 @@ function UpdateProfile() {
                 },
                 withCredentials: true, // if you are using cookies/session
             });
-            console.log('Data updated:', res.data);
             if (res.data.statusCode == 200) {
                 toast.success('profile updated successfully!');
                 setIsLoading(false)

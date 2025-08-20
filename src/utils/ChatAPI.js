@@ -27,7 +27,7 @@ const sendMessage = async (body) => {
     try {
         const message = await axiosInstance.post("/api/v1/message/send-message", body, {
             headers: {
-                'Content-Type': 'application/json',  // JSON not multipart
+                'Content-Type': 'application/json',  
             },
             withCredentials: true,
         });

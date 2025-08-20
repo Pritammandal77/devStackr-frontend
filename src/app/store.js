@@ -3,7 +3,6 @@ import { modeSlice } from "../features/ToggleMode";
 import { userDataSlice } from "../features/UserProfileData";
 import { chatSlice } from "../features/Chat";
 
-
 const store = configureStore({
     reducer : {
         mode : modeSlice.reducer,

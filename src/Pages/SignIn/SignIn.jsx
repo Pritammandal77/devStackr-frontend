@@ -15,13 +15,12 @@ function SignIn() {
 
     const [isLoading, setIsLoading] = useState(false)
 
-    // console.log(email)
 
     const loginUser = async (email, password) => {
         setIsLoading(true)
         try {
             const response = await axiosInstance.post(
-                "/api/v1/users/login", // Change URL accordingly
+                "/api/v1/users/login",
                 {
                     email,
                     password
@@ -30,11 +29,11 @@ function SignIn() {
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    withCredentials: true // only if you're using cookies for auth
+                    withCredentials: true
                 }
             );
 
-            console.log("Login successful:", response.data);
+            // console.log("Login successful:", response.data);
 
             if (response.data.success) {
                 toast.success('login successfull!');
@@ -75,7 +74,6 @@ function SignIn() {
                         <div>
                             <h1 className='text-4xl text-center'>Welcome again at <span className='russo-one-regular text-red-400 text-5xl'>devstackr</span></h1>
                             {/* <p className='text-xl'>Where ‘Hello World’ becomes ‘Hello, friend!’</p> */}
-                            {/* <p className='text-2xl'>Start your journey with those <br /> who code and care</p> */}
                         </div>
                         <img src="/loginFormImg.svg" alt="" className='h-50' />
                     </div>
@@ -83,7 +81,6 @@ function SignIn() {
                         <div className='w-full h-[20vh] flex flex-col justify-center px-10 xl:hidden'>
                             <h1 className='text-5xl russo-one-regular text-red-400'>devstackr</h1>
                             <p className='text-3xl text-white'>Where ‘hello world’ <br /> becomes ‘hello friend’</p>
-                            {/* <p className='text-2xl'>Start your journey with those <br /> who code and care</p> */}
                         </div>
                         <div className='w-[100vw] xl:w-[100%] h-[80vh] pt-10 xl:pt-0 flex flex-col items-center justify-center px-8 rounded-t-3xl bg-white xl:rounded-r-3xl'>
                             <h1 className='text-4xl text-center '>Login </h1>

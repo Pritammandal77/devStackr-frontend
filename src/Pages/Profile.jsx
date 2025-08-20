@@ -33,7 +33,6 @@ function Profile() {
                 const res = await axiosInstance.get("/api/v1/posts/getCurrentUserPosts", {
                     withCredentials: true,
                 });
-                // console.log("get user posts", res.data.data)
                 setPosts(res.data.data)
             } catch (err) {
                 console.log("User not logged ,we can't fetch posts", err.message);

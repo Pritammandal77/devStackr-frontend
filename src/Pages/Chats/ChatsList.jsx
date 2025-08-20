@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchChats } from '../../utils/ChatAPI';
 import { useDispatch, useSelector } from 'react-redux';
-import Loader2 from '../../components/Loaders/Loader2'
 import { NavLink, useNavigate } from 'react-router-dom';
 import { setCurrentSelectedChat } from '../../features/Chat';
 import ProfileSkeleton from '../../components/Loaders/ProfileSkeleton';

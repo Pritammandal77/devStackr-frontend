@@ -21,11 +21,10 @@ function Layout() {
         const fetchCurrentUser = async () => {
             try {
                 user = await axiosInstance.get("/api/v1/users/getCurrentUser");
-                console.log("current user", user)
+                // console.log("current user", user)
                 setCurrUser(user);
                 dispatch(setCurrentUserData(user.data));
                 dispatch(setIsLoggedIn(user.data.success));
-                console.log("isSuccess", user.data.success)
                 if (user.data.success) {
                     navigate('/')
                 }
@@ -40,18 +39,16 @@ function Layout() {
     }, []);
 
     useEffect(() => {
-        console.log("User after state change", currUser)
         if (currUser) {
             navigate("/")
         }
-        console.log(currUser)
         if (!currUser) {
             dispatch(setIsLoggedIn(false));
         }
 
     }, [currUser]);
 
-    // Define the routes where you DON'T want Header and BottomMenu
+    // Defining the routes where we do not want Header and BottomMenu
     const hideOnRoutes = ['/signup', '/signin',];
     const shouldHideLayout = hideOnRoutes.includes(location.pathname);
 
@@ -68,7 +65,6 @@ function Layout() {
         <>
             {!shouldHideLayout && <Header />}
             {!shouldHideLayout && <SideBar />}
-            {/* <SideBar /> */}
             <Outlet />
             {!shouldHideOnChatPages && <BottomMenu />}
         </>
@@ -80,6 +76,40 @@ export default Layout;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Old code
 
 // const dispatch = useDispatch()
 // const navigate = useNavigate()

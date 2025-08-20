@@ -4,7 +4,6 @@ import { useEffect } from "react";
 
 const ProtectedRoute = ({ children }) => {
     const { isLoggedIn } = useSelector((state) => state.userData); // or state.userData.isLoggedIn
-    console.log("isloggedin", isLoggedIn)
 
     const navigate = useNavigate();
 

@@ -18,7 +18,6 @@ function SignUp() {
 
     const [isLoading, setIsLoading] = useState("")
 
-
     const registerUser = async (e, name, userName, email, password) => {
         e.preventDefault()
         setIsLoading(true)
@@ -74,7 +73,6 @@ function SignUp() {
                     <div className='bg-gray-900 w-[50%] rounded-l-3xl p-10 text-white hidden xl:flex flex-col items-center justify-center gap-10' >
                         <div>
                             <h1 className='text-4xl'>Welcome to <span className='russo-one-regular text-red-400'>devstackr</span></h1>
-                            {/* <p className='text-xl'>Where ‘Hello World’ becomes ‘Hello, friend!’</p> */}
                             <p className='text-2xl'>Where ‘hello world’ <br /> becomes ‘hello, friend!</p>
                         </div>
                         <img src="/signupFormImg.svg" alt="" className='h-70' />
@@ -83,7 +81,6 @@ function SignUp() {
                         <div className='w-full h-[20vh] flex flex-col justify-center px-10 xl:hidden'>
                             <h1 className='text-5xl russo-one-regular text-red-400'>devstackr</h1>
                             <p className='text-3xl text-white'>Where ‘Hello World’ <br /> becomes ‘Hello friend’</p>
-                            {/* <p className='text-2xl'>Start your journey with those <br /> who code and care</p> */}
                         </div>
                         <div className='w-[100vw] xl:w-[100%] h-[80vh] pt-10 xl:pt-0 flex flex-col items-center justify-center px-8 rounded-t-3xl bg-white xl:rounded-r-3xl'>
                             <h1 className='text-4xl text-center '>Create Account </h1>

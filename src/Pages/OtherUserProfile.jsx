@@ -61,13 +61,11 @@ function OtherUserProfile() {
     //fetching the list of followers
     const FetchFollowersList = async (id) => {
         let followers = await getFollowersList(id);
-        // console.log("sfdgesgergserdgrsgrg", followers)
         setFollowersList(followers)
     }
 
     const FetchFollowingsList = async (id) => {
         let followings = await getFollowingsList(id)
-        // console.log("following list", followings)
         setFollowingsList(followings)
     }
 

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const chatSlice = createSlice({
     name: 'chat',
     initialState: {
-        currentSelectedChat: ["Hello"]
+        currentSelectedChat: [""]
     },
     reducers: {
         setCurrentSelectedChat: (state, actions) => {

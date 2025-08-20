@@ -30,8 +30,7 @@ function CreatePost() {
     setVideoPreview(URL.createObjectURL(file));
   };
 
-
-  //used to create
+  //used to create a post
   const createNewPost = async (e) => {
     e.preventDefault()
 
@@ -53,7 +52,7 @@ function CreatePost() {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        withCredentials: true, // if you are using cookies/session
+        withCredentials: true, 
       });
 
       console.log('Post Created:', res.data.statusCode);
@@ -111,7 +110,6 @@ function CreatePost() {
                   )}
                 </div>
 
-                {/* this is the input field to upload video, I have commented it temporarily , bocz to upload a video on server it takes many time , thats why */}
                 <div>
                   <label className="cursor-pointer px-2 py-1 bg-red-400 text-black rounded-lg hover:bg-blue-700 transition duration-200 inline-block">
                     <i className="fa-solid fa-video"></i>

@@ -1,17 +1,6 @@
-// import axios from 'axios';
-
-// const axiosInstance = axios.create({
-//     baseURL: import.meta.env.VITE_API_BASE_URL,
-//     withCredentials: true,
-// });
-
-
-// export default axiosInstance;
-
-
 import axios from 'axios';
 
-// Base axios instance
+// axios instance
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
     withCredentials: true, // so cookies (access/refresh token) are sent
@@ -54,8 +43,7 @@ axiosInstance.interceptors.response.use(
             isRefreshing = true;
 
             try {
-                // Call your refresh endpoint (must send refreshToken via cookie)
-                //   const res = await axiosInstance.post('/api/v1/users/refresh-token');
+                // Calling our refresh token endpoint
                 const res = await axiosInstance.post('/api/v1/users/refresh-token', {}, {
                     withCredentials: true
                 });
