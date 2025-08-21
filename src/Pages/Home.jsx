@@ -6,6 +6,7 @@ import Loader2 from '../components/Loaders/Loader2';
 import { FormatTime } from '../utils/FormatTime';
 import axiosInstance from '../utils/axiosInstance';
 import Skeleton from '../components/Loaders/Skeleton';
+import useScrollToTop from '../utils/useScrollToTop';
 
 function Home() {
 
@@ -48,25 +49,36 @@ function Home() {
                     </div>
                 </div>
             }
-            <div className={`py-13 flex flex-col  xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center`}>
+
+            <div className={`py-13 flex flex-col xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center`}>
                 {
-                    allPosts && 
-                        allPosts.map((data, index) => (
-                            <PostCard key={index}
-                                authorUserId={data.author._id}
-                                authorName={data.author.name}
-                                authorProfilePicture={data.author.profilePicture}
-                                createdAt={FormatTime(data.createdAt)}
-                                postDesc={data.description}
-                                postImage={data.image}
-                                postVideo={data.video}
-                                postId={data._id}
-                                likesCount={data.likes}
-                                followBtn="true"
-                                isAlreadyLiked={data.likes.includes(currentUserId) && true}
-                            />
-                        ))
+                    allPosts &&
+                    allPosts.map((data, index) => (
+                        <PostCard key={index}
+                            authorUserId={data.author._id}
+                            authorName={data.author.name}
+                            authorProfilePicture={data.author.profilePicture}
+                            createdAt={FormatTime(data.createdAt)}
+                            postDesc={data.description}
+                            postImage={data.image}
+                            postVideo={data.video}
+                            postId={data._id}
+                            likesCount={data.likes}
+                            followBtn="true"
+                            isAlreadyLiked={data.likes.includes(currentUserId) && true}
+                        />
+                    ))
                 }
+
+                {
+                    isLoading == false &&
+                    <div className='h-8 w-8 mt-5 rounded-full self-center cursor-pointer bg-gray-500 text-white flex items-center justify-center'
+                        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                    >
+                        <i className="fa-solid fa-arrow-up text-[19px] "></i>
+                    </div>
+                }
+
             </div>
         </>
     );

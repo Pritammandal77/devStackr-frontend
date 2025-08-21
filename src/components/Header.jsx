@@ -66,6 +66,7 @@ function Header() {
   //it will redirect to search page ,with the searchInput url i.e => /search?query=searchInput
   const handleSearchUser = (searchInput) => {
     navigate(`/search?query=${encodeURIComponent(searchInput)}`);
+    setSearchInput("")
   };
 
   return (
@@ -76,8 +77,8 @@ function Header() {
           <ul className='w-[100%] flex items-center justify-between px-5 mx:px-0  md:justify-evenly md:gap-7'>
             <li className=''>
               <NavLink to="/home" className="flex flex-row items-center gap-2 ">
-                <img src="/logo1.png" alt=""
-                  className='h-10 w-10 rounded-full cursor-pointer' />
+                {/* <img src="/logo1.png" alt=""
+                  className='h-10 w-10 rounded-full cursor-pointer' /> */}
                 <p className={`russo-one-regular text-[22px]  ${mode == 'light' ? 'text-black' : 'text-[#d3d3d3]'}`}>
                   devStackr
                 </p>

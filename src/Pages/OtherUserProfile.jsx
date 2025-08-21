@@ -125,7 +125,7 @@ function OtherUserProfile() {
 
                         <div className='relative w-[100%] md:w-[80%] lg:w-[60vw] flex items-center justify-center text-black rounded-2xl bg-no-repeat bg-cover bg-center '
                             style={{ backgroundImage: `url(${userData.coverImage ? userData.coverImage : "/defaultbg.svg"})` }}>
-                            <div className='40% h-[15vh] lg:h-[23vh] '>
+                            <div className='h-[15vh] lg:h-[27vh] '>
                             </div>
                         </div>
 
@@ -160,7 +160,7 @@ function OtherUserProfile() {
                                     ))}
                                 </div>
                             </div>
-                            <div className='flex flex-row items-center  gap-5 md:gap-15 w-[80%] md:w-[50%] pt-2 pb-2 lg:py-5'>
+                            <div className='flex flex-row items-center  gap-5 md:gap-15 w-[80%] md:w-[50%] pt-2 pb-2 lg:py-3'>
                                 <NavLink to={`/followerslist/${id}`}>
                                     <p className={`text-[20px] md:text-[20px] text-blue-500 font-semibold px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-100' : 'bg-[#1e1e1e]'}`} >{followersList ? followersList.length : 0} followers</p>
                                 </NavLink>
@@ -190,7 +190,7 @@ function OtherUserProfile() {
                                     </button>
                                 }
                             </div>
-                            <div className={`flex gap-5 mt-2`}>
+                            <div className={`flex gap-5 mt-2 xl:mt-0`}>
                                 {
                                     userData.githubLink &&
                                     <a href={userData.githubLink} className='text-[16px] text-blue-600 ' target='_blank'>

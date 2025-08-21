@@ -67,13 +67,16 @@ function Profile() {
 
                         <div className='relative w-[100%] md:w-[80%] lg:w-[60vw] flex items-center justify-center text-black rounded-2xl bg-no-repeat bg-cover bg-center '
                             style={{ backgroundImage: `url(${currentUserData.coverImage ? currentUserData.coverImage : "/defaultbg.svg"})` }}>
-                            <div className='40% h-[15vh] lg:h-[23vh] '>
+                            <div className='h-[15vh] lg:h-[27vh] '>
                             </div>
                         </div>
 
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] h-10  lg:text-center flex flex-row justify-between text-black px-10'>
                             <img src={currentUserData.profilePicture ? currentUserData.profilePicture : "/defaultpfp.png"} alt=""
                                 className='w-30 h-30 md:w-40 md:h-40 lg:h-50 lg:w-50 rounded-full relative bottom-15 md:bottom-20' />
+                            <NavLink to="/updateprofile" className="flex gap-3 items-center justify-center cursor-pointer bg-blue-400 h-8 w-8 rounded-full">
+                                <i className="fa-solid fa-pen"></i>
+                            </NavLink>
                         </div>
 
                         <div className='w-[100%] md:w-[80%] lg:w-[60vw] px-2 mt-5 lg:mt-20'>
@@ -92,7 +95,7 @@ function Profile() {
                                     <p className={`text-[20px] md:text-[20px] text-blue-500 font-semibold px-2 rounded-[10px]  ${mode == 'light' ? 'bg-gray-100' : 'bg-[#1e1e1e]'}`}>{followingsList ? followingsList.length : "0"} following</p>
                                 </NavLink>
                             </div>
-                            <div className='flex gap-5 mt-3 '>
+                            <div className='flex gap-5 mt-3 xl:mt-0'>
                                 {
                                     currentUserData.githubLink &&
                                     <a href={currentUserData.githubLink} className='text-[16px] text-blue-600 ' target='_blank'>

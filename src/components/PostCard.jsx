@@ -122,21 +122,21 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
         } catch (error) {
             console.log("error while deleting a post", error)
         } finally {
-            location.reload();
+            // location.reload();
             setIsLoading(false) // reloading the website after deleting a post , because after deleting a post , it still appear in the website ,until we refresh the page.
         }
     }
 
     return (
         <>
-            <div className='w-[100vw] h-auto flex flex-col items-center p-2'>
+            <div className='w-[100vw] h-auto flex flex-col items-center p-2 text-[17px] lg:text-[20px] xl:text-[15px]'>
 
-                <div className={`w-[100%] md:w-[80%] lg:w-[40vw] flex flex-col gap-3 p-2 border-1 border-gray-600 rounded-[5px] ${mode == 'light' ? 'bg-[#ffffff] ' : 'bg-[#0e0e0e] '}`}>
+                <div className={`w-[100%] md:w-[80%] lg:w-[70vw] xl:w-[40vw] flex flex-col gap-3 p-2 border-1 border-gray-600 rounded-[5px] ${mode == 'light' ? 'bg-[#ffffff] ' : 'bg-[#0e0e0e] '}`}>
 
                     <div className='flex flex-row items-center justify-between'>
                         <div className='flex flex-row gap-2 items-center'>
                             <img src={authorProfilePicture ? authorProfilePicture : "/defaultpfp.png"} alt=""
-                                className='h-10 w-10 rounded-full cursor-pointer'
+                                className='h-10 w-10 lg:h-12 lg:w-12 rounded-full cursor-pointer'
                                 onClick={() => {
                                     navigate(`/user/${authorUserId}`);     
                                 }}
@@ -174,14 +174,14 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                     <div className='flex flex-col gap-1'>
                         <p>{postDesc}</p>
                         {
-                            postImage && <img src={postImage} alt="image" className='w-[100%] md:w-[100%] lg:w-[45vw] rounded-[5px]' />
+                            postImage && <img src={postImage} alt="image" className='w-[100%] md:w-[100%]  lg:w-[70vw] xl:w-[40vw] rounded-[5px]' />
                         }
                         {
                             postVideo &&
                             <video 
                             src={postVideo} 
                             alt="video" 
-                            className='w-[100%] md:w-[100%] lg:w-[45vw] rounded-[5px]'
+                            className='w-[100%] md:w-[100%]  lg:w-[70vw] xl:w-[40vw] rounded-[5px]'
                             controls
                             autoPlay
                             muted
@@ -216,7 +216,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                                     placeholder='Add a comment...'
                                     id=""
                                     required
-                                    maxLength={800}
+                                    maxLength={400}
                                     className='w-full md:w-[100%] min-h-[40px] text-[15px] md:text-[16px] border-0 focus:outline-none resize-none overflow-y-hidden border-gray-500 placeholder-gray-500'
                                     value={commentText}
                                     onChange={(e) => {
@@ -229,7 +229,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                                 <div className='flex items-center justify-between'>
                                     <button className='h-8 w-25 text-[16px] text-gray-200 bg-blue-500 hover:bg-blue-600 flex items-center justify-center rounded-xl cursor-pointer'
                                         onClick={() => handleComment(postId, commentText)}>Comment</button>
-                                    <p className='self-end'>{commentText.length}/800</p>
+                                    <p className='self-end'>{commentText.length}/400</p>
                                 </div>
 
                             </div>
@@ -283,8 +283,8 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                                                                             setVisibleCommentMenu(null); // Close menu after deletion
                                                                         }}
                                                                     >
-                                                                        <i className="fa-solid fa-trash"></i>
-                                                                        <span>delete comment</span>
+                                                                        <i className="fa-solid fa-trash text-[15px]"></i>
+                                                                        <span className='text-[15px]'>delete comment</span>
 
                                                                     </p>
                                                                 </div>
