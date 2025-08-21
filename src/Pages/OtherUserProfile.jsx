@@ -236,7 +236,7 @@ function OtherUserProfile() {
                         }
 
                         {
-                            userData.skills &&
+                            userData?.skills?.length >= 1 &&
                             <div className='w-[100%] md:w-[80%] lg:w-[60vw] flex flex-col gap-2 px-2'>
                                 <h1 className='text-[28px] lg:text-[32px]'>Skills</h1>
                                 <div className='flex flex-wrap gap-3'>
@@ -249,27 +249,31 @@ function OtherUserProfile() {
                             </div>
                         }
 
-                        <div className='w-[100%] md:w-[80%] lg:w-[60vw] flex flex-col gap-2'>
-                            <h1 className='text-[28px] lg:text-[32px] px-2'>Posts</h1>
-                            <div className='flex flex-col items-center '>
-                                {
-                                    allPosts && allPosts.map((data, index) => (
-                                        <PostCard key={index}
-                                            authorUserId={data.author._id}
-                                            authorName={data.author.name}
-                                            authorProfilePicture={data.author.profilePicture}
-                                            createdAt={FormatTime(data.createdAt)}
-                                            postDesc={data.description}
-                                            postImage={data.image}
-                                            postVideo={data.video}
-                                            likesCount={data.likes}
-                                            postId={data._id}
-                                            isAlreadyLiked={data.likes.includes(currentUserId) && true}
-                                        />
-                                    ))
-                                }
+                        {
+                            userData?.posts?.length >= 1 &&
+                            <div className='w-[100%] md:w-[80%] lg:w-[60vw] flex flex-col gap-2'>
+                                <h1 className='text-[28px] lg:text-[32px] px-2'>Posts</h1>
+                                <div className='flex flex-col items-center '>
+                                    {
+                                        allPosts && allPosts.map((data, index) => (
+                                            <PostCard key={index}
+                                                authorUserId={data.author._id}
+                                                authorName={data.author.name}
+                                                authorProfilePicture={data.author.profilePicture}
+                                                createdAt={FormatTime(data.createdAt)}
+                                                postDesc={data.description}
+                                                postImage={data.image}
+                                                postVideo={data.video}
+                                                likesCount={data.likes}
+                                                postId={data._id}
+                                                isAlreadyLiked={data.likes.includes(currentUserId) && true}
+                                            />
+                                        ))
+                                    }
+                                </div>
                             </div>
-                        </div>
+                        }
+
                     </div>
                 ) : (
                     <Loader2 />

@@ -155,7 +155,7 @@ function ChatMessages() {
                 <div key={index} className={`rounded-xl flex ${msg.sender._id == currentUserId ? 'justify-end' : 'justify-start gap-1 md:gap-2'} `}>
                   {
                     msg.sender._id != currentUserId &&
-                    <img src={msg.sender.profilePicture} alt="" className='h-8 w-8 rounded-full cursor-pointer' onClick={() => navigate(`/user/${msg.sender._id}`)} />
+                    <img src={msg.sender.profilePicture || "/defaultpfp.png"} alt="" className='h-8 w-8 rounded-full cursor-pointer' onClick={() => navigate(`/user/${msg.sender._id}`)} />
                   }
                   <div className={`flex flex-col rounded-xl p-2  text-[18px] max-w-[75%] w-fit break-words text-black ${msg.sender._id == currentUserId ? 'bg-green-300 ' : 'bg-blue-300 '} `}>
                     <span className="text-[17px] md:text-[21px] lg:text-[22px] xl:text-[18px] ">

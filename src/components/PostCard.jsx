@@ -246,7 +246,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                                             <div key={index} className={`relative flex flex-col border-1 p-2 rounded-2xl w-full   ${mode == 'light' ? 'border-gray-400 ' : 'border-gray-800'}`}>
                                                 <div className='flex gap-3'>
                                                     <div className='min-w-10'>
-                                                        <img src={data.user.profilePicture}
+                                                        <img src={data.user.profilePicture || "defaultpfp.png"}
                                                             alt=""
                                                             className='h-10 w-10 rounded-full cursor-pointer'
                                                             onClick={() => {

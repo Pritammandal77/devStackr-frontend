@@ -48,7 +48,7 @@ function ChatsList() {
                   <NavLink to={`/chat/messages/${data._id}`} className="flex items-center p-1 h-25" onClick={() => handleCurrentSelectedChat(data)}>
                     <div className='w-25 h-25 flex items-center justify-center'>
                       <img
-                        src={otherUser?.profilePicture}
+                        src={otherUser?.profilePicture || "/defaultpfp.png"}
                         alt={otherUser?.name}
                         className='h-22 w-22 rounded-full object-cover'
                       />

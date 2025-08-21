@@ -16,10 +16,6 @@ function SignIn() {
     const [isLoading, setIsLoading] = useState(false)
 
 
-    useEffect(() => {
-     toast.success("Please login to continue")
-    }, []);
-
     const loginUser = async (email, password) => {
         setIsLoading(true)
         try {
