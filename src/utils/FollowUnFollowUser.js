@@ -8,7 +8,7 @@ const followUser = async (userId) => {
         })
         toast(res.data.message)
     } catch (error) {
-        console.log("error while following a user", error)
+        console.log("error while following a user")
     }
 }
 
@@ -19,7 +19,7 @@ const unFollowUser = async (userId) => {
         })
         toast(res.data.message)
     } catch (error) {
-        console.log("error while unfollwowing the user", error)
+        console.log("error while unfollwowing the user")
     }
 }
 
@@ -28,7 +28,7 @@ const getFollowersList = async (id) => {
         const res = await axiosInstance.get(`/api/v1/follows/followerslist/${id}`)
         return res.data.data
     } catch (error) {
-        console.log("error while fetching the followers", error)
+        console.log("error while fetching the followers")
     }
 }
 
@@ -37,7 +37,7 @@ const getFollowingsList = async (id) => {
         const res = await axiosInstance.get(`/api/v1/follows/followingslist/${id}`)
         return res.data.data
     } catch (error) {
-        console.log("error while fetching the followings", error)
+        console.log("error while fetching the followings")
     }
 }
 

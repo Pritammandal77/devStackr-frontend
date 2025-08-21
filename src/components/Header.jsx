@@ -10,19 +10,10 @@ import Loader2 from './Loaders/Loader2';
 
 function Header() {
 
-  const hamburgerRef = useRef()
   const navigate = useNavigate()
 
   const [isLoading, setIsLoading] = useState(false)
   const [searchInput, setSearchInput] = useState("")
-
-  const handleOpenHamburger = () => {
-    hamburgerRef.current.style.display = "inline"; 
-  }
-
-  const handleCloseHamburger = () => {
-    hamburgerRef.current.style.display = "none"; 
-  }
 
   const mode = useSelector((state) => state.mode.mode)
 
@@ -66,8 +57,9 @@ function Header() {
   //it will redirect to search page ,with the searchInput url i.e => /search?query=searchInput
   const handleSearchUser = (searchInput) => {
     navigate(`/search?query=${encodeURIComponent(searchInput)}`);
-    setSearchInput("")
   };
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <>
@@ -92,11 +84,11 @@ function Header() {
               />
               <i className="fa-solid fa-magnifying-glass cursor-pointer text-2xl hover:text-blue-500" onClick={() => handleSearchUser(searchInput)}></i>
             </li>
-            <li className='text-[24px] font-bold hidden md:flex xl:hidden cursor-pointer' onClick={handleOpenHamburger}>
+            <li className='text-[24px] font-bold hidden md:flex xl:hidden cursor-pointer' onClick={(e) => setIsMenuOpen(true)}>
               <HiOutlineMenuAlt3 />
             </li>
-            <li className='absolute top-2 right-2 lg:right-5 text-[22px] font-bold md:hidden cursor-pointer' onClick={handleOpenHamburger}>
-              <HiOutlineMenuAlt3 onClick={handleOpenHamburger} className='cursor-pointer' />
+            <li className='absolute top-2 right-2 lg:right-5 text-[22px] font-bold md:hidden cursor-pointer' onClick={(e) => setIsMenuOpen(true)}>
+              <HiOutlineMenuAlt3 onClick={(e) => setIsMenuOpen(true)} className='cursor-pointer' />
             </li>
             <li className='cursor-pointer hidden xl:flex text-[18px]'>
               <NavLink to="/chatlist">
@@ -107,46 +99,53 @@ function Header() {
         </nav>
       </header>
 
-      <div className={`hamburgerDiv fixed top-0 right-0 w-[60vw] md:w-[40vw] lg:w-[25vw] h-[100vh] z-[100] hidden text-[22px]
-        ${mode == 'light' ? 'bg-[#FFF2EB]' : 'bg-[#0f0f0f] text-white'}`} ref={hamburgerRef}>
-        <ul className='flex flex-col gap-15'>
+      <div
+        // className={`hamburgerDiv fixed top-0 right-0 w-[60vw] md:w-[40vw] lg:w-[25vw] h-[100vh] z-[100] hidden text-[22px]
+        //    transform transition-transform duration-300 ease-in-out ${isMenuOpen ? "translate-x-0" : "translate-x-full" }
+        //   ${mode == 'light' ? 'bg-[#FFF2EB]' : 'bg-[#0f0f0f] text-white'}`}
+        className={`fixed top-0 right-0 h-[100vh] w-[60vw] md:w-[40vw] text-black z-100 text-[22px] flex flex-col gap-6 transform transition-transform duration-300 ease-in-out
+           ${isMenuOpen ? "translate-x-0" : "translate-x-full" }
+             ${mode == 'light' ? 'bg-[#FFF2EB]' : 'bg-[#0f0f0f] text-white'}
+           `}
+      >
+        <ul className='flex flex-col gap-10'>
           <li>
-            <i className={`fa-solid fa-xmark p-3 cursor-pointerFF2EB] ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`} onClick={handleCloseHamburger}></i>
+            <i className={`fa-solid fa-xmark p-3 text-[20px] cursor-pointerFF2EB] ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`} onClick={() => setIsMenuOpen(false)}></i>
           </li>
           <li>
             <ul className='flex flex-col gap-3 text-[20px]'>
               <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
-                <NavLink to='home' className="flex gap-3 items-center cursor-pointer" onClick={handleCloseHamburger}>
+                <NavLink to='home' className="flex gap-3 items-center cursor-pointer" onClick={() => setIsMenuOpen(false)}>
                   <i className="fa-solid fa-house"></i>
                   <p>Home</p>
                 </NavLink>
               </li>
               <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[rgb(248,197,168)]' : 'hover:bg-[#373737]'}`}>
-                <NavLink to="/chatlist" className="flex gap-3 items-center cursor-pointer" onClick={handleCloseHamburger}>
+                <NavLink to="/chatlist" className="flex gap-3 items-center cursor-pointer" onClick={() => setIsMenuOpen(false)}>
                   <i className="fa-solid fa-message"></i>
                   <p>Chats</p>
                 </NavLink>
               </li>
               <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}>
-                <NavLink to="/allusers" className="flex gap-3 items-center cursor-pointer" onClick={handleCloseHamburger}>
+                <NavLink to="/allusers" className="flex gap-3 items-center cursor-pointer" onClick={() => setIsMenuOpen(false)}>
                   <i className="fa-solid fa-users"></i>
                   <p>All users</p>
                 </NavLink>
               </li>
               <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[rgb(248,197,168)]' : 'hover:bg-[#373737]'}`}>
-                <NavLink to="/updateprofile" className="flex gap-3 items-center cursor-pointer" onClick={handleCloseHamburger}>
+                <NavLink to="/updateprofile" className="flex gap-3 items-center cursor-pointer" onClick={() => setIsMenuOpen(false)}>
                   <i className="fa-solid fa-user-pen"></i>
                   <p>Edit profile</p>
                 </NavLink>
               </li>
               <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[rgb(248,197,168)]' : 'hover:bg-[#373737]'}`}>
-                <NavLink to="/createpost" className="flex gap-3 items-center cursor-pointer" onClick={handleCloseHamburger}>
+                <NavLink to="/createpost" className="flex gap-3 items-center cursor-pointer" onClick={() => setIsMenuOpen(false)}>
                   <i className="fa-solid fa-plus"></i>
                   <p>Create post</p>
                 </NavLink>
               </li>
               <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[rgb(248,197,168)]' : 'hover:bg-[#373737]'}`}>
-                <NavLink to="/search" className="flex gap-3 items-center cursor-pointer" onClick={handleCloseHamburger}>
+                <NavLink to="/search" className="flex gap-3 items-center cursor-pointer" onClick={() => setIsMenuOpen(false)}>
                   <i className="fa-solid fa-magnifying-glass"></i>
                   <p>Search User</p>
                 </NavLink>
