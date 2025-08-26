@@ -30,6 +30,15 @@ function ChatsList() {
     dispatch(setCurrentSelectedChat(currChat))
   }
 
+  useEffect(() => {
+   setTimeout(() => {
+      console.log(chatsList)
+      if(chatsList.length == 0){
+        chatsList.length == -1;
+      }
+   }, 7000);
+  }, []);
+
   return (
     <>
       <div className='py-13 flex flex-col xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center p-3 mt-2'>
@@ -68,7 +77,7 @@ function ChatsList() {
       </div>
 
       {
-        chatsList.length < 1 &&
+        chatsList.length == 0 ?
         <div className='flex flex-col absolute md:w-full top-27 xl:w-[80vw] items-center justify-center xl:absolute xl:right-0 xl:justify-center xl:items-center'>
           <div className='flex flex-col gap-3 w-[100vw] md:w-[80vw] xl:w-[50vw]'>
             <ProfileSkeleton />
@@ -85,6 +94,10 @@ function ChatsList() {
             <ProfileSkeleton />
             <ProfileSkeleton />
           </div>
+        </div>
+        :
+        <div>
+          No chats !!
         </div>
       }
     </>

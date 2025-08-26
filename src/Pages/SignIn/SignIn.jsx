@@ -122,7 +122,7 @@ function SignIn() {
                                         <NavLink to="/signup" className="text-blue-500"> create account</NavLink>
                                     </p>
                                 </div>
-                                <div className='text-[17px] text-center ' onClick={() => loginWithGuestAccount()}>
+                                <div className='text-[16px] text-center ' onClick={() => loginWithGuestAccount()}>
                                     <p className=''>login with a
                                         <span className='text-blue-600'> Guest account </span>
                                     </p>
