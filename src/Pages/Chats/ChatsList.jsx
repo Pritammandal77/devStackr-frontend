@@ -8,16 +8,18 @@ import ProfileSkeleton from '../../components/Loaders/ProfileSkeleton';
 function ChatsList() {
 
   const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
-  const [chatsList, setChatsList] = useState([])
+  const [chatsList, setChatsList] = useState(false)
+  const [isChatsFetching, setIsChatsFetching] = useState(false)
 
   const navigate = useNavigate();
   const dispatch = useDispatch()
   // console.log(currentSelectedChat)
 
   const handleFetchChats = async () => {
+    setIsChatsFetching(true)
     const response = await fetchChats()
     setChatsList(response?.data.data)
-    // console.log("chatList", response?.data.data)
+    setIsChatsFetching(false)
   }
 
   useEffect(() => {
@@ -26,23 +28,13 @@ function ChatsList() {
 
 
   const handleCurrentSelectedChat = (currChat) => {
-    // console.log("currChat", currChat)
     dispatch(setCurrentSelectedChat(currChat))
   }
-
-  useEffect(() => {
-   setTimeout(() => {
-      console.log(chatsList)
-      if(chatsList.length == 0){
-        chatsList.length == -1;
-      }
-   }, 7000);
-  }, []);
 
   return (
     <>
       <div className='py-13 flex flex-col xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center p-3 mt-2'>
-        <div className='flex flex-col gap-2 items-center'>
+        <div className='flex flex-col gap-2 items-center xl:w-[60%]'>
           <div className='w-[100%] md:w-[80%] xl:w-[100%] flex items-center justify-between'>
             <i className="fa-solid fa-arrow-left text-[20px] cursor-pointer" onClick={() => navigate("/")}></i>
             <h1 className='text-[23px] md:text-[25px] py-2 xl:self-start'>Chats</h1>
@@ -77,7 +69,7 @@ function ChatsList() {
       </div>
 
       {
-        chatsList.length == 0 ?
+        isChatsFetching &&
         <div className='flex flex-col absolute md:w-full top-27 xl:w-[80vw] items-center justify-center xl:absolute xl:right-0 xl:justify-center xl:items-center'>
           <div className='flex flex-col gap-3 w-[100vw] md:w-[80vw] xl:w-[50vw]'>
             <ProfileSkeleton />
@@ -95,9 +87,12 @@ function ChatsList() {
             <ProfileSkeleton />
           </div>
         </div>
-        :
-        <div>
-          No chats !!
+      }
+
+      {
+        chatsList?.length == 0 &&
+        <div className='flex w-full h-[70vh] xl:mt-30 xl:w-[80vw] items-center justify-center xl:absolute right-0 text-2xl md:text-3xl'>
+          No chats found !!
         </div>
       }
     </>
