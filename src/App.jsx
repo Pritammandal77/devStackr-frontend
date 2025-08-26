@@ -29,7 +29,7 @@ function App() {
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/signin" element={<SignIn />}></Route>
-        <Route path="/allusers" element={<AllUsers />}></Route>
+        <Route path="/allusers" element={<ProtectedRoute> <AllUsers /></ProtectedRoute>}></Route>
         <Route path="/search" element={<ProtectedRoute><Search /></ProtectedRoute>}></Route>
         <Route path="/createpost" element={<ProtectedRoute><CreatePost /></ProtectedRoute>}></Route>
         <Route path="/updateprofile" element={<ProtectedRoute><UpdateProfile /></ProtectedRoute>}></Route>

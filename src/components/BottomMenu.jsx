@@ -39,7 +39,7 @@ function BottomMenu() {
                     <li className='flex items-center justify-center'>
                         <NavLink to="/profile"
                             className={({ isActive }) => (isActive ? "text-[#3f0064] font-bold border-2 rounded-full " : "")}>
-                            <img src={currentUserData?.profilePicture} alt=""
+                            <img src={currentUserData?.profilePicture ? currentUserData?.profilePicture : "defaultpfp.png"} alt=""
                                 className='h-9 w-9 rounded-full' />
                         </NavLink>
                     </li>

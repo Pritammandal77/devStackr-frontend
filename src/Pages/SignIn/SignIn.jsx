@@ -65,6 +65,16 @@ function SignIn() {
         loginUser(email, password)
     }
 
+    const loginWithGuestAccount = () => {
+        try {
+            let email = import.meta.env.VITE_GUEST_ACCOUNT_EMAIL;
+            let password = import.meta.env.VITE_GUEST_ACCOUNT_PASSWORD;
+            loginUser(email, password)
+        } catch (error) {
+            toast.error("login failed via guest account")
+        }
+    }
+
     return (
         <>
             <div className='w-full text-black min-h-[100vh] flex flex-col items-center justify-center '>
@@ -110,6 +120,11 @@ function SignIn() {
                                 <div className='text-[16px] text-center'>
                                     <p>Do not have a account?
                                         <NavLink to="/signup" className="text-blue-500"> create account</NavLink>
+                                    </p>
+                                </div>
+                                <div className='text-[17px] text-center ' onClick={() => loginWithGuestAccount()}>
+                                    <p className=''>login with a
+                                        <span className='text-blue-600'> Guest account </span>
                                     </p>
                                 </div>
                             </form>
