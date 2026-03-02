@@ -31,6 +31,10 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
 
     const [isLoading, setIsLoading] = useState(false)
 
+    // for confirming post deletion
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [selectedPost, setSelectedPost] = useState(null);
+
     //storing the value isPostLiked
     const [isLiked, setIsLiked] = useState(isAlreadyLiked);
 
@@ -127,6 +131,11 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
         }
     }
 
+    const confirmDelete = () => {
+        handleDeletePost(selectedPost);
+        setShowDeleteModal(false);
+    };
+
     return (
         <>
             <div className='w-[100vw] h-auto flex flex-col items-center p-2 text-[17px] lg:text-[20px] xl:text-[15px]'>
@@ -138,7 +147,7 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                             <img src={authorProfilePicture ? authorProfilePicture : "/defaultpfp.png"} alt=""
                                 className='h-10 w-10 lg:h-12 lg:w-12 rounded-full cursor-pointer'
                                 onClick={() => {
-                                    navigate(`/user/${authorUserId}`);     
+                                    navigate(`/user/${authorUserId}`);
                                 }}
                             />
                             <div className='flex flex-col '>
@@ -160,10 +169,21 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                                             <i className="fa-solid fa-pen-to-square"></i>
                                             <span>Edit post</span>
                                         </p>
-                                        <p className={`flex gap-2 items-center p-2 w-full ${mode == 'light' ? 'hover:bg-gray-300' : 'hover:bg-gray-800'}`}
+                                        {/* <p className={`flex gap-2 items-center p-2 w-full ${mode == 'light' ? 'hover:bg-gray-300' : 'hover:bg-gray-800'}`}
                                             onClick={() => handleDeletePost(postId)}>
                                             <i className="fa-solid fa-trash"></i>
                                             <span>delete post</span>
+                                        </p> */}
+                                        <p
+                                            className={`flex gap-2 items-center p-2 w-full ${mode == 'light' ? 'hover:bg-gray-300' : 'hover:bg-gray-800'
+                                                }`}
+                                            onClick={() => {
+                                                setSelectedPost(postId);
+                                                setShowDeleteModal(true);
+                                            }}
+                                        >
+                                            <i className="fa-solid fa-trash"></i>
+                                            <span>Delete Post</span>
                                         </p>
                                     </div>
                                 }
@@ -178,14 +198,14 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                         }
                         {
                             postVideo &&
-                            <video 
-                            src={postVideo} 
-                            alt="video" 
-                            className='w-[100%] md:w-[100%]  lg:w-[70vw] xl:w-[40vw] rounded-[5px]'
-                            controls
-                            autoPlay
-                            muted
-                            playsInline
+                            <video
+                                src={postVideo}
+                                alt="video"
+                                className='w-[100%] md:w-[100%]  lg:w-[70vw] xl:w-[40vw] rounded-[5px]'
+                                controls
+                                autoPlay
+                                muted
+                                playsInline
                             ></video>
                             // <CustomVideoPlayer
                             //     videoSrc={postVideo}
@@ -307,6 +327,51 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
             </div>
             {
                 isLoading && <Loader2 />
+            }
+
+
+            {
+                showDeleteModal && (
+                    <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50
+                    transition-opacity duration-300">
+
+                        <div className={`p-6 rounded-xl w-80
+                      transform transition-all duration-300
+                      opacity-0 scale-90
+                      animate-[modal_0.25s_ease-out_forwards] 
+                      ${mode == 'light' ? 'bg-[#ffffff] text-black' : 'bg-[#0e0e0e] text-white'}
+                      `}>
+
+                            <h2 className="text-lg font-semibold mb-4">
+                                Are you sure, want to delete ?
+                            </h2>
+
+                            <p className="text-sm text-gray-400 mb-6">
+                                This action cannot be undone.
+                            </p>
+
+                            <div className="flex justify-end gap-3">
+
+                                <button
+                                    onClick={() => setShowDeleteModal(false)}
+                                    className={`px-4 py-2 rounded-lg  cursor-pointer ${mode == 'light' ? 'bg-gray-300' : 'bg-[#2c2c2c] '}`}
+                                >
+                                    Cancel
+                                </button>
+
+                                <button
+                                    onClick={confirmDelete}
+                                    className={`px-4 py-2 rounded-lg text-white cursor-pointer1 ${mode == 'light' ? 'bg-red-500' : 'bg-red-600'}`}
+                                >
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                )
             }
         </>
     );
