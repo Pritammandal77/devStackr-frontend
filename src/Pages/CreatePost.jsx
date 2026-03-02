@@ -85,7 +85,7 @@ function CreatePost() {
                 value={description}
                 maxLength={2000}
                 onChange={(e) => setDescription(e.target.value)}></textarea>
-              <p className='self-end'>{description.length}/800</p>
+              <p className='self-end'>{description.length}/2000</p>
             </div>
 
             <div className='flex flex-col gap-2'>

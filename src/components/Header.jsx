@@ -10,11 +10,11 @@ import Loader2 from './Loaders/Loader2';
 
 function Header() {
 
+  const user = useSelector((state) => state.userData?.currentUserData?.data)
   const navigate = useNavigate()
 
   const [isLoading, setIsLoading] = useState(false)
   const [searchInput, setSearchInput] = useState("")
-
   const mode = useSelector((state) => state.mode.mode)
 
   const dispatch = useDispatch()
@@ -104,7 +104,7 @@ function Header() {
         //    transform transition-transform duration-300 ease-in-out ${isMenuOpen ? "translate-x-0" : "translate-x-full" }
         //   ${mode == 'light' ? 'bg-[#FFF2EB]' : 'bg-[#0f0f0f] text-white'}`}
         className={`fixed top-0 right-0 h-[100vh] w-[60vw] md:w-[40vw] text-black z-100 text-[22px] flex flex-col gap-6 transform transition-transform duration-300 ease-in-out
-           ${isMenuOpen ? "translate-x-0" : "translate-x-full" }
+           ${isMenuOpen ? "translate-x-0" : "translate-x-full"}
              ${mode == 'light' ? 'bg-[#FFF2EB]' : 'bg-[#0f0f0f] text-white'}
            `}
       >
@@ -175,42 +175,48 @@ function Header() {
                   </summary>
 
                   <ul className="pl-8 py-2 flex flex-col gap-2 text-[17px]">
-                    <li>
-                      <NavLink
-                        to="/signup"
-                        className={({ isActive }) =>
-                          `block px-2 py-1 rounded ${isActive
-                            ? mode === 'light'
-                              ? 'bg-[#fcd4bc]'
-                              : 'bg-[#1f1f1f]'
-                            : ''
-                          } ${mode === 'light'
-                            ? 'hover:bg-[#f8c5a8]'
-                            : 'hover:bg-[#373737]'
-                          }`
-                        }
-                      >
-                        Create Account
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        to="/signin"
-                        className={({ isActive }) =>
-                          `block px-2 py-1 rounded ${isActive
-                            ? mode === 'light'
-                              ? 'bg-[#fcd4bc]'
-                              : 'bg-[#1f1f1f]'
-                            : ''
-                          } ${mode === 'light'
-                            ? 'hover:bg-[#f8c5a8]'
-                            : 'hover:bg-[#373737]'
-                          }`
-                        }
-                      >
-                        Log In
-                      </NavLink>
-                    </li>
+                    {
+                      !user &&
+                      <li>
+                        <NavLink
+                          to="/signup"
+                          className={({ isActive }) =>
+                            `block px-2 py-1 rounded ${isActive
+                              ? mode === 'light'
+                                ? 'bg-[#fcd4bc]'
+                                : 'bg-[#1f1f1f]'
+                              : ''
+                            } ${mode === 'light'
+                              ? 'hover:bg-[#f8c5a8]'
+                              : 'hover:bg-[#373737]'
+                            }`
+                          }
+                        >
+                          Create Account
+                        </NavLink>
+                      </li>
+                    }
+                    {
+                      !user &&
+                      <li>
+                        <NavLink
+                          to="/signin"
+                          className={({ isActive }) =>
+                            `block px-2 py-1 rounded ${isActive
+                              ? mode === 'light'
+                                ? 'bg-[#fcd4bc]'
+                                : 'bg-[#1f1f1f]'
+                              : ''
+                            } ${mode === 'light'
+                              ? 'hover:bg-[#f8c5a8]'
+                              : 'hover:bg-[#373737]'
+                            }`
+                          }
+                        >
+                          Log In
+                        </NavLink>
+                      </li>
+                    }
                     <li
                       onClick={handleLogout}
                       className={`block px-2 py-1 rounded cursor-pointer ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'

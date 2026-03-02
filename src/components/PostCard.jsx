@@ -12,6 +12,8 @@ import CommentCard from './CommentCard';
 import Loader2 from './Loaders/Loader2';
 import ReactPlayer from 'react-player'
 import CustomVideoPlayer from './CustomVideoPlayer';
+import Linkify from "linkify-react";
+
 
 function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, postDesc, postImage, postVideo, postId, likesCount, followBtn, isAlreadyLiked }) {
 
@@ -192,7 +194,16 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
                     </div>
 
                     <div className='flex flex-col gap-1'>
-                        <p>{postDesc}</p>
+                        <p className='whitespace-pre-line'>
+                            <Linkify
+                                options={{
+                                    target: "_blank",
+                                    className: "text-blue-500 underline"
+                                }}
+                            >
+                                {postDesc}
+                            </Linkify>
+                        </p>
                         {
                             postImage && <img src={postImage} alt="image" className='w-[100%] md:w-[100%]  lg:w-[70vw] xl:w-[40vw] rounded-[5px]' />
                         }
