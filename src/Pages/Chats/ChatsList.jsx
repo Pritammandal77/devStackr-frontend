@@ -8,6 +8,7 @@ import ProfileSkeleton from '../../components/Loaders/ProfileSkeleton';
 function ChatsList() {
 
   const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
+  const mode = useSelector((state) => state.mode.mode)
   const [chatsList, setChatsList] = useState(false)
   const [isChatsFetching, setIsChatsFetching] = useState(false)
 
@@ -34,7 +35,7 @@ function ChatsList() {
   return (
     <>
       <div className='py-13 flex flex-col xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center p-3 mt-2'>
-        <div className='flex flex-col gap-2 items-center xl:w-[60%]'>
+        <div className='flex flex-col gap-3 items-center xl:w-[60%]'>
           <div className='w-[100%] md:w-[80%] xl:w-[100%] flex items-center justify-between'>
             <i className="fa-solid fa-arrow-left text-[20px] cursor-pointer" onClick={() => navigate("/")}></i>
             <h1 className='text-[23px] md:text-[25px] py-2 xl:self-start'>Chats</h1>
@@ -45,7 +46,8 @@ function ChatsList() {
             chatsList?.map((data, index) => {
               const otherUser = data.users.find((user) => user._id !== currentUserId);
               return (
-                <div key={index} className='border-1 border-gray-600 w-full md:w-[70vw] xl:w-[40vw] rounded-xl'>
+                <div key={index} className={`border-1 w-full md:w-[70vw] xl:w-[40vw] rounded-xl
+                ${mode == 'light' ? 'bg-gray-200 border-gray-300' : 'bg-[#0b0b0b] border-[#1c1c1c]'} `}>
                   <NavLink to={`/chat/messages/${data._id}`} className="flex items-center p-1 h-25" onClick={() => handleCurrentSelectedChat(data)}>
                     <div className='w-25 h-25 flex items-center justify-center'>
                       <img

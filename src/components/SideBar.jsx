@@ -153,42 +153,49 @@ function SideBar() {
                             </summary>
 
                             <ul className="pl-8 py-2 flex flex-col gap-2 text-[17px]">
-                                <li>
-                                    <NavLink
-                                        to="/signup"
-                                        className={({ isActive }) =>
-                                            `block px-2 py-1 rounded ${isActive
-                                                ? mode === 'light'
-                                                    ? 'bg-[#fcd4bc]'
-                                                    : 'bg-[#1f1f1f]'
-                                                : ''
-                                            } ${mode === 'light'
-                                                ? 'hover:bg-[#f8c5a8]'
-                                                : 'hover:bg-[#373737]'
-                                            }`
-                                        }
-                                    >
-                                        Create Account
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/signin"
-                                        className={({ isActive }) =>
-                                            `block px-2 py-1 rounded ${isActive
-                                                ? mode === 'light'
-                                                    ? 'bg-[#fcd4bc]'
-                                                    : 'bg-[#1f1f1f]'
-                                                : ''
-                                            } ${mode === 'light'
-                                                ? 'hover:bg-[#f8c5a8]'
-                                                : 'hover:bg-[#373737]'
-                                            }`
-                                        }
-                                    >
-                                        Log In
-                                    </NavLink>
-                                </li>
+                                {
+                                    !userData &&
+                                    <li>
+                                        <NavLink
+                                            to="/signup"
+                                            className={({ isActive }) =>
+                                                `block px-2 py-1 rounded ${isActive
+                                                    ? mode === 'light'
+                                                        ? 'bg-[#fcd4bc]'
+                                                        : 'bg-[#1f1f1f]'
+                                                    : ''
+                                                } ${mode === 'light'
+                                                    ? 'hover:bg-[#f8c5a8]'
+                                                    : 'hover:bg-[#373737]'
+                                                }`
+                                            }
+                                        >
+                                            Create Account
+                                        </NavLink>
+                                    </li>
+                                }
+                                {
+                                    !userData &&
+                                    <li>
+                                        <NavLink
+                                            to="/signin"
+                                            className={({ isActive }) =>
+                                                `block px-2 py-1 rounded ${isActive
+                                                    ? mode === 'light'
+                                                        ? 'bg-[#fcd4bc]'
+                                                        : 'bg-[#1f1f1f]'
+                                                    : ''
+                                                } ${mode === 'light'
+                                                    ? 'hover:bg-[#f8c5a8]'
+                                                    : 'hover:bg-[#373737]'
+                                                }`
+                                            }
+                                        >
+                                            Log In
+                                        </NavLink>
+                                    </li>
+                                }
+
                                 <li
                                     onClick={handleLogout}
                                     className={`block px-2 py-1 rounded cursor-pointer ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'
@@ -201,11 +208,11 @@ function SideBar() {
                     </li>
 
                     <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}
-                    onClick={handleMode}>
+                        onClick={handleMode}>
                         {
                             mode == "dark" ?
-                            <i className="fa-solid fa-moon"></i> :
-                            <i className="fa-solid fa-sun"></i>
+                                <i className="fa-solid fa-moon"></i> :
+                                <i className="fa-solid fa-sun"></i>
                         }
                         Mode
                     </li>
