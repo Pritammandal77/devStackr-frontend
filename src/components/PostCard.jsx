@@ -140,10 +140,10 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
         <>
             <div className='w-[100vw] h-auto flex flex-col items-center p-2 text-[17px] lg:text-[20px] xl:text-[15px]'>
 
-                <div className={`w-[100%] md:w-[80%] lg:w-[70vw] xl:w-[40vw] flex flex-col gap-3 p-2 border-1 border-gray-600 rounded-[5px] ${mode == 'light' ? 'bg-[#ffffff] ' : 'bg-[#0e0e0e] '}`}>
+                <div className={`w-[100%] md:w-[80%] lg:w-[70vw] xl:w-[40vw] flex flex-col gap-3 p-2 border-1 rounded-[5px] ${mode == 'light' ? 'bg-[#ffffff] border-gray-600' : 'bg-[#0e0e0e] border-[#212121]'}`}>
 
                     <div className='flex flex-row items-center justify-between'>
-                        <div className='flex flex-row gap-2 items-center'>
+                        <div className='flex flex-row gap-2 items-center py-2'>
                             <img src={authorProfilePicture ? authorProfilePicture : "/defaultpfp.png"} alt=""
                                 className='h-10 w-10 lg:h-12 lg:w-12 rounded-full cursor-pointer'
                                 onClick={() => {

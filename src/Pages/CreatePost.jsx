@@ -83,7 +83,7 @@ function CreatePost() {
                 id=""
                 className='border-1 border-[#454141] w-full md:w-[100%] h-[250px] resize-none overflow-y-auto p-3 rounded-md text-sm'
                 value={description}
-                maxLength={800}
+                maxLength={2000}
                 onChange={(e) => setDescription(e.target.value)}></textarea>
               <p className='self-end'>{description.length}/800</p>
             </div>
