@@ -41,6 +41,7 @@ function SideBar() {
                 withCredentials: true
             });
             // console.log('User logged out:', res.data);
+            toast.success("Logout successfully")
         } catch (error) {
             console.error('Logout error:', error.response?.data || error.message);
         }
@@ -195,14 +196,16 @@ function SideBar() {
                                         </NavLink>
                                     </li>
                                 }
-
-                                <li
-                                    onClick={handleLogout}
-                                    className={`block px-2 py-1 rounded cursor-pointer ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'
-                                        }`}
-                                >
-                                    Log Out
-                                </li>
+                                {
+                                    userData &&
+                                    <li
+                                        onClick={handleLogout}
+                                        className={`block px-2 py-1 rounded cursor-pointer ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'
+                                            }`}
+                                    >
+                                        Log Out
+                                    </li>
+                                }
                             </ul>
                         </details>
                     </li>

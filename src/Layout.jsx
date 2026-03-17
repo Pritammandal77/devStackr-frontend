@@ -60,7 +60,6 @@ function Layout() {
         pathname === '/signup' ||
         pathname === '/signin';
 
-
     return (
         <>
             {!shouldHideLayout && <Header />}

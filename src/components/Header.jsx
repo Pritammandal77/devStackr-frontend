@@ -9,7 +9,6 @@ import { toast } from 'sonner';
 import Loader2 from './Loaders/Loader2';
 
 function Header() {
-
   const user = useSelector((state) => state.userData?.currentUserData?.data)
   const navigate = useNavigate()
 
@@ -90,14 +89,27 @@ function Header() {
             <li className='absolute top-2 right-2 lg:right-5 text-[22px] font-bold md:hidden cursor-pointer' onClick={(e) => setIsMenuOpen(true)}>
               <HiOutlineMenuAlt3 onClick={(e) => setIsMenuOpen(true)} className='cursor-pointer' />
             </li>
-            <li className='cursor-pointer hidden xl:flex text-[18px]'>
-              <NavLink to="/chatlist">
-                <i className="fa-solid fa-paper-plane"></i>
-              </NavLink>
-            </li>
+            <div >
+              <ul className='flex items-center justify-center gap-10'>
+                <li className='cursor-pointer hidden xl:flex text-[18px]'>
+                  <NavLink to="/chatlist">
+                    <i className="fa-solid fa-paper-plane"></i>
+                  </NavLink>
+                </li>
+                {!user && (
+                  <li>
+                    <NavLink to="/signin">
+                      <button className='bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-xl text-white cursor-pointer'>
+                        Login
+                      </button>
+                    </NavLink>
+                  </li>
+                )}
+              </ul>
+            </div>
           </ul>
-        </nav>
-      </header>
+        </nav >
+      </header >
 
       <div
         // className={`hamburgerDiv fixed top-0 right-0 w-[60vw] md:w-[40vw] lg:w-[25vw] h-[100vh] z-[100] hidden text-[22px]
