@@ -83,12 +83,25 @@ function Header() {
               />
               <i className="fa-solid fa-magnifying-glass cursor-pointer text-2xl hover:text-blue-500" onClick={() => handleSearchUser(searchInput)}></i>
             </li>
-            <li className='text-[24px] font-bold hidden md:flex xl:hidden cursor-pointer' onClick={(e) => setIsMenuOpen(true)}>
+            <li className='text-[24px] bg-amber-700 font-bold hidden md:flex xl:hidden cursor-pointer' onClick={(e) => setIsMenuOpen(true)}>
               <HiOutlineMenuAlt3 />
             </li>
-            <li className='absolute top-2 right-2 lg:right-5 text-[22px] font-bold md:hidden cursor-pointer' onClick={(e) => setIsMenuOpen(true)}>
-              <HiOutlineMenuAlt3 onClick={(e) => setIsMenuOpen(true)} className='cursor-pointer' />
-            </li>
+
+            {
+              user ?
+                <li className='absolute top-2 right-2 lg:right-5 text-[22px] font-bold md:hidden cursor-pointer' onClick={(e) => setIsMenuOpen(true)}>
+                  <HiOutlineMenuAlt3 onClick={(e) => setIsMenuOpen(true)} className='cursor-pointer' />
+                </li>
+                :
+                <li className='absolute top-2 right-2 lg:right-5 font-bold md:hidden cursor-pointer'>
+                  <NavLink to="/signin">
+                    <button className='xl:hidden bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-xl text-white cursor-pointer'>
+                      Login
+                    </button>
+                  </NavLink>
+                </li>
+            }
+
             <div >
               <ul className='flex items-center justify-center gap-10'>
                 <li className='cursor-pointer hidden xl:flex text-[18px]'>
@@ -96,15 +109,17 @@ function Header() {
                     <i className="fa-solid fa-paper-plane"></i>
                   </NavLink>
                 </li>
-                {!user && (
-                  <li>
-                    <NavLink to="/signin">
-                      <button className='bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-xl text-white cursor-pointer'>
-                        Login
-                      </button>
-                    </NavLink>
-                  </li>
-                )}
+                {
+                  !user && (
+                    <li>
+                      <NavLink to="/signin">
+                        <button className='hidden xl:inline bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-xl text-white cursor-pointer'>
+                          Login
+                        </button>
+                      </NavLink>
+                    </li>
+                  )
+                }
               </ul>
             </div>
           </ul>

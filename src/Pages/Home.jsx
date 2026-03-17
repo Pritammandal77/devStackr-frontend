@@ -72,10 +72,14 @@ function Home() {
 
                 {
                     isLoading == false &&
-                    <div className='h-8 w-8 mt-5 rounded-full self-center cursor-pointer bg-gray-500 text-white flex items-center justify-center'
+                    <div className="mt-5 p-4 self-center cursor-pointer  text-white flex flex-col items-center justify-center gap-3"
                         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                     >
-                        <i className="fa-solid fa-arrow-up text-[19px] "></i>
+                        <div className={`h-8 w-8 rounded-full flex flex-col items-center justify-center
+                             ${mode == 'dark' ? "bg-[#1e1e1e]" : "bg-gray-600"}`}>
+                            <i className="fa-solid fa-arrow-up text-[19px]"></i>
+                        </div>
+                        <p className='text-xs'>scroll to top</p>
                     </div>
                 }
 

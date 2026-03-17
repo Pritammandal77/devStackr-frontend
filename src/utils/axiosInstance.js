@@ -3,7 +3,7 @@ import axios from 'axios';
 // axios instance
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
-    withCredentials: true, // so cookies (access/refresh token) are sent
+    withCredentials: true, 
 });
 
 // Flag to avoid infinite loop
@@ -47,8 +47,6 @@ axiosInstance.interceptors.response.use(
                 const res = await axiosInstance.post('/api/v1/users/refresh-token', {}, {
                     withCredentials: true
                 });
-
-                console.log(res)
 
                 processQueue(null);
                 return axiosInstance(originalRequest); // Retry the original request
