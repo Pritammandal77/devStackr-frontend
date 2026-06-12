@@ -79,65 +79,80 @@ function SideBar() {
                             <p>Home</p>
                         </li>
                     </NavLink>
-                    <NavLink to="/profile"
-                        className={({ isActive }) =>
-                            `flex gap-3 items-center cursor-pointer rounded-[8px]
+                    {
+                        userData &&
+                        <NavLink to="/profile"
+                            className={({ isActive }) =>
+                                `flex gap-3 items-center cursor-pointer rounded-[8px]
                              ${isActive ? (mode === 'light' ? 'bg-[#fcd4bc]' : 'bg-[#1f1f1f]') : ''} 
                              ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`
-                        }
-                    >
-                        <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
-                            <i className="fa-solid fa-user"></i>
-                            <p>Profile</p>
-                        </li>
-                    </NavLink>
-                    <NavLink to="/createpost"
-                        className={({ isActive }) =>
-                            `flex gap-3 items-center cursor-pointer rounded-[8px]
-                             ${isActive ? (mode === 'light' ? 'bg-[#fcd4bc]' : 'bg-[#1f1f1f]') : ''} 
-                             ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`
-                        }
-                    >
-                        <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
-                            <i className="fa-solid fa-square-plus"></i>
-                            <p>New Post</p>
-                        </li>
-                    </NavLink>
-                    <NavLink to="/allusers" className={({ isActive }) =>
-                        `flex gap-3 items-center cursor-pointer rounded-[8px]
-                             ${isActive ? (mode === 'light' ? 'bg-[#fcd4bc]' : 'bg-[#1f1f1f]') : ''} 
-                             ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`
+                            }
+                        >
+                            <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
+                                <i className="fa-solid fa-user"></i>
+                                <p>Profile</p>
+                            </li>
+                        </NavLink>
                     }
-                    >
-                        <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
-                            <i className="fa-solid fa-users"></i>
-                            <p>All users</p>
-                        </li>
-                    </NavLink>
-                    <NavLink to="/updateprofile"
-                        className={({ isActive }) =>
+                    {
+                        userData &&
+                        <NavLink to="/createpost"
+                            className={({ isActive }) =>
+                                `flex gap-3 items-center cursor-pointer rounded-[8px]
+                             ${isActive ? (mode === 'light' ? 'bg-[#fcd4bc]' : 'bg-[#1f1f1f]') : ''} 
+                             ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`
+                            }
+                        >
+                            <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
+                                <i className="fa-solid fa-square-plus"></i>
+                                <p>New Post</p>
+                            </li>
+                        </NavLink>
+                    }
+                    {
+                        userData &&
+                        <NavLink to="/allusers" className={({ isActive }) =>
                             `flex gap-3 items-center cursor-pointer rounded-[8px]
                              ${isActive ? (mode === 'light' ? 'bg-[#fcd4bc]' : 'bg-[#1f1f1f]') : ''} 
                              ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`
                         }
-                    >
-                        <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
-                            <i className="fa-solid fa-user-pen"></i>
-                            <p>Edit profile</p>
-                        </li>
-                    </NavLink>
-                    <NavLink to="/chatlist"
-                        className={({ isActive }) =>
-                            `flex gap-3 items-center cursor-pointer rounded-[8px]
+                        >
+                            <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
+                                <i className="fa-solid fa-users"></i>
+                                <p>All users</p>
+                            </li>
+                        </NavLink>
+                    }
+                    {
+                        userData &&
+                        <NavLink to="/updateprofile"
+                            className={({ isActive }) =>
+                                `flex gap-3 items-center cursor-pointer rounded-[8px]
                              ${isActive ? (mode === 'light' ? 'bg-[#fcd4bc]' : 'bg-[#1f1f1f]') : ''} 
                              ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`
-                        }
-                    >
-                        <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
-                            <i className="fa-solid fa-paper-plane"></i>
-                            <p>Chats</p>
-                        </li>
-                    </NavLink>
+                            }
+                        >
+                            <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
+                                <i className="fa-solid fa-user-pen"></i>
+                                <p>Edit profile</p>
+                            </li>
+                        </NavLink>
+                    }
+                    {
+                        userData &&
+                        <NavLink to="/chatlist"
+                            className={({ isActive }) =>
+                                `flex gap-3 items-center cursor-pointer rounded-[8px]
+                             ${isActive ? (mode === 'light' ? 'bg-[#fcd4bc]' : 'bg-[#1f1f1f]') : ''} 
+                             ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`
+                            }
+                        >
+                            <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
+                                <i className="fa-solid fa-paper-plane"></i>
+                                <p>Chats</p>
+                            </li>
+                        </NavLink>
+                    }
                     <li className="pl-2">
                         <details
                             className={`group rounded-[8px] overflow-hidden ${mode === 'light' ? 'bg-[#FFF2EB]' : 'bg-[#000] text-[#d3d3d3]'

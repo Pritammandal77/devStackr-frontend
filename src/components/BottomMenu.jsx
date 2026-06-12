@@ -6,7 +6,7 @@ function BottomMenu() {
 
     const mode = useSelector((state) => state.mode.mode)
     const currentUserData = useSelector((state) => state.userData?.currentUserData.data)
-    
+
     return (
         <>
             <nav className={`w-[100vw] fixed bottom-0 h-12 flex items-center justify-center z-[300] xl:hidden
@@ -20,7 +20,7 @@ function BottomMenu() {
                     </li>
                     <li>
                         <NavLink to="/search"
-                            className={({ isActive }) => (isActive ? "text-[#3f0064] font-bold border-b-3 rounded-xl p-1": "")}>
+                            className={({ isActive }) => (isActive ? "text-[#3f0064] font-bold border-b-3 rounded-xl p-1" : "")}>
                             <i className="fa-solid fa-magnifying-glass"></i>
                         </NavLink>
                     </li>
@@ -40,7 +40,9 @@ function BottomMenu() {
                         <NavLink to="/profile"
                             className={({ isActive }) => (isActive ? "text-[#3f0064] font-bold border-2 rounded-full " : "")}>
                             <img src={currentUserData?.profilePicture ? currentUserData?.profilePicture : "defaultpfp.png"} alt=""
-                                className='h-9 w-9 rounded-full' />
+                                className={`h-9 w-9 rounded-full 
+                                ${currentUserData && "border-2 border-green-700"}
+                                `} />
                         </NavLink>
                     </li>
                 </ul>

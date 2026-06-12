@@ -19,7 +19,7 @@ function ChatMessages() {
 
   const { id } = useParams(); // chatId
   const navigate = useNavigate();
-
+ 
   const [inputMessage, setInputMessage] = useState("");
   const [allMessages, setAllMessages] = useState([]);
   const [isMsgSent, setIsMsgSent] = useState(false);

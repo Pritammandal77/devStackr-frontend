@@ -18,6 +18,7 @@ function OtherUserProfile() {
     useScrollToTop();
 
     const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id)
+
     const mode = useSelector((state) => state.mode.mode)
     const [userData, setUserData] = useState([])
     const [userPostsIds, setUserPostsIds] = useState([])
@@ -136,17 +137,20 @@ function OtherUserProfile() {
                                 {
                                     isAlreadyFollowing ?
                                         (
-                                            currentUserId != userData._id &&
+                                            currentUserId && currentUserId != userData._id &&
                                             <FollowButton onClick={handleUnFollow} text="unfollow" isLoading={isFollowBtnClicked} />
                                         )
                                         :
                                         (
-                                            currentUserId != userData._id &&   //means , if our currentLoggedInUserId != the otherUserId then show this followBtn
+                                            currentUserId && currentUserId != userData._id &&   //means , if our currentLoggedInUserId != the otherUserId then show this followBtn
                                             <FollowButton onClick={handleFollow} text="follow" isLoading={isFollowBtnClicked} />
                                         )
                                 }
-                                <button className='bg-blue-400 h-[35px] px-3 py-2 rounded-[10px] text-[19px] cursor-pointer flex flex-row items-center justify-center gap-2'
-                                    onClick={() => handleCreateChat(userData._id)}>Message</button>
+                                {
+                                    currentUserId &&
+                                    <button className='bg-blue-400 h-[35px] px-3 py-2 rounded-[10px] text-[19px] cursor-pointer flex flex-row items-center justify-center gap-2'
+                                        onClick={() => handleCreateChat(userData._id)}>Message</button>
+                                }
                             </div>
                         </div>
 
@@ -172,17 +176,17 @@ function OtherUserProfile() {
                                 {
                                     isAlreadyFollowing ?
                                         (
-                                            currentUserId != userData._id &&
+                                           currentUserId && currentUserId != userData._id &&
                                             <FollowButton onClick={handleUnFollow} text="unfollow" isLoading={isFollowBtnClicked} />
                                         )
                                         :
                                         (
-                                            currentUserId != userData._id &&   //means , if our currentLoggedInUserId != the otherUserId then show this followBtn
+                                            currentUserId && currentUserId != userData._id &&   //means , if our currentLoggedInUserId != the otherUserId then show this followBtn
                                             <FollowButton onClick={handleFollow} text="follow" isLoading={isFollowBtnClicked} />
                                         )
                                 }
                                 {
-                                    currentUserId != userData._id &&
+                                  currentUserId && currentUserId != userData._id &&
                                     <button className='bg-blue-400 h-[35px] text-black w-[45vw] md:w-auto px-3 py-2 rounded-[10px] text-[19px] cursor-pointer flex flex-row items-center justify-center gap-2'
                                         onClick={() => handleCreateChat(userData._id)}>
                                         <i className="fa-regular fa-paper-plane"></i>

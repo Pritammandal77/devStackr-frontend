@@ -41,6 +41,10 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
     const [isLiked, setIsLiked] = useState(isAlreadyLiked);
 
     const likeAPost = async (postId) => {
+        if (!currentUserId) {
+            toast.error("Please login to continue..")
+            return
+        }
         setIsLiking(true)
         try {
             const response = await axiosInstance.put("/api/v1/posts/likes", { postId: postId })
@@ -63,6 +67,10 @@ function PostCard({ authorUserId, authorName, authorProfilePicture, createdAt, p
 
     // to create a comment
     const handleComment = async (postId, commentText) => {
+        if (!currentUserId) {
+            toast.error("Please login to continue..")
+            return
+        }
         setIsNewCommentAdded(true)
         setIsLoading(true)
         try {

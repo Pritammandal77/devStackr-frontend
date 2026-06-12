@@ -38,7 +38,6 @@ function Header() {
   const handleLogout = async () => {
     setIsLoading(true)
     try {
-      console.log("Logging out user...");
       const res = await axiosInstance.post('/api/v1/users/logout', {
         withCredentials: true
       });
