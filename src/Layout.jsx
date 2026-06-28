@@ -31,7 +31,7 @@ function Layout() {
             } catch (err) {
                 console.log("User not logged in", err.message);
                 toast.error("Session expired, please log in again");
-                navigate("/signup");
+                // navigate("/signup");
             }
         };
 

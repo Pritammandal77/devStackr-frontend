@@ -1,242 +1,274 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BiLogOut } from "react-icons/bi";
 import { NavLink } from 'react-router-dom';
-import { setMode } from '../features/ToggleMode';
 import axios from 'axios';
 import { toast } from 'sonner';
 import axiosInstance from '../utils/axiosInstance';
+import { setMode } from '../features/ToggleMode';
+
+import { 
+  Home, 
+  User, 
+  PlusSquare, 
+  Users, 
+  UserCog, 
+  Send, 
+  Settings, 
+  ChevronDown, 
+  Sun, 
+  Moon, 
+  LogOut,
+  UserPlus,
+  LogIn
+} from 'lucide-react';
 
 function SideBar() {
-
-    const userData = useSelector((state) => state.userData?.currentUserData?.data)
-    const mode = useSelector((state) => state.mode.mode)
-
-    const dispatch = useDispatch()
+    const userData = useSelector((state) => state.userData?.currentUserData?.data);
+    const mode = useSelector((state) => state.mode.mode);
+    const dispatch = useDispatch();
 
     const handleMode = () => {
         if (mode === "light") {
-            dispatch(setMode("dark"))
+            dispatch(setMode("dark"));
         } else if (mode === "dark") {
-            dispatch(setMode("light"))
-        }
-    }
-
-    if (mode == "dark") {
-        document.body.style.backgroundColor = "#0D1117"
-        document.body.style.color = "#fff"
-    }
-    if (mode == "light") {
-        document.body.style.backgroundColor = "#fff"
-        document.body.style.color = "#000"
-    }
-
-    const handleLogout = async () => {
-        if (userData.isLoggedIn == "false") {
-            toast.error("You are already logged out !")
-        }
-        try {
-            console.log("Logging out user...");
-            const res = await axiosInstance.post('/api/v1/users/logout', {
-                withCredentials: true
-            });
-            // console.log('User logged out:', res.data);
-            toast.success("Logout successfully")
-        } catch (error) {
-            console.error('Logout error:', error.response?.data || error.message);
+            dispatch(setMode("light"));
         }
     };
 
+    // Apply strict professional background/foreground styles to the document body matching our color spaces
+    if (mode === "dark") {
+        document.body.style.backgroundColor = "#0B0F17";
+        document.body.style.color = "#F1F5F9";
+    } else if (mode === "light") {
+        document.body.style.backgroundColor = "#F8FAFC";
+        document.body.style.color = "#0F172A";
+    }
+
+    const handleLogout = async () => {
+        if (userData?.isLoggedIn === "false") {
+            toast.error("You are already logged out !");
+            return;
+        }
+        try {
+            console.log("Logging out user...");
+            await axiosInstance.post('/api/v1/users/logout', {
+                withCredentials: true
+            });
+            toast.success("Logout successfully");
+        } catch (error) {
+            console.error('Logout error:', error.response?.data || error.message);
+            toast.error(error.response?.data?.message || "Failed to log out");
+        }
+    };
+
+    const isLight = mode === 'light';
+    
+    // Dynamic background and text classes for the premium theme
+    const sidebarClasses = isLight 
+        ? 'bg-[#F8FAFC]/90 border-r border-slate-200/80 backdrop-blur-md text-[#0F172A]' 
+        : 'bg-[#0B0F17]/95 border-r border-slate-800/80 backdrop-blur-md text-[#F1F5F9]';
+
+    const textPrimary = isLight ? 'text-slate-800' : 'text-slate-200';
+    const textMuted = isLight ? 'text-slate-500' : 'text-slate-400';
+    const dividerColor = isLight ? 'border-slate-200/80' : 'border-slate-800/60';
+
+    const getLinkClass = ({ isActive }) => {
+        const baseClass = "group flex items-center gap-3.5 px-4.5 py-3 rounded-xl font-medium text-[15px] transition-all duration-200 ease-in-out cursor-pointer w-full";
+        if (isActive) {
+            return `${baseClass} ${
+                isLight 
+                    ? 'bg-[#E0E7FF] text-[#4F46E5] shadow-sm font-semibold' 
+                    : 'bg-[#1E293B] text-[#6366F1] shadow-sm font-semibold border-l-2 border-[#6366F1]'
+            }`;
+        }
+        return `${baseClass} ${
+            isLight 
+                ? 'text-slate-600 hover:bg-slate-200/60 hover:text-slate-900' 
+                : 'text-slate-400 hover:bg-slate-800/40 hover:text-slate-100'
+        }`;
+    };
+
     return (
-        <div className={`w-[20vw] h-[100vh] fixed top-0 left-0 z-[40] hidden xl:flex 
-        ${mode == 'light' ? 'bg-[#fdf7f4]' : 'bg-[#000] text-[#d3d3d3]'}`}>
-            <nav className='w-[100%]'>
-                <ul className='flex flex-col gap-3 text-[20px] w-[100%] py-15 px-5'>
-                    {
-                        userData &&
-                        <li className=''>
-                            <NavLink to="/profile" className="flex items-center gap-2 pb-4 pt-2">
-                                <img src={userData.profilePicture ? userData.profilePicture : "/defaultpfp.png"} alt=""
-                                    className='h-15 w-15 rounded-full' />
-                                <div className='flex flex-col '>
-                                    <p className='text-[19px] font-semibold'>{userData.name ? userData.name : "User"}</p>
-                                    <p className='text-[16px]'>{userData.userName ? userData.userName : "User@123"}</p>
+        <div className={`w-[20vw] pt-18 h-[100vh] fixed top-0 left-0 z-[40] hidden xl:flex flex-col justify-between py-6 px-4 shadow-sm transition-colors duration-300 ${sidebarClasses}`}>
+            <nav className="w-full flex flex-col justify-between h-full">
+                
+                {/* Upper Navigation Elements */}
+                <div className="flex flex-col gap-5 w-full">
+                    
+                    {/* User Profile Header Segment */}
+                    {userData && (
+                        <div className="flex flex-col gap-4">
+                            <NavLink 
+                                to="/profile" 
+                                className="flex items-center gap-3 p-1.5 rounded-xl transition-all duration-200 hover:bg-slate-200/30 dark:hover:bg-slate-800/40"
+                            >
+                                <div className="relative shrink-0">
+                                    <img 
+                                        src={userData.profilePicture ? userData.profilePicture : "/defaultpfp.png"} 
+                                        alt="Avatar"
+                                        className="h-12 w-12 rounded-full object-cover ring-2 ring-[#6366F1]/30" 
+                                        onError={(e) => { e.target.src = "/defaultpfp.png"; }}
+                                    />
+                                    <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-[#0B0F17]" />
+                                </div>
+                                <div className="flex flex-col min-w-0">
+                                    <p className={`text-[15px] font-bold truncate ${textPrimary}`}>
+                                        {userData.name ? userData.name : "User"}
+                                    </p>
+                                    <p className={`text-[13px] font-medium truncate ${textMuted}`}>
+                                        @{userData.userName ? userData.userName : "User@123"}
+                                    </p>
                                 </div>
                             </NavLink>
-                            <hr className='text-[#535353] ' />
+                            <hr className={`border-t ${dividerColor}`} />
+                        </div>
+                    )}
+
+                    {/* Navigation Items */}
+                    <ul className="flex flex-col gap-1 w-full">
+                        <li>
+                            <NavLink to="/home" className={getLinkClass}>
+                                <Home className="h-5 w-5 shrink-0" />
+                                <span>Home</span>
+                            </NavLink>
                         </li>
-                    }
-                    <NavLink
-                        to="/home"
-                        className={({ isActive }) =>
-                            `flex gap-3 items-center cursor-pointer rounded-[8px]
-                             ${isActive ? (mode === 'light' ? 'bg-[#fcd4bc]' : 'bg-[#1f1f1f]') : ''} 
-                             ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`
-                        }
-                    >
-                        <li className="flex gap-2 items-center pl-5 cursor-pointer">
-                            <i className="fa-solid fa-house"></i>
-                            <p>Home</p>
-                        </li>
-                    </NavLink>
-                    {
-                        userData &&
-                        <NavLink to="/profile"
-                            className={({ isActive }) =>
-                                `flex gap-3 items-center cursor-pointer rounded-[8px]
-                             ${isActive ? (mode === 'light' ? 'bg-[#fcd4bc]' : 'bg-[#1f1f1f]') : ''} 
-                             ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`
-                            }
-                        >
-                            <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
-                                <i className="fa-solid fa-user"></i>
-                                <p>Profile</p>
-                            </li>
-                        </NavLink>
-                    }
-                    {
-                        userData &&
-                        <NavLink to="/createpost"
-                            className={({ isActive }) =>
-                                `flex gap-3 items-center cursor-pointer rounded-[8px]
-                             ${isActive ? (mode === 'light' ? 'bg-[#fcd4bc]' : 'bg-[#1f1f1f]') : ''} 
-                             ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`
-                            }
-                        >
-                            <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
-                                <i className="fa-solid fa-square-plus"></i>
-                                <p>New Post</p>
-                            </li>
-                        </NavLink>
-                    }
-                    {
-                        userData &&
-                        <NavLink to="/allusers" className={({ isActive }) =>
-                            `flex gap-3 items-center cursor-pointer rounded-[8px]
-                             ${isActive ? (mode === 'light' ? 'bg-[#fcd4bc]' : 'bg-[#1f1f1f]') : ''} 
-                             ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`
-                        }
-                        >
-                            <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
-                                <i className="fa-solid fa-users"></i>
-                                <p>All users</p>
-                            </li>
-                        </NavLink>
-                    }
-                    {
-                        userData &&
-                        <NavLink to="/updateprofile"
-                            className={({ isActive }) =>
-                                `flex gap-3 items-center cursor-pointer rounded-[8px]
-                             ${isActive ? (mode === 'light' ? 'bg-[#fcd4bc]' : 'bg-[#1f1f1f]') : ''} 
-                             ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`
-                            }
-                        >
-                            <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
-                                <i className="fa-solid fa-user-pen"></i>
-                                <p>Edit profile</p>
-                            </li>
-                        </NavLink>
-                    }
-                    {
-                        userData &&
-                        <NavLink to="/chatlist"
-                            className={({ isActive }) =>
-                                `flex gap-3 items-center cursor-pointer rounded-[8px]
-                             ${isActive ? (mode === 'light' ? 'bg-[#fcd4bc]' : 'bg-[#1f1f1f]') : ''} 
-                             ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`
-                            }
-                        >
-                            <li className={`flex gap-2 items-center pl-5  cursor-pointer `}>
-                                <i className="fa-solid fa-paper-plane"></i>
-                                <p>Chats</p>
-                            </li>
-                        </NavLink>
-                    }
-                    <li className="pl-2">
-                        <details
-                            className={`group rounded-[8px] overflow-hidden ${mode === 'light' ? 'bg-[#FFF2EB]' : 'bg-[#000] text-[#d3d3d3]'
+
+                        {userData && (
+                            <>
+                                <li>
+                                    <NavLink to="/profile" className={getLinkClass}>
+                                        <User className="h-5 w-5 shrink-0" />
+                                        <span>Profile</span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/createpost" className={getLinkClass}>
+                                        <PlusSquare className="h-5 w-5 shrink-0" />
+                                        <span>New Post</span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/allusers" className={getLinkClass}>
+                                        <Users className="h-5 w-5 shrink-0" />
+                                        <span>All Users</span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/updateprofile" className={getLinkClass}>
+                                        <UserCog className="h-5 w-5 shrink-0" />
+                                        <span>Edit Profile</span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/chatlist" className={getLinkClass}>
+                                        <Send className="h-5 w-5 shrink-0 -rotate-12" />
+                                        <span>Chats</span>
+                                    </NavLink>
+                                </li>
+                            </>
+                        )}
+                    </ul>
+                </div>
+
+                {}
+                {/* Lower Action & Config Utilities */}
+                <div className="flex flex-col gap-2 w-full pt-4 border-t border-slate-200/80 dark:border-slate-800/60">
+                    <ul className="flex flex-col gap-1 w-full">
+                        <li>
+                            <details className="group rounded-xl overflow-hidden w-full transition-all duration-300">
+                                <summary className={`flex items-center justify-between cursor-pointer py-3 px-4.5 text-[15px] font-medium rounded-xl transition duration-200 ${
+                                    isLight 
+                                        ? 'bg-[#FFF2EB] text-slate-700 hover:bg-[#f8c5a8]/60' 
+                                        : 'bg-slate-900/60 text-[#d3d3d3] hover:bg-slate-800/80'
                                 }`}>
-                            <summary
-                                className={`flex items-center justify-between cursor-pointer py-2 px-3 text-[20px] font-medium
-                                            ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}
-                                            transition duration-200 rounded-[8px]`}>
-                                <span className="flex gap-2 items-center">
-                                    <i className="fa-solid fa-gear"></i>
-                                    <p>Account Settings</p>
-                                </span>
-                                <i className="fa-solid fa-chevron-down group-open:rotate-180 transition duration-300"></i>
-                            </summary>
+                                    <span className="flex gap-3.5 items-center">
+                                        <Settings className="h-5 w-5 shrink-0 text-slate-500 dark:text-slate-400 group-hover:text-indigo-500" />
+                                        <span>Account Settings</span>
+                                    </span>
+                                    <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-300 group-open:rotate-180 text-slate-500" />
+                                </summary>
 
-                            <ul className="pl-8 py-2 flex flex-col gap-2 text-[17px]">
-                                {
-                                    !userData &&
-                                    <li>
-                                        <NavLink
-                                            to="/signup"
-                                            className={({ isActive }) =>
-                                                `block px-2 py-1 rounded ${isActive
-                                                    ? mode === 'light'
-                                                        ? 'bg-[#fcd4bc]'
-                                                        : 'bg-[#1f1f1f]'
-                                                    : ''
-                                                } ${mode === 'light'
-                                                    ? 'hover:bg-[#f8c5a8]'
-                                                    : 'hover:bg-[#373737]'
-                                                }`
-                                            }
-                                        >
-                                            Create Account
-                                        </NavLink>
-                                    </li>
-                                }
-                                {
-                                    !userData &&
-                                    <li>
-                                        <NavLink
-                                            to="/signin"
-                                            className={({ isActive }) =>
-                                                `block px-2 py-1 rounded ${isActive
-                                                    ? mode === 'light'
-                                                        ? 'bg-[#fcd4bc]'
-                                                        : 'bg-[#1f1f1f]'
-                                                    : ''
-                                                } ${mode === 'light'
-                                                    ? 'hover:bg-[#f8c5a8]'
-                                                    : 'hover:bg-[#373737]'
-                                                }`
-                                            }
-                                        >
-                                            Log In
-                                        </NavLink>
-                                    </li>
-                                }
-                                {
-                                    userData &&
-                                    <li
-                                        onClick={handleLogout}
-                                        className={`block px-2 py-1 rounded cursor-pointer ${mode === 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'
-                                            }`}
-                                    >
-                                        Log Out
-                                    </li>
-                                }
-                            </ul>
-                        </details>
-                    </li>
+                                <ul className="pl-9 pr-2 py-2 flex flex-col gap-1.5 text-[14px]">
+                                    {!userData && (
+                                        <>
+                                            <li>
+                                                <NavLink
+                                                    to="/signup"
+                                                    className={({ isActive }) =>
+                                                        `flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 ${
+                                                            isActive
+                                                                ? isLight ? 'bg-[#fcd4bc] text-slate-950 font-medium' : 'bg-[#1E293B] text-slate-100 font-medium'
+                                                                : isLight ? 'text-slate-600 hover:bg-[#f8c5a8]/40' : 'text-slate-400 hover:bg-slate-800/40'
+                                                        }`
+                                                    }
+                                                >
+                                                    <UserPlus className="h-4 w-4" />
+                                                    <span>Create Account</span>
+                                                </NavLink>
+                                            </li>
+                                            <li>
+                                                <NavLink
+                                                    to="/signin"
+                                                    className={({ isActive }) =>
+                                                        `flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 ${
+                                                            isActive
+                                                                ? isLight ? 'bg-[#fcd4bc] text-slate-950 font-medium' : 'bg-[#1E293B] text-slate-100 font-medium'
+                                                                : isLight ? 'text-slate-600 hover:bg-[#f8c5a8]/40' : 'text-slate-400 hover:bg-slate-800/40'
+                                                        }`
+                                                    }
+                                                >
+                                                    <LogIn className="h-4 w-4" />
+                                                    <span>Log In</span>
+                                                </NavLink>
+                                            </li>
+                                        </>
+                                    )}
+                                    {userData && (
+                                        <li>
+                                            <button
+                                                onClick={handleLogout}
+                                                className={`flex items-center gap-2 w-full text-left px-3 py-2 rounded-lg cursor-pointer transition-all duration-200 ${
+                                                    isLight 
+                                                        ? 'text-rose-600 hover:bg-rose-50' 
+                                                        : 'text-rose-400 hover:bg-rose-950/30'
+                                                }`}
+                                            >
+                                                <LogOut className="h-4 w-4" />
+                                                <span>Log Out</span>
+                                            </button>
+                                        </li>
+                                    )}
+                                </ul>
+                            </details>
+                        </li>
 
-                    <li className={`flex gap-2 items-center pl-5  cursor-pointer  ${mode == 'light' ? 'hover:bg-[#f8c5a8]' : 'hover:bg-[#373737]'}`}
-                        onClick={handleMode}>
-                        {
-                            mode == "dark" ?
-                                <i className="fa-solid fa-moon"></i> :
-                                <i className="fa-solid fa-sun"></i>
-                        }
-                        Mode
-                    </li>
-                </ul>
+                        {/* Theme Dark/Light Toggler Button */}
+                        <li>
+                            <button 
+                                className={`flex gap-3.5 items-center w-full px-4.5 py-3 rounded-xl cursor-pointer text-[15px] font-medium transition duration-200 ${
+                                    isLight 
+                                        ? 'text-slate-600 hover:bg-slate-200/60 hover:text-slate-950' 
+                                        : 'text-slate-400 hover:bg-slate-800/40 hover:text-slate-100'
+                                }`}
+                                onClick={handleMode}
+                            >
+                                {isLight ? (
+                                    <>
+                                        <Sun className="h-5 w-5 shrink-0 text-amber-500 animate-pulse" />
+                                        <span>Light Mode</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Moon className="h-5 w-5 shrink-0 text-indigo-400" />
+                                        <span>Dark Mode</span>
+                                    </>
+                                )}
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </nav>
-        </div >
+        </div>
     );
 }
 

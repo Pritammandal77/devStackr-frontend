@@ -27,12 +27,12 @@ function Header() {
   }
 
   if (mode == "dark") {
-    document.body.style.backgroundColor = "#0D1117"
-    document.body.style.color = "#fff"
+    document.body.style.backgroundColor = "#0B0F17"
+    document.body.style.color = "#F1F5F9"
   }
   if (mode == "light") {
-    document.body.style.backgroundColor = "#fff"
-    document.body.style.color = "#000"
+    document.body.style.backgroundColor = "#F8FAFC"
+    document.body.style.color = "#0F172A"
   }
 
   const handleLogout = async () => {
