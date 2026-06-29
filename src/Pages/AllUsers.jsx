@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Loader2 from '../components/Loaders/Loader2';
 import axiosInstance from '../utils/axiosInstance';
 import UserCard from '../components/UserCard';
+import ProfileSkeleton from '../components/Loaders/ProfileSkeleton';
 
 function Allusers() {
 
@@ -40,7 +41,23 @@ function Allusers() {
                                 isFollowBtnVisible={false} />
                         ))
                     ) : (
-                        <Loader2 />
+                        <div className='flex flex-col absolute md:w-full top-27 xl:w-[80vw] items-center justify-center xl:absolute xl:right-0 xl:justify-center xl:items-center'>
+                            <div className='flex flex-col gap-3 w-[100vw] md:w-[80vw] xl:w-[50vw]'>
+                                <ProfileSkeleton />
+                                <ProfileSkeleton />
+                                <ProfileSkeleton />
+                                <ProfileSkeleton />
+                                <ProfileSkeleton />
+                                <ProfileSkeleton />
+                                <ProfileSkeleton />
+                                <ProfileSkeleton />
+                                <ProfileSkeleton />
+                                <ProfileSkeleton />
+                                <ProfileSkeleton />
+                                <ProfileSkeleton />
+                                <ProfileSkeleton />
+                            </div>
+                        </div>
                     )
                 }
             </div>

@@ -17,15 +17,15 @@ function UserCard({ profilePicture, name, userName, bio, id, isFollowBtnVisible 
             <div className='h-25 flex items-center justify-center w-[25%] md:w-[20%] lg:w-[20%] xl:w-[15%]'>
                 <img src={profilePicture ? profilePicture : "/defaultpfp.png"}
                     alt="sorry , the image can't be loaded"
-                    className='h-19 w-19 md:h-20 md:w-20 rounded-full'
+                    className='h-19 w-19 rounded-full'
                 />
             </div>
             <div className='flex flex-col justify-between w-[60%] lg:w-[35%]'>
-                <p className='text-[18px] font-semibold'>{name} <span>{currentUserData && currentUserData._id == id && "(Me)"}</span></p>
-                <p className='text-[16px]'>{userName}</p>
+                <p className='text-[16px] font-semibold'>{name} <span>{currentUserData && currentUserData._id == id && "(Me)"}</span></p>
+                <p className='text-[14px]'>{userName}</p>
             </div>
             <div className='hidden lg:flex flex-col h-[100%] w-[35%] truncate justify-center '>
-                <p className='text-[16px] hidden lg:inline h-10 truncate p-2 text-left' >{bio}</p>
+                <p className='text-[14px] hidden lg:inline h-10 truncate p-2 text-left' >{bio}</p>
                 {
                     isFollowBtnVisible && <FollowButton />
                 }

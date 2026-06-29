@@ -36,9 +36,10 @@ function ChatsList() {
     <>
       <div className='py-13 flex flex-col xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center p-3 mt-2'>
         <div className='flex flex-col gap-3 items-center xl:w-[60%]'>
-          <div className='w-[100%] md:w-[80%] xl:w-[100%] flex items-center justify-between'>
+          <div className='w-[100%] md:w-[80%] xl:w-[100%] flex items-center justify-between mt-3'>
             <i className="fa-solid fa-arrow-left text-[20px] cursor-pointer" onClick={() => navigate("/")}></i>
-            <h1 className='text-[23px] md:text-[25px] py-2 xl:self-start'>Chats</h1>
+            <h1 className='py-2 xl:self-start text-xl font-semibold'>Chats</h1>
+
           </div>
           {
             chatsList.length >= 1 &&
@@ -49,15 +50,15 @@ function ChatsList() {
                 <div key={index} className={`border-1 w-full md:w-[70vw] xl:w-[40vw] rounded-xl
                 ${mode == 'light' ? 'bg-gray-100 border-gray-300' : 'bg-[#0B0F17] border-slate-800'} `}>
                   <NavLink to={`/chat/messages/${data._id}`} className="flex items-center p-1 h-25" onClick={() => handleCurrentSelectedChat(data)}>
-                    <div className='w-25 h-25 flex items-center justify-center'>
+                    <div className='w-20 h-20 flex items-center justify-center'>
                       <img
                         src={otherUser?.profilePicture || "/defaultpfp.png"}
                         alt={otherUser?.name}
-                        className='h-22 w-22 rounded-full object-cover'
+                        className='h-17 w-17 rounded-full object-cover'
                       />
                     </div>
                     <div className='flex flex-col h-full p-4 font-[400] w-[70%]'>
-                      <p className='text-[20px]'>{otherUser?.name}</p>
+                      <p className='text-[16px]'>{otherUser?.name}</p>
                       <p className='text-gray-500 text-[16px] truncate w-[100%] overflow-x-hidden'>
                         {data?.latestMessage?.content || "Start your conversation..."}
                       </p>
