@@ -5,8 +5,10 @@ import Loader2 from '../components/Loaders/Loader2';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
+import { useSelector } from 'react-redux';
 
 function CreatePost() {
+  const mode = useSelector((state) => state.mode.mode)
 
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
@@ -52,7 +54,7 @@ function CreatePost() {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        withCredentials: true, 
+        withCredentials: true,
       });
 
       console.log('Post Created:', res.data.statusCode);
@@ -81,7 +83,7 @@ function CreatePost() {
               <textarea name=""
                 placeholder='Enter the description'
                 id=""
-                className='border-1 border-[#454141] w-full md:w-[100%] h-[250px] resize-none overflow-y-auto p-3 rounded-md text-sm'
+                className={`border-1 w-full md:w-[100%] h-[250px] resize-none overflow-y-auto p-3 rounded-md text-sm ${mode === 'light' ? 'border-slate-300' : 'border-slate-800'}`}
                 value={description}
                 maxLength={2000}
                 onChange={(e) => setDescription(e.target.value)}></textarea>
@@ -135,7 +137,7 @@ function CreatePost() {
 
             </div>
 
-            <button className='h-12 w-40 text-black text-[20px] bg-blue-500 hover:bg-blue-600 flex items-center justify-center rounded-2xl cursor-pointer'
+            <button className='h-12 w-40 text-black text-[20px] bg-indigo-500 hover:bg-indigo-600 flex items-center justify-center rounded-2xl cursor-pointer'
               onClick={(e) => createNewPost(e)}>
               create post
             </button>
