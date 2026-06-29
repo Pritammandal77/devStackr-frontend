@@ -19,7 +19,8 @@ import {
   Moon, 
   LogOut,
   UserPlus,
-  LogIn
+  LogIn,
+  SearchCheckIcon
 } from 'lucide-react';
 
 function SideBar() {
@@ -163,6 +164,12 @@ function SideBar() {
                                     <NavLink to="/chatlist" className={getLinkClass}>
                                         <Send className="h-5 w-5 shrink-0 -rotate-12" />
                                         <span>Chats</span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/search" className={getLinkClass}>
+                                        <SearchCheckIcon className="h-5 w-5 shrink-0 -rotate-12" />
+                                        <span>Explore</span>
                                     </NavLink>
                                 </li>
                             </>
