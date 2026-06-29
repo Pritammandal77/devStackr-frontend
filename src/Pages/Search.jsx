@@ -49,7 +49,7 @@ function Search() {
     };
 
     return (
-        <div className={`min-h-screen mt-10 pt-20 py-6 px-4 md:py-10 flex flex-col xl:w-[80vw] xl:absolute right-0 transition-colors duration-200 ${isLight ? 'bg-[#F8FAFC]' : 'bg-[#0B0F17]'
+        <div className={`min-h-screen mt-10 xl:pt-10 py-6 px-4 md:py-10 flex flex-col xl:w-[80vw] xl:absolute right-0 transition-colors duration-200 ${isLight ? 'bg-[#F8FAFC]' : 'bg-[#0B0F17]'
             }`}>
             {/* Search Bar Input Container */}
             <div className='w-full max-w-2xl mx-auto mb-6 flex items-center justify-center h-16'>

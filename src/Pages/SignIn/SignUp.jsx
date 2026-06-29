@@ -140,14 +140,14 @@ function SignUp() {
                 <label className="text-xs font-bold tracking-wider uppercase opacity-80 flex items-center gap-1.5">
                   <User className="h-3.5 w-3.5 text-indigo-500" /> Full Name
                 </label>
-                <input type="text" placeholder="e.g. Pritam Mandal" required value={name} onChange={(e) => setName(e.target.value)} className={inputClass} />
+                <input type="text" placeholder="e.g. John Doe" required value={name} onChange={(e) => setName(e.target.value)} className={inputClass} />
               </div>
 
               <div className="space-y-1.5">
                 <label className="text-xs font-bold tracking-wider uppercase opacity-80 flex items-center gap-1.5">
                   <AtSign className="h-3.5 w-3.5 text-indigo-500" /> Username
                 </label>
-                <input type="text" placeholder="e.g. pritam_codes" required value={userName} onChange={(e) => setUserName(e.target.value)} className={inputClass} />
+                <input type="text" placeholder="e.g. john_doe" required value={userName} onChange={(e) => setUserName(e.target.value)} className={inputClass} />
               </div>
 
               <div className="space-y-1.5">
