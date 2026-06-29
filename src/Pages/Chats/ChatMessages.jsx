@@ -16,10 +16,12 @@ function ChatMessages() {
   const currentUserId = useSelector((state) => state.userData?.currentUserData?.data?._id);
   const mode = useSelector((state) => state.mode.mode);
   const currentSelectedChat = useSelector((state) => state.chat.currentSelectedChat);
+  const isLight = mode === 'light';
+
 
   const { id } = useParams(); // chatId
   const navigate = useNavigate();
- 
+
   const [inputMessage, setInputMessage] = useState("");
   const [allMessages, setAllMessages] = useState([]);
   const [isMsgSent, setIsMsgSent] = useState(false);
@@ -144,7 +146,7 @@ function ChatMessages() {
 
   return (
     <>
-      <div className='h-[100vh]  flex flex-col xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center items-center'>
+      <div className='h-[100vh] pt-5 flex flex-col xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center items-center'>
 
         <div className='pt-13 relative xl:mb-0 w-[100vw] border-gray-500 md:w-[100vw] xl:w-[50vw] h-full'>
 
@@ -152,21 +154,36 @@ function ChatMessages() {
             {
               allMessages &&
               allMessages.map((msg, index) => (
-                <div key={index} className={`rounded-xl flex ${msg.sender._id == currentUserId ? 'justify-end' : 'justify-start gap-1 md:gap-2'} `}>
-                  {
-                    msg.sender._id != currentUserId &&
-                    <img src={msg.sender.profilePicture || "/defaultpfp.png"} alt="" className='h-8 w-8 rounded-full cursor-pointer' onClick={() => navigate(`/user/${msg.sender._id}`)} />
-                  }
-                  <div className={`flex flex-col rounded-xl p-2  text-[18px] max-w-[75%] w-fit break-words text-black ${msg.sender._id == currentUserId ? 'bg-green-300 ' : 'bg-blue-300 '} `}>
-                    <span className="text-[17px] md:text-[21px] lg:text-[22px] xl:text-[18px] ">
+                <div key={index} className={`rounded-xl flex ${msg.sender._id === currentUserId ? 'justify-end' : 'justify-start gap-1 md:gap-2'}`}>
+                  {msg.sender._id !== currentUserId && (
+                    <img
+                      src={msg.sender.profilePicture || "/defaultpfp.png"}
+                      alt="Avatar"
+                      className="h-8 w-8 rounded-full object-cover cursor-pointer ring-1 ring-slate-200/50 dark:ring-slate-800/40"
+                      onClick={() => navigate(`/user/${msg.sender._id}`)}
+                    />
+                  )}
+
+                  <div className={`flex flex-col rounded-xl px-4 py-2.5 max-w-[75%] w-fit break-words shadow-sm font-medium transition-all duration-200 ${msg.sender._id === currentUserId
+                    ? isLight
+                      ? 'bg-[#4F46E5] text-white'
+                      : 'bg-[#06063b] text-white'
+                    : isLight
+                      ? 'bg-white border border-slate-200/80 text-slate-900'
+                      : 'bg-[#1E293B]/60 border border-slate-800/60 text-[#F1F5F9]'
+                    }`}>
+                    <span className="text-[15px] leading-relaxed">
                       {msg.content}
                     </span>
-                    <span className='text-[12px] self-end'>{FormatTime(msg.createdAt)}</span>
+                    <span className={`text-[11px] font-medium self-end mt-1 ${msg.sender._id === currentUserId
+                      ? 'text-indigo-200'
+                      : isLight ? 'text-slate-400' : 'text-slate-500'
+                      }`}>
+                      {FormatTime(msg.createdAt)}
+                    </span>
                   </div>
 
-                  {
-                    index === allMessages.length - 1 && <div ref={bottomRef} />
-                  }
+                  {index === allMessages.length - 1 && <div ref={bottomRef} />}
                 </div>
               ))
             }
