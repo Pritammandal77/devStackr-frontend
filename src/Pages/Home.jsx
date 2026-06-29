@@ -40,7 +40,7 @@ function Home() {
         <>
             {
                 isLoading &&
-                <div className='py-13 pt-16 flex flex-col xl:w-[80vw] xl:absolute right-0 items-center justify-center xl:justify-center xl:items-center'>
+                <div className='py-13 pt-18 flex flex-col xl:w-[80vw] xl:absolute right-0 items-center justify-center xl:justify-center xl:items-center'>
                     <div className='w-[100vw] md:w-[80vw] xl:w-[50vw] flex flex-col gap-2'>
                         <Skeleton />
                         <Skeleton />
@@ -50,7 +50,7 @@ function Home() {
                 </div>
             }
 
-            <div className={`py-13 pt-16 flex flex-col xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center`}>
+            <div className={`py-13 pt-16 px-3 xl:px-0 flex flex-col xl:w-[80vw] xl:absolute right-0 xl:justify-center xl:items-center`}>
                 {
                     allPosts &&
                     allPosts.map((data, index) => (

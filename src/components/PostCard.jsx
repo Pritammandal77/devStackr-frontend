@@ -168,7 +168,7 @@ function PostCard({
   return (
     <>
       {/* Post container with center-focused fluid grid and unified max-width limits */}
-      <div className="w-full max-w-2xl mx-auto px-4 py-3">
+      <div className="w-full max-w-2xl mx-auto py-3">
         <div 
           className={`w-full rounded-2xl p-5 border transition-all duration-300 relative shadow-lg
             ${mode === 'light' 
