@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import Loader2 from '../components/Loaders/Loader2';
+import { useSelector } from 'react-redux';
 
 function EditPost() {
     const postId = useParams()
@@ -14,6 +15,8 @@ function EditPost() {
     const [description, setDescription] = useState("")
     const [isLoading, setIsLoading] = useState(false)
 
+    const mode = useSelector((state) => state.mode.mode)
+    const isLight = mode === 'light';
     const navigate = useNavigate()
 
     const getpost = async (postId) => {
@@ -36,7 +39,7 @@ function EditPost() {
             }
         } catch (error) {
             console.log("error while editing a post")
-        }finally{
+        } finally {
             setIsLoading(false)
         }
 
@@ -51,7 +54,8 @@ function EditPost() {
                         <textarea name=""
                             placeholder='Enter the description'
                             id=""
-                            className='border-1 w-full md:w-[100%] h-[250px] text-[17px] resize-none overflow-y-auto p-3 rounded-md text-sm'
+                            className={`border-1 w-full md:w-[100%] h-[250px] xl:h-[300px] text-[17px] resize-none overflow-y-auto p-3 rounded-md text-sm ${isLight ? 'bg-white/90 border-slate-00 hover:bg-white' : 'bg-[#0c121f] border-[#1E293B] text-slate-200'
+                                }`}
                             maxLength={800}
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
@@ -70,7 +74,7 @@ function EditPost() {
 
             </div>
             {
-                isLoading && <Loader2/>
+                isLoading && <Loader2 />
             }
         </>
     );

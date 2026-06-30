@@ -21,7 +21,9 @@ import {
   Moon,
   LogOut,
   LogIn,
-  Loader2
+  Loader2,
+  Contact,
+  Contact2
 } from 'lucide-react';
 
 const DefaultLoader = () => (
@@ -233,7 +235,11 @@ function Header() {
           {/* Drawer footer profile area */}
           {user ? (
             <div className="pt-4 border-t border-slate-200/50 dark:border-[#1E293B] flex items-center justify-between">
-              <div className="flex items-center gap-3">
+              <NavLink
+                to="/profile"
+                className="flex items-center gap-3"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 <img
                   src={user.profilePicture || "/defaultpfp.png"}
                   alt=""
@@ -243,14 +249,7 @@ function Header() {
                   <span className="text-sm font-bold">{user.name || "User"}</span>
                   <span className="text-xs text-slate-400">{user.userName || "@user"}</span>
                 </div>
-              </div>
-              <button
-                onClick={handleLogout}
-                className="p-2 rounded-xl text-red-500 hover:bg-red-500/10 transition-all"
-                title="Logout"
-              >
-                <LogOut className="h-4.5 w-4.5" />
-              </button>
+              </NavLink>
             </div>
           ) : (
             <div className="pt-4">
@@ -295,7 +294,9 @@ function Header() {
                 className={({ isActive }) => `flex items-center gap-3.5 p-3 rounded-xl transition-all
                   ${isActive
                     ? 'bg-indigo-600 text-white'
-                    : 'hover:bg-slate-100 dark:hover:bg-[#1E293B] text-slate-400 dark:text-slate-300'}`}
+                    : ` ${mode === 'light'
+                      ? 'hover:bg-slate-100 text-slate-800'
+                      : 'hover:bg-[#1E293B] text-slate-300'}`}`}
               >
                 <Home className="h-4.5 w-4.5" />
                 <span>Home</span>
@@ -306,12 +307,29 @@ function Header() {
               <>
                 <li>
                   <NavLink
+                    to="/profile"
+                    onClick={() => setIsMenuOpen(false)}
+                    className={({ isActive }) => `flex items-center gap-3.5 p-3 rounded-xl transition-all
+                      ${isActive
+                        ? 'bg-indigo-600 text-white'
+                        : ` ${mode === 'light'
+                          ? 'hover:bg-slate-100 text-slate-800'
+                          : 'hover:bg-[#1E293B] text-slate-300'}`}`}
+                  >
+                    <User className="h-4.5 w-4.5" />
+                    <span>Profie</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
                     to="/chatlist"
                     onClick={() => setIsMenuOpen(false)}
                     className={({ isActive }) => `flex items-center gap-3.5 p-3 rounded-xl transition-all
                       ${isActive
                         ? 'bg-indigo-600 text-white'
-                        : 'hover:bg-slate-100 dark:hover:bg-[#1E293B] text-slate-400 dark:text-slate-300'}`}
+                        : ` ${mode === 'light'
+                          ? 'hover:bg-slate-100 text-slate-800'
+                          : 'hover:bg-[#1E293B] text-slate-300'}`}`}
                   >
                     <Send className="h-4.5 w-4.5" />
                     <span>Chats</span>
@@ -324,7 +342,9 @@ function Header() {
                     className={({ isActive }) => `flex items-center gap-3.5 p-3 rounded-xl transition-all
                       ${isActive
                         ? 'bg-indigo-600 text-white'
-                        : 'hover:bg-slate-100 dark:hover:bg-[#1E293B] text-slate-400 dark:text-slate-300'}`}
+                        : ` ${mode === 'light'
+                          ? 'hover:bg-slate-100 text-slate-800'
+                          : 'hover:bg-[#1E293B] text-slate-300'}`}`}
                   >
                     <Users className="h-4.5 w-4.5" />
                     <span>All Users</span>
@@ -337,7 +357,9 @@ function Header() {
                     className={({ isActive }) => `flex items-center gap-3.5 p-3 rounded-xl transition-all
                       ${isActive
                         ? 'bg-indigo-600 text-white'
-                        : 'hover:bg-slate-100 dark:hover:bg-[#1E293B] text-slate-400 dark:text-slate-300'}`}
+                        : ` ${mode === 'light'
+                          ? 'hover:bg-slate-100 text-slate-800'
+                          : 'hover:bg-[#1E293B] text-slate-300'}`}`}
                   >
                     <User className="h-4.5 w-4.5" />
                     <span>Edit Profile</span>
@@ -350,7 +372,9 @@ function Header() {
                     className={({ isActive }) => `flex items-center gap-3.5 p-3 rounded-xl transition-all
                       ${isActive
                         ? 'bg-indigo-600 text-white'
-                        : 'hover:bg-slate-100 dark:hover:bg-[#1E293B] text-slate-400 dark:text-slate-300'}`}
+                        : ` ${mode === 'light'
+                          ? 'hover:bg-slate-100 text-slate-800'
+                          : 'hover:bg-[#1E293B] text-slate-300'}`}`}
                   >
                     <PlusCircle className="h-4.5 w-4.5" />
                     <span>Create Post</span>
@@ -367,7 +391,9 @@ function Header() {
               >
                 <span className="flex items-center gap-3.5">
                   {mode === "dark" ? <Sun className="h-4.5 w-4.5 text-amber-500" /> : <Moon className="h-4.5 w-4.5 text-indigo-500" />}
-                  <span>Change Theme</span>
+                  <span className={` ${mode === 'light'
+                    ? 'hover:bg-slate-100 text-slate-800'
+                    : 'hover:bg-[#1E293B] text-slate-300'}`}>Change Theme</span>
                 </span>
                 <span className="text-xs uppercase px-2 py-0.5 rounded-md font-bold bg-slate-200/50 dark:bg-[#1E293B] text-slate-600 dark:text-slate-300">
                   {mode}
@@ -380,7 +406,9 @@ function Header() {
               <div className="rounded-xl overflow-hidden">
                 <button
                   onClick={() => setIsSettingsOpen(!isSettingsOpen)}
-                  className="w-full flex items-center justify-between p-3 text-slate-400 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#1E293B] transition-all"
+                  className={`w-full flex items-center justify-between p-3 transition-all  ${mode === 'light'
+                    ? 'hover:bg-slate-100 text-slate-800'
+                    : 'hover:bg-[#1E293B] text-slate-300'}`}
                 >
                   <span className="flex items-center gap-3.5">
                     <Settings className="h-4.5 w-4.5" />
@@ -430,7 +458,7 @@ function Header() {
         </div>
 
 
-      </div>
+      </div >
 
       { }
       {isLoading && <DefaultLoader />}
